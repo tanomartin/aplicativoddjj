@@ -1,0 +1,127 @@
+{% extends 'default.html'%}
+
+{% block loginUsuario %}
+<ul class="nav pull-right">
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> Login<b class="caret"></b></a>
+			<ul class="dropdown-menu login-form">
+				<li>
+					<form method="post" action="" id="formLogin" name="formLogin">
+						<fieldset id="datosAcceso">
+							<label class="control-label usuario" for="usuario-cuit">Usuario</label>
+							<span></span>
+							<input type="text" id="usuario-cuit" name="usuario-cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}"/>
+							<label class="control-label usuario" for="usuario-clave">Contrasena</label>
+							<span></span>
+							<input type="password" id="usuario-clave" name="usuario-clave" required class="{required:true}"/>
+						</fieldset>
+						<fieldset id="animacionAjax" style="text-align:center;">
+						<img alt="" src="img/loader.gif" id="ajaxGif" class="hide"/>
+						<div class="alert alert-error font-small hide" id="loginError"><strong>Usuario o Clave Incorrectos</strong></div>
+						</fieldset>
+						<fieldset id="botonera">
+						<button class="btn btn-small btn-info" type="submit" id="botonLogin">Ingresar</button>
+						</fieldset>
+						<div class="divider"></div>
+						<a href="" class="btn btn-link" id="altaEmpresa">Registrase Como Nuevo Usuario</a><br/>
+						<div class="divider"></div>
+						<a href="" class="btn btn-link" id="accesoClave">Olvido su contrasena?</a><br/>
+					</form>
+				</li>
+			</ul>
+	</li>
+</ul>
+{% endblock %}
+
+{% block ventanaClave %}
+<div id="recuperaClave" title="Recuperación de contraseña" class="hide">
+	<p>Para recuperar la contraseña son necesarios el CUIT y el correo electrónico que ingreso al registrarse como nuevo usuario.</p>
+	<form id="formClave" name="formClave">
+		<fieldset id="datosClave">
+			<label for="clave_cuit">Usuario</label>
+			<span></span>
+			<input type="text" id="clave_cuit" name="clave_cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span3"/>
+			<label for="clave_correo">Correo Electrónico </label>
+			<span></span>
+			<input type="text" id="clave_correo" name="clave_correo" required class="{required:true,email:true, maxlength:60} span3"/>
+		</fieldset>
+		<fieldset id="animacionAjax" style="text-align:center;">
+			<img alt="" src="images/loader.gif" id="ajaxGifClave" class="hide">
+			<div class="alert alert-error font-small hide" id="claveError"><strong><span id="mensajeError">Usuario o Correo Electrónico Incorrectos, intente de nuevo por favor</span></strong></div>
+		</fieldset>
+		<fieldset id="botonera" class="small-padding" style="text-align:center;">
+			<button class="btn btn-small btn-info" type="submit" id="botonClave">Enviar</button>
+		</fieldset>
+	</form>
+</div>
+{% endblock %}
+
+{% block cssPropios %}
+<link rel="stylesheet" href="css/smoothness/jquery-ui-1.9.2.custom.min.css">
+{% endblock %}
+
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
+	<script type="text/javascript" src="lib/js/jquery/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			//Validacion del Formulario de Login
+			$('#formLogin').validate({
+				submitHandler: function(){
+					var strForm = $('#formLogin').serialize();
+					//alert(strForm);
+					$.ajax({
+						beforeSend: function(){
+							// Verifico si el mensaje de error esta visible
+			                if($('#loginError').is(':visible')){
+			                   $('#loginError').addClass('hide');
+            			    }
+							$('#ajaxGif').removeClass('hide');
+						},
+						cache: false,
+						type: "POST",
+						dataType: "json",
+						url:"respuestasApp.php",
+						data:strForm + "&accion=login&id=" + Math.random(),
+						success: function(response){
+							//Controlo errores
+							if(response.respuesta == true) {
+				                window.location.href='index.php';
+							} else {
+								$('#loginError').removeClass('hide');
+							}
+							$('#ajaxGif').addClass('hide');
+						},
+						error: function(){
+							alert("Error del Sistema, intentelo mas tarde.");
+						}
+					});
+					return false;
+				},
+				errorPlacement: function(error, element){
+					error.appendTo(element.prev("span").append());
+				}
+			});
+
+			// Ventana de diálogo de recuperación de contraseña
+			$('#recuperaClave').dialog({
+				autoOpen:false,
+				modal:true,
+				width:'auto',
+				minHeight: 'auto',
+				close:function(){
+					$('#clave_cuit').val('');
+					$('#clave_correo').val('');
+				}
+			});
+
+			// Mostrar la ventana de diálogo de recuperación de contraseña
+			$('body').on('click','#accesoClave',function(elemento){
+				elemento.preventDefault();
+				$('#recuperaClave').dialog('open');
+			});
+		});
+	</script>
+{% endblock %}

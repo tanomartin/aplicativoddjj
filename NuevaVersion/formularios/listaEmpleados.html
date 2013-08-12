@@ -1,0 +1,55 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+
+{% block contenidos %}
+<section>
+  <ul class="breadcrumb">
+    <li>Lista Empleados</li>
+  </ul>
+</section>
+<div class="hero-unit">
+  <h1>Empleados</h1>
+  <p>Aca va el listado de empleados  para consulta y modificacion.</p>
+  <p><a class="btn btn-primary btn-large">Agregar Empleado</a></p>
+</div>
+{% endblock %}
+
+{% block barraNavegacion %}
+	<ul class="nav">
+		<li><a id="irAInicio" href="index.php"><i class="icon-home icon-white"></i> Inicio</a></li>
+		<li><a id="irAPerfil" href="perfilEmpresa.php"><i class="icon-cog icon-white"></i> Perfil</a></li>
+		<li class="active"><a id="irAEmpleados" href="listaEmpleados.php"><i class="icon-user icon-white"></i> Empleados</a></li>
+		<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil icon-white"></i> Procesos <b class="caret"></b></a>
+			<ul class="dropdown-menu" id="opcionesProcesos">
+				<li><a id="irADDJJ" href="opcionesDDJJ.php"><i class="icon-cog"></i> DDJJ</a></li>
+				<li class="divider"></li>
+				<li><a id="irAPagos" href="opcionesPago.php"><i class="icon-off"></i> Pagos</a></li>
+			</ul>
+		</li>
+		<li class="dropdown">
+		<a id="activarModuloG" href="menuG.php" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe icon-white"></i> Grandes Empresas <b class="caret"></b></a>
+			<ul class="dropdown-menu" id="opcionesModuloG">
+				<li><a id="irAImpEmpleados" href="cargaArchivoEmp.php"><i class="icon-cog"></i> Importar Empleados</a></li>
+				<li class="divider"></li>
+				<li><a id="irAImpFamilia" href="cargaArchivoFam.php"><i class="icon-off"></i> Importar Familia</a></li>
+				<li class="divider"></li>
+				<li><a id="irAImpDDJJ" href="cargaArchivoDj.php"><i class="icon-off"></i> Importar DDJJ</a></li>
+			</ul>
+		</li>
+	</ul>
+{% endblock %}
+
+{% block loginUsuario %}
+	<ul class="nav pull-right">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ userName }} <b class="caret"></b></a>
+			<ul class="dropdown-menu" id="opcionesUsuario">
+				<li><a href="cambioContrasenia.php"><i class="icon-cog"></i> Cambiar Contrasena</a></li>
+				<li class="divider"></li>
+				<li><a href="logout.php"><i class="icon-off"></i> Cerrar Sesion</a></li>
+			</ul>
+		</li>
+	</ul>
+{% endblock %}
