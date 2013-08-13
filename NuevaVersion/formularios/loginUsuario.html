@@ -1,0 +1,12 @@
+{% block loginUsuario %}
+	<ul class="nav pull-right">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ userName }} <b class="caret"></b></a>
+			<ul class="dropdown-menu" id="opcionesUsuario">
+				<li><a href="cambioContrasenia.php"><i class="icon-cog"></i> Cambiar Contrasena</a></li>
+				<li class="divider"></li>
+				<li><a href="logout.php"><i class="icon-off"></i> Cerrar Sesion</a></li>
+			</ul>
+		</li>
+	</ul>
+{% endblock %}

@@ -1,6 +1,8 @@
 {# Heredando la plantilla principal #}
 
 {% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
 
 {% block contenidos %}
 <section>
@@ -10,46 +12,47 @@
 </section>
 <div class="hero-unit">
   <h1>Empresa</h1>
-  <p>Aca va el formulario de datos de la empresa para consulta y modificacion.</p>
-  <p><a class="btn btn-primary btn-large">Accion</a></p>
+  <form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Edici&oacute;n Perfil Empresa</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label">C.U.I.T.</label>
+  <div class="controls">
+    <input id="cuit" name="cuit" type="text" placeholder="" class="input-xlarge" required="">
+  </div>
 </div>
-{% endblock %}
 
-{% block barraNavegacion %}
-	<ul class="nav">
-		<li><a id="irAInicio" href="index.php"><i class="icon-home icon-white"></i> Inicio</a></li>
-		<li class="active"><a id="irAPerfil" href="perfilEmpresa.php"><i class="icon-cog icon-white"></i> Perfil</a></li>
-		<li><a id="irAEmpleados" href="listaEmpleados.php"><i class="icon-user icon-white"></i> Empleados</a></li>
-		<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil icon-white"></i> Procesos <b class="caret"></b></a>
-			<ul class="dropdown-menu" id="opcionesProcesos">
-				<li><a id="irADDJJ" href="opcionesDDJJ.php"><i class="icon-cog"></i> DDJJ</a></li>
-				<li class="divider"></li>
-				<li><a id="irAPagos" href="opcionesPago.php"><i class="icon-off"></i> Pagos</a></li>
-			</ul>
-		</li>
-		<li class="dropdown">
-		<a id="activarModuloG" href="menuG.php" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe icon-white"></i> Grandes Empresas <b class="caret"></b></a>
-			<ul class="dropdown-menu" id="opcionesModuloG">
-				<li><a id="irAImpEmpleados" href="cargaArchivoEmp.php"><i class="icon-cog"></i> Importar Empleados</a></li>
-				<li class="divider"></li>
-				<li><a id="irAImpFamilia" href="cargaArchivoFam.php"><i class="icon-off"></i> Importar Familia</a></li>
-				<li class="divider"></li>
-				<li><a id="irAImpDDJJ" href="cargaArchivoDj.php"><i class="icon-off"></i> Importar DDJJ</a></li>
-			</ul>
-		</li>
-	</ul>
-{% endblock %}
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label">Raz&oacute;n Social</label>
+  <div class="controls">
+    <input id="nombre" name="nombre" type="text" placeholder="" class="input-xlarge" required="">
+    
+  </div>
+</div>
 
-{% block loginUsuario %}
-	<ul class="nav pull-right">
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> {{ userName }} <b class="caret"></b></a>
-			<ul class="dropdown-menu" id="opcionesUsuario">
-				<li><a href="cambioContrasenia.php"><i class="icon-cog"></i> Cambiar Contrasena</a></li>
-				<li class="divider"></li>
-				<li><a href="logout.php"><i class="icon-off"></i> Cerrar Sesion</a></li>
-			</ul>
-		</li>
-	</ul>
+<!-- Select Basic -->
+<div class="control-group">
+  <label class="control-label">Provincia</label>
+  <div class="controls">
+    <select id="provincia" name="provincia" class="input-xlarge">
+    </select>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="control-group">
+  <label class="control-label"></label>
+  <div class="controls">
+    <button id="guardar" name="guardar" class="btn btn-primary">Guardar</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+</div>
 {% endblock %}
