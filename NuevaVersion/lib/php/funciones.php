@@ -13,4 +13,14 @@ function userLogin($data,$dbLink){
 	}
 	return $respuestaLogin;
 }
+
+function invertirFecha($fecha) {
+	$dia = substr($fecha,8,2);
+	$mes = substr($fecha,5,2);
+	$anio = substr($fecha,0,4);
+	$fechainv = $dia."/".$mes."/".$anio;
+	return($fechainv);
+}
+
+
 ?>
