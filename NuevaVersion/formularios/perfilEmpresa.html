@@ -5,54 +5,48 @@
 {% use 'loginUsuario.html' %}
 
 {% block contenidos %}
-<section>
-  <ul class="breadcrumb">
-    <li>Perfil Empresa</li>
-  </ul>
+<section class="container" style="margin-top:50px">
+	<div class="hero-unit">
+	  <h1>Empresa</h1>
+	  <form class="form-horizontal" method="post" action="actualizarPerfil">
+		<fieldset>
+	
+		<!-- Form Name -->
+		<legend>Datos de Perfil</legend>
+		
+		<!-- Text input-->
+		<div class="control-group">
+		  <label class="control-label">Raz&oacute;n Social</label>
+		  <div class="controls"> 
+			<input type="text" id="usuario-cuit" name="usuario-cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}"/>
+		  </div>
+		</div>
+		
+		<!-- Select Basic -->
+		<div class="control-group">
+		  <label class="control-label">Provincia</label>
+		  <div class="controls">
+			<select id="provincia" name="provincia" class="input-xlarge">
+			</select>
+		  </div>
+		</div>
+		
+		<!-- Button -->
+		<div class="control-group">
+		  <label class="control-label"></label>
+		  <div class="controls">
+			<button id="guardar" type="submit" name="guardar" class="btn btn-primary">Guardar</button>
+		  </div>
+		</div>
+		
+		</fieldset>
+	</form>
+	</div>
 </section>
-<div class="hero-unit">
-  <h1>Empresa</h1>
-  <form class="form-horizontal">
-<fieldset>
-
-<!-- Form Name -->
-<legend>Edici&oacute;n Perfil Empresa</legend>
-
-<!-- Text input-->
-<div class="control-group">
-  <label class="control-label">C.U.I.T.</label>
-  <div class="controls">
-    <input id="cuit" name="cuit" type="text" placeholder="" class="input-xlarge" required="">
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="control-group">
-  <label class="control-label">Raz&oacute;n Social</label>
-  <div class="controls">
-    <input id="nombre" name="nombre" type="text" placeholder="" class="input-xlarge" required="">
-    
-  </div>
-</div>
-
-<!-- Select Basic -->
-<div class="control-group">
-  <label class="control-label">Provincia</label>
-  <div class="controls">
-    <select id="provincia" name="provincia" class="input-xlarge">
-    </select>
-  </div>
-</div>
-
-<!-- Button -->
-<div class="control-group">
-  <label class="control-label"></label>
-  <div class="controls">
-    <button id="guardar" name="guardar" class="btn btn-primary">Guardar</button>
-  </div>
-</div>
-
-</fieldset>
-</form>
-</div>
 {% endblock %}
+
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
+{% endblock %}	
