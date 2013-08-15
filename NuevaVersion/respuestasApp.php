@@ -4,12 +4,11 @@ $appRespuesta = array("respuesta" => false, "mensaje" => "Error en la aplicacion
 
 //Verifico las variables POST y ACCION
 if(isset($_POST) && !empty($_POST) && isset($_POST['accion'])) {
-	include('lib/php/funciones.php');
+	include('lib/php/funcionesLogOff.php');
 
 	if($errorDbConexion==false) {
 		switch ($_POST['accion']) {
 		case 'login':
-//			sleep(1);
 			$appRespuesta['respuesta'] = userLogin($_POST, $mysqli);
 			$appRespuesta['mensaje'] = "Usuario Encontrado";
 //			$appRespuesta = array("respuesta" => true, "mensaje" => "Se ejecuto AJAX", "contenido" => "");
