@@ -1,8 +1,9 @@
 <?php session_save_path("sesiones");
 session_start();
-include('lib/php/conexion.php');
-include('lib/php/funciones.php');
 $root = '';
+include('lib/php/verificaConexion.php');
+include('lib/php/funciones.php');
+
 
 if(!empty($_SESSION) && $_SESSION['userLogin'] == true){
 	// Incluyo el template engine

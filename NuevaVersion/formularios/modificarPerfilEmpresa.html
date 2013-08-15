@@ -18,19 +18,19 @@
 			</p>
 			<p>
 			  <label for="nombre">Raz&oacute;n Social </label>
-			  <input name="nombre" type="text" id="nombre" value="{{ empresa.nombre }}"  required class="{required:true, maxlength: 100, minlength: 4} span6"/>
+			  <input name="nombre" type="text" id="nombre" value="{{ empresa.nombre }}" class="{required:true, maxlength: 100, minlength: 4} span6"/>
 			</p>
 			<p>
 			  <label for="domicilio">Domicilio</label>
-			  <input id="domicilio" name="domicilio" type="text" value="{{ empresa.domicilio }}"  required class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			  <input id="domicilio" name="domicilio" type="text" value="{{ empresa.domicilio }}"  class="{required:true, maxlength: 50, minlength: 4} span3"/>
 			</p>
 			<p>
 			  <label for="localidad">Localidad</label>
-			  <input id="localidad" type="text" name="localidad" value="{{ empresa.localidad }}" onchange="cleanProvincia()" required class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			  <input id="localidad" type="text" name="localidad" value="{{ empresa.localidad }}" onchange="cleanProvincia()" class="{required:true, maxlength: 50, minlength: 4} span3"/>
 			</p>
 			<p>
 			<label for="provincia">Provincia</label>
-				<select id="provincia" name="provincia" class="input-xlarge" required>	
+				<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
 				{% for provincia in provincias %}
 					{% if provincia.codigo == empresa.provincia  %}
 						<option value="{{ provincia.codigo }}" selected="selected">{{ provincia.descripcion }}</option>
@@ -42,19 +42,19 @@
 			</p>
 			<p>
 			  <label for="codpostal">C&oacute;digo Postal</label>
-			  <input id="codpostal" type="text" name="codpostal" value="{{ empresa.codpostal }}" required class="{required:true, maxlength: 8, minlength: 4}"/>
+			  <input id="codpostal" type="text" name="codpostal" value="{{ empresa.codpostal }}" class="{required:true, maxlength: 8, minlength: 4}"/>
 			</p>
 			<p>
 			  <label for="telefono">Tel&eacute;fono</label>
-			  <input id="telefono" type="text" name="telefono" value="{{ empresa.telefono }}" required class="{required:true, maxlength: 14, minlength: 6}"/>
+			  <input id="telefono" type="text" name="telefono" value="{{ empresa.telefono }}" class="{required:true, maxlength: 14, minlength: 6}"/>
 			</p>
 			<p>
 			  <label for="email">Correo Electr&oacute;nico</label>
-			  <input id="email" type="email" name="email" value="{{ empresa.email }}" required class="{required:true, , maxlength: 60} span3"/>
+			  <input id="email" type="email" name="email" value="{{ empresa.email }}" class="{required:true, maxlength: 60} span3"/>
 			</p>
 			<p>
 			  <label for="actividad">Actividad</label>
-			  <input id="actividad" type="text" name="actividad" value="{{ empresa.actividad }}" required class="{required:true, maxlength: 60} span3"/>
+			  <input id="actividad" type="text" name="actividad" value="{{ empresa.actividad }}" class="{required:true, maxlength: 60} span3"/>
 			</p>
 			<p>
 			  <label for="rama">Rama</label>
@@ -62,7 +62,7 @@
 			</p>
 			<p>
 			  <label for="inicio">Inicio de Actividad</label>
-			  <input id="inicio" type="date" name="inicio" value="{{ empresa.inicio }}" class="{required:true}"/>
+			  <input id="inicio" type="text" name="inicio" value="{{ empresa.inicio }}" placeholder="(DD/MM/AAAA)"/>
 			</p>
 			<p>
 				<button id="guardar" name="guardar" type="submit" class="btn btn-primary">Guardar</button>
@@ -71,22 +71,41 @@
 	</form>
 	</div>
 </section>
+
 {% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
+	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script>
 		function cleanProvincia(){ 
 			document.forms.modificarPerfil.provincia[0].selected = true;
 		}
-	
-		$("#modificarPerfil").validate({ 
-			submitHandler: function() { 
-							//var strForm = document.forms.modificarPerfil.provincia[document.forms.modificarPerfil.selectedIndex].value;
-							alert("DASJI");
-							}
-		});	
+
+		$(function(){
+			//Valido el formulario de edicion de empresa
+			$('#modificarPerfil').validate({
+				rules: {
+            		inicio: { required: function() { return (true); } }
+        		},
+				messages: {
+            		inicio: 'Introduzca una fecha valida'
+        		},
+				
+				submitHandler: function(){
+					if (!esFechaValida($('#inicio').val())) {
+						alert("NO ES VALIDA");
+						return false;
+					}
+					if (esFechaFutura($('#inicio').val())) {
+						alert("ES EN EL FUTRU");
+						return false;
+					}
+					//form.submit();  
+				},
+			});
+		});
 	</script>
-	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
-	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
 {% endblock %}	
 
 {% endblock %}
