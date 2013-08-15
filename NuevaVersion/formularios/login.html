@@ -13,7 +13,7 @@
 							<input type="text" id="usuario-cuit" name="usuario-cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}"/>
 							<label class="control-label usuario" for="usuario-clave">Contrasena</label>
 							<span></span>
-							<input type="password" id="usuario-clave" name="usuario-clave" required class="{required:true}"/>
+							<input type="password" id="usuario-clave" name="usuario-clave" required class="{required:true, maxlength:10}"/>
 						</fieldset>
 						<fieldset id="animacionAjax" style="text-align:center;">
 						<img alt="" src="img/loader.gif" id="ajaxGif" class="hide"/>
@@ -34,23 +34,43 @@
 {% endblock %}
 
 {% block ventanaClave %}
-<div id="recuperaClave" title="Recuperación de contraseña" class="hide">
-	<p>Para recuperar la contraseña son necesarios el CUIT y el correo electrónico que ingreso al registrarse como nuevo usuario.</p>
+<div id="recuperaClave" title="Recuperacion de contrasenia" class="hide">
+	<p>Para recuperar la contrasenia son necesarios el CUIT y el</p>
+	<p>correo electronico que ingreso al registrarse como nuevo usuario.</p>
 	<form id="formClave" name="formClave">
 		<fieldset id="datosClave">
 			<label for="clave_cuit">Usuario</label>
 			<span></span>
-			<input type="text" id="clave_cuit" name="clave_cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span3"/>
-			<label for="clave_correo">Correo Electrónico </label>
+			<input type="text" id="clave_cuit" name="clave_cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
+			<label for="clave_correo">Correo Electronico </label>
 			<span></span>
 			<input type="text" id="clave_correo" name="clave_correo" required class="{required:true,email:true, maxlength:60} span3"/>
 		</fieldset>
 		<fieldset id="animacionAjax" style="text-align:center;">
-			<img alt="" src="images/loader.gif" id="ajaxGifClave" class="hide">
-			<div class="alert alert-error font-small hide" id="claveError"><strong><span id="mensajeError">Usuario o Correo Electrónico Incorrectos, intente de nuevo por favor</span></strong></div>
+			<img alt="" src="img/loader.gif" id="ajaxGifClave" class="hide">
+			<div class="alert alert-error font-small hide" id="claveError"><strong><span id="msgClaveError">Usuario o Correo Electronico incorrectos, intente de nuevo por favor.</span></strong></div>
 		</fieldset>
 		<fieldset id="botonera" class="small-padding" style="text-align:center;">
 			<button class="btn btn-small btn-info" type="submit" id="botonClave">Enviar</button>
+		</fieldset>
+	</form>
+</div>
+{% endblock %}
+
+{% block ventanaEmpresa %}
+<div id="registroEmpresa" title="Registro de Empresa Nueva" class="hide">
+	<form id="formEmpresa" name="formEmpresa">
+		<fieldset id="datosEmpresa">
+			<label for="clave_cuit">Usuario</label>
+			<span></span>
+			<input type="text" id="empresa_cuit" name="empresa_cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
+		</fieldset>
+		<fieldset id="animacionAjax" style="text-align:center;">
+			<img alt="" src="img/loader.gif" id="ajaxGifEmpresa" class="hide">
+			<div class="alert alert-error font-small hide" id="EmpresaError"><strong><span id="mensajeError">Usuario o Correo Electronico Incorrectos, intente de nuevo por favor.</span></strong></div>
+		</fieldset>
+		<fieldset id="botonera" class="small-padding" style="text-align:center;">
+			<button class="btn btn-small btn-info" type="submit" id="botonEmpresa">Enviar</button>
 		</fieldset>
 	</form>
 </div>
@@ -67,11 +87,10 @@
 	<script type="text/javascript" src="lib/js/jquery/jquery-ui-1.9.2.custom.min.js" ></script>
 	<script type="text/javascript">
 		$(function(){
-			//Validacion del Formulario de Login
+			//Valido el formulario de Login
 			$('#formLogin').validate({
 				submitHandler: function(){
 					var strForm = $('#formLogin').serialize();
-					//alert(strForm);
 					$.ajax({
 						beforeSend: function(){
 							// Verifico si el mensaje de error esta visible
@@ -96,6 +115,7 @@
 						},
 						error: function(){
 							alert("Error del Sistema, intentelo mas tarde.");
+							$('#ajaxGif').addClass('hide');
 						}
 					});
 					return false;
@@ -105,7 +125,7 @@
 				}
 			});
 
-			// Ventana de diálogo de recuperación de contraseña
+			// Ventana modal para recuperacion de contraseña
 			$('#recuperaClave').dialog({
 				autoOpen:false,
 				modal:true,
@@ -117,10 +137,80 @@
 				}
 			});
 
-			// Mostrar la ventana de diálogo de recuperación de contraseña
-			$('body').on('click','#accesoClave',function(elemento){
+			// Ventana modal para registro de nueva empresa
+			$('#registroEmpresa').dialog({
+				autoOpen:false,
+				modal:true,
+				width:'auto',
+				minHeight: 'auto',
+				close:function(){
+				}
+			});
+
+			// Activo la ventana con el formulario de recuperacion de contraseña
+			$('body').on('click','#accesoClave',function(elemento) {
 				elemento.preventDefault();
 				$('#recuperaClave').dialog('open');
+			});
+
+			// Activo la ventana con el formulario de registro de nueva empresa
+			$('body').on('click','#altaEmpresa',function(elemento) {
+				elemento.preventDefault();
+				$('#registroEmpresa').dialog('open');
+			});
+
+			//Valido el formulario de recuperacion de contraseña
+			$('#formClave').validate({
+				submitHandler: function() {
+					var formClave = $('#formClave').serialize();
+					alert(formClave);
+					// ajax para ejecutar la recuperación de contraseña
+					$.ajax({
+						beforeSend: function(){
+							// Verificamos si hay mensaje de error visible
+							if($('#claveError').is(':visible')) {
+								$('#claveError').addClass('hide');
+							}
+							$('#ajaxGifClave').removeClass('hide');
+						},
+						cache: false,
+						type: "POST",
+						dataType: "json",
+						url:"respuestasApp.php",
+						data:formClave + "&accion=recuperaClave&id=" + Math.random(),
+						success: function(response) {
+							//Controlo errores
+							if(response.respuesta == true) {
+								alert(response.mensaje);
+								$('#recuperaClave').dialog('close');
+        			        } else {
+								//alert(response.mensaje);
+								$('#claveError').removeClass('hide');
+							}
+							$('#ajaxGifClave').addClass('hide');
+						},
+						error:function() {
+							alert('Error del Sistema, intentelo mas tarde.');
+							$('#ajaxGifClave').addClass('hide');
+						}
+					});
+					return false;
+				},
+				errorPlacement: function(error, element){
+					error.appendTo(element.prev("span").append());
+				}
+			});
+
+			//Valido el formulario de registro de nueva empresa
+			$('#formEmpresa').validate({
+				submitHandler: function(){
+					var formEmpresa = $('#formEmpresa').serialize();
+					alert(formEmpresa);
+					return false;
+				},
+				errorPlacement: function(error, element){
+					error.appendTo(element.prev("span").append());
+				}
 			});
 		});
 	</script>

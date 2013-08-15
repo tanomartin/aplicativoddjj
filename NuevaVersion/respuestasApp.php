@@ -9,10 +9,26 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['accion'])) {
 	if($errorDbConexion==false) {
 		switch ($_POST['accion']) {
 		case 'login':
-			sleep(1);
+//			sleep(1);
 			$appRespuesta['respuesta'] = userLogin($_POST, $mysqli);
 			$appRespuesta['mensaje'] = "Usuario Encontrado";
 //			$appRespuesta = array("respuesta" => true, "mensaje" => "Se ejecuto AJAX", "contenido" => "");
+		break;
+		case 'recuperaClave':
+			// verifico que lleguen los campos cuit y email
+			if(!empty($_POST['clave_cuit']) && !empty($_POST['clave_correo'])) {
+				// Verifico que existan el usuario y la clave
+				if(verificaUsuarioClave($_POST, $mysqli)) {
+					if(enviaMail($_POST, $mysqli)) {
+							$appRespuesta['respuesta'] = true;
+							$appRespuesta['mensaje'] = "La consulta se ha realizado exitosamente. En instantes recibira su contrasenia por correo electronico";
+						} else {
+							$appRespuesta['mensaje'] = "No se envio la clave de acceso";
+						}
+				} else {
+					$appRespuesta['mensaje'] = "Usuario no encontrado. Verifique los datos y reintentelo.";
+				}
+			}
 		break;
 		default:
 			$appRespuesta['mensaje'] = "Opcion No Disponible";

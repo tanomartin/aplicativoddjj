@@ -4,6 +4,7 @@ session_start();
 // Directorio Raíz de la app
 // Es utilizado en templateEngine.inc.php
 $root = '';
+//echo $_SESSION['userNombre'];
 if(!empty($_SESSION) && $_SESSION['userLogin'] == true){
 	// Incluyo el template engine
 	include('includes/templateEngine.inc.php');
