@@ -10,8 +10,8 @@
 						<fieldset id="datosAcceso">
 							<label class="control-label usuario" for="usuario-cuit">Usuario</label>
 							<span></span>
-							<input type="text" id="usuario-cuit" name="usuario-cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}"/>
-							<label class="control-label usuario" for="usuario-clave">Contrasena</label>
+							<input type="text" id="usuario-cuit" name="usuario-cuit" required placeholder="C.U.I.T. sin guiones" class="{required:true, number:true, rangelength: [11,11]}"/>
+							<label class="control-label usuario" for="usuario-clave">Contrase&ntilde;a</label>
 							<span></span>
 							<input type="password" id="usuario-clave" name="usuario-clave" required class="{required:true, maxlength:10}"/>
 						</fieldset>
@@ -25,7 +25,7 @@
 						<div class="divider"></div>
 						<a href="" class="btn btn-link" id="altaEmpresa">Registrase Como Nuevo Usuario</a><br/>
 						<div class="divider"></div>
-						<a href="" class="btn btn-link" id="accesoClave">Olvido su contrasena?</a><br/>
+						<a href="" class="btn btn-link" id="accesoClave">&iquest;Olvido su contrase&ntilde;a?</a><br/>
 					</form>
 				</li>
 			</ul>
@@ -34,24 +34,24 @@
 {% endblock %}
 
 {% block ventanaClave %}
-<div id="recuperaClave" title="Recuperacion de contrasenia" class="hide">
-	<p>Para recuperar la contrasenia son necesarios el CUIT y el</p>
-	<p>correo electronico que ingreso al registrarse como nuevo usuario.</p>
+<div id="recuperaClave" title="Recuperaci&oacute;n de contrase&ntilde;a" class="hide">
+	<p>Para recuperar la contrase&ntilde;a son necesarios el CUIT y el correo electr&oacute;nico que ingreso al registrarse como nuevo usuario.</p>
 	<form id="formClave" name="formClave">
 		<fieldset id="datosClave">
 			<label for="clave_cuit">Usuario</label>
 			<span></span>
-			<input type="text" id="clave_cuit" name="clave_cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
-			<label for="clave_correo">Correo Electronico </label>
+			<input type="text" id="clave_cuit" name="clave_cuit" required placeholder="C.U.I.T. sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
+			<label for="clave_correo">Correo Electr&oacute;nico </label>
 			<span></span>
 			<input type="text" id="clave_correo" name="clave_correo" required class="{required:true,email:true, maxlength:60} span3"/>
 		</fieldset>
-		<fieldset id="animacionAjax" style="text-align:center;">
+		<fieldset id="animacionAjaxClave" style="text-align:center;">
 			<img alt="" src="img/loader.gif" id="ajaxGifClave" class="hide">
-			<div class="alert alert-error font-small hide" id="claveError"><strong><span id="msgClaveError">Usuario o Correo Electronico incorrectos, intente de nuevo por favor.</span></strong></div>
+			<div class="alert alert-error font-small hide" id="claveError"><strong><span id="msgClaveError">Usuario o Correo Electr&oacute;nico incorrectos, intente de nuevo por favor.</span></strong></div>
+			<div class="alert alert-success font-small hide" id="claveExito"><strong><span id="msgClaveExito">La consulta se ha realizado exitosamente. En instantes recibira su contrase&ntilde;a por correo electr&oacute;nico.</span></strong></div>
 		</fieldset>
 		<fieldset id="botonera" class="small-padding" style="text-align:center;">
-			<button class="btn btn-small btn-info" type="submit" id="botonClave">Enviar</button>
+			<button class="btn btn-small btn-primary" type="submit" id="botonClave">Enviar</button>
 		</fieldset>
 	</form>
 </div>
@@ -61,16 +61,53 @@
 <div id="registroEmpresa" title="Registro de Empresa Nueva" class="hide">
 	<form id="formEmpresa" name="formEmpresa">
 		<fieldset id="datosEmpresa">
-			<label for="clave_cuit">Usuario</label>
+			<label for="cuit">C.U.I.T.</label>
 			<span></span>
-			<input type="text" id="empresa_cuit" name="empresa_cuit" required placeholder="CUIT sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
+			<input type="text" id="cuit" name="cuit" required placeholder="C.U.I.T. sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
+			<label for="nombre">Raz&oacute;n Social </label>
+			<span></span>
+			<input type="text" id="nombre" name="nombre" required class="{required:true, maxlength: 100, minlength: 4} span6"/>
+			<label for="domicilio">Domicilio</label>
+			<span></span>
+			<input type="text" id="domicilio" name="domicilio" required class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			<label for="localidad">Localidad</label>
+			<span></span>
+			<input type="text" id="localidad" name="localidad" required onchange="cleanProvincia()" class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			<label for="provincia">Provincia</label>
+			<span></span>
+			<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
+				<option title="Seleccione un valor" value="">Seleccione un valor</option>
+			</select>
+			<label for="codpostal">C&oacute;digo Postal</label>
+			<span></span>
+			<input type="text" id="codpostal" name="codpostal" required class="{required:true, maxlength: 8, minlength: 4}"/>
+			<label for="telefono">Tel&eacute;fono</label>
+			<span></span>
+			<input type="text" id="telefono" name="telefono" required class="{required:true, maxlength: 14, minlength: 6}"/>
+			<label for="email">Correo Electr&oacute;nico</label>
+			<span></span>
+			<input type="email" id="email" name="email" required class="{required:true, maxlength: 60} span3"/>
+			<label for="actividad">Actividad</label>
+			<span></span>
+			<input type="text" id="actividad" name="actividad" required class="{required:true, maxlength: 60} span3"/>
+			<label for="rama">Rama</label>
+			<span></span>
+			<select id="rama" name="rama" class="input-xlarge {required:true}">	
+				<option title="Seleccione un valor" value="">Seleccione un valor</option>
+			</select>
+			<label for="inicio">Inicio de Actividad</label>
+			<span></span>
+			<input type="text" id="inicio" name="inicio" placeholder="(DD/MM/AAAA)"/>
+			<label for="clave">Contrase&ntilde;a</label>
+			<span></span>
+			<input type="text" id="clave" name="clave" required class="{required:true, maxlength: 10, minlength: 4} span2"/>
 		</fieldset>
-		<fieldset id="animacionAjax" style="text-align:center;">
+		<fieldset id="animacionAjaxEmpresa" style="text-align:center;">
 			<img alt="" src="img/loader.gif" id="ajaxGifEmpresa" class="hide">
-			<div class="alert alert-error font-small hide" id="EmpresaError"><strong><span id="mensajeError">Usuario o Correo Electronico Incorrectos, intente de nuevo por favor.</span></strong></div>
+			<div class="alert alert-error font-small hide" id="EmpresaError"><strong><span id="mensajeError">Usuario o Correo Electr&oacute;nico Incorrectos, intente de nuevo por favor.</span></strong></div>
 		</fieldset>
 		<fieldset id="botonera" class="small-padding" style="text-align:center;">
-			<button class="btn btn-small btn-info" type="submit" id="botonEmpresa">Enviar</button>
+			<button class="btn btn-small btn-primary" type="submit" id="botonEmpresa">Registrar</button>
 		</fieldset>
 	</form>
 </div>
@@ -91,6 +128,7 @@
 			$('#formLogin').validate({
 				submitHandler: function(){
 					var strForm = $('#formLogin').serialize();
+					// ajax para ejecutar el login de usuario
 					$.ajax({
 						beforeSend: function(){
 							// Verifico si el mensaje de error esta visible
@@ -129,11 +167,17 @@
 			$('#recuperaClave').dialog({
 				autoOpen:false,
 				modal:true,
-				width:'auto',
+				width:350,
 				minHeight: 'auto',
 				close:function(){
 					$('#clave_cuit').val('');
 					$('#clave_correo').val('');
+					//if($('#claveError').is(':visible')) {
+					//	$('#claveError').addClass('hide');
+					//}
+					//if($('#claveExito').is(':visible')) {
+					//	$('#claveExito').addClass('hide');
+					//}
 				}
 			});
 
@@ -163,13 +207,16 @@
 			$('#formClave').validate({
 				submitHandler: function() {
 					var formClave = $('#formClave').serialize();
-					alert(formClave);
+					//alert(formClave);
 					// ajax para ejecutar la recuperación de contraseña
 					$.ajax({
 						beforeSend: function(){
 							// Verificamos si hay mensaje de error visible
 							if($('#claveError').is(':visible')) {
 								$('#claveError').addClass('hide');
+							}
+							if($('#claveExito').is(':visible')) {
+								$('#claveExito').addClass('hide');
 							}
 							$('#ajaxGifClave').removeClass('hide');
 						},
@@ -181,8 +228,10 @@
 						success: function(response) {
 							//Controlo errores
 							if(response.respuesta == true) {
-								alert(response.mensaje);
-								$('#recuperaClave').dialog('close');
+								//alert(response.mensaje);
+								$('#claveExito').removeClass('hide');
+								$('#botonClave').addClass('hide');
+								//$('#recuperaClave').dialog('close');
         			        } else {
 								//alert(response.mensaje);
 								$('#claveError').removeClass('hide');
