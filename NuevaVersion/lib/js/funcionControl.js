@@ -85,7 +85,7 @@ function esFechaValida(fecha){
 }
 
 
-function esFechaFutura(fecha) {
+function esFechaPasada(fecha) {
 	var dia  =  parseInt(fecha.substring(0,2),10);
     var mes  =  parseInt(fecha.substring(3,5),10);
     var anio =  parseInt(fecha.substring(6),10);
@@ -96,8 +96,7 @@ function esFechaFutura(fecha) {
 	var today = new Date();
 	
 	if (fechaCargada > today) {
-		alert("ES FUTURA");
-		return true;	
+		return false;	
 	}
-	return false;
+	return true;
 }

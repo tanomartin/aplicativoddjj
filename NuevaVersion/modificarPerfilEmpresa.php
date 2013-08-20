@@ -1,10 +1,11 @@
 <?php session_save_path("sesiones");
 session_start();
-include('lib/php/conexion.php');
-include('lib/php/funciones.php');
-$root = '';
+	include('lib/php/verificaConexion.php');
+	include('lib/php/verificaSesion.php');
+	
+	include('lib/php/funciones.php');
+	$root = '';
 
-if(!empty($_SESSION) && $_SESSION['userLogin'] == true){
 	// Incluyo el template engine
 	include('includes/templateEngine.inc.php');
 	
@@ -36,8 +37,6 @@ if(!empty($_SESSION) && $_SESSION['userLogin'] == true){
 
 	// Cargo la plantilla
 	$twig->display('modificarPerfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa, "provincias" => $provincias));
-}
-else{
-	header("Location:login.php");
-}
+
+
 ?>

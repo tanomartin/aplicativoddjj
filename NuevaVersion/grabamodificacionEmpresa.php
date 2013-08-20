@@ -1,7 +1,8 @@
 <?php session_save_path("sesiones");
 session_start();
 
-include('lib/php/conexion.php');
+include('lib/php/verificaConexion.php');
+include('lib/php/verificaSesion.php');
 include('lib/php/funciones.php');
 
 $datos = array_values($_POST);
@@ -18,20 +19,33 @@ $activi = $datos [7];
 $fecini = fechaParaGuardar($datos [8]);
 
 //Ejecucion de la sentencia SQL
-$sql = "update empresa set 
-nombre = '$nombre',
-domile = '$domile',
-locali = '$locali',
-provin = '$provin',
-copole = '$copole',
-telfon = '$telfon',
-emails = '$emails',
-activi = '$activi',
-fecini = '$fecini'
-where nrcuit = '$nrcuit'
-";
+$sqlActualizaPerfil = "update empresa set 
+nombre = ?,
+domile = ?,
+locali = ?,
+provin = ?,
+copole = ?,
+telfon = ?,
+emails = ?,
+activi = ?,
+fecini = ?
+where nrcuit = ?";
 
-print($sql);
-//$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+
+try {
+	if ($stmt = $mysqli->prepare($sqlActualizaPerfil)) {
+		$stmt->bind_param('ssssssssss', $nombre, $domile, $locali, $provin, $copole, $telfon, $emails, $activi, $fecini, $nrcuit);
+		$stmt->execute();
+		$stmt->close();
+		$pagina = "perfilEmpresa.php";
+		Header("Location: $pagina"); 
+	} else {
+		 die("ERROR MYSQLI: <br>".$mysqli->error );
+	}
+} 
+catch(Exception $e){
+    $mysqli->rollback();
+    die("ERROR MYSQLI: <br>".$e->getMessage() );
+}
 
 ?>

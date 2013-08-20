@@ -14,8 +14,9 @@ if($respuesta -> num_rows != 0){
 	$_SESSION['userLogin'] = true;
 	$_SESSION['userNombre'] = $userData['nombre']." - ".$userData['nrcuit'];
 	$_SESSION['userCuit'] = $userData['nrcuit'];
-	$_SESSION['userAut'] = 'pepepascual';
 	$_SESSION['userID'] = $userData['nrcuit'];
+	$_SESSION['host'] = $_SERVER['SERVER_NAME'];
+	$_SESSION['dbname'] = "madera";
 }
 ?>
 

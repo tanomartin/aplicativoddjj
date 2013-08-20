@@ -81,27 +81,22 @@
 		function cleanProvincia(){ 
 			document.forms.modificarPerfil.provincia[0].selected = true;
 		}
+		
+		$.validator.addMethod("esfechavalida", esFechaValida);
+		$.validator.addMethod("esfechapasada", esFechaPasada);
 
 		$(function(){
 			//Valido el formulario de edicion de empresa
 			$('#modificarPerfil').validate({
 				rules: {
-            		inicio: { required: function() { return (true); } }
+            		inicio: { esfechavalida: true, required: true,  esfechapasada: true}
         		},
 				messages: {
-            		inicio: 'Introduzca una fecha valida'
+            		inicio: 'Introduzca una fecha valida y no futura'
         		},
 				
 				submitHandler: function(){
-					if (!esFechaValida($('#inicio').val())) {
-						alert("NO ES VALIDA");
-						return false;
-					}
-					if (esFechaFutura($('#inicio').val())) {
-						alert("ES EN EL FUTRU");
-						return false;
-					}
-					//form.submit();  
+					form.submit();  
 				},
 			});
 		});

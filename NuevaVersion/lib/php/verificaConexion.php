@@ -2,7 +2,6 @@
 session_start();
 
 include('conexion.php');
-
 if ($errorDbConexion) {
 	$pagina = $root."conexionCaida.php";
 	header("Location:".$pagina);
