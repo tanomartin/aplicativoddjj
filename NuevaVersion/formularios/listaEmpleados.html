@@ -8,7 +8,7 @@
 <section style="margin-top:50px">
 	<div class="hero-unit">
 	  <h1>Empleados</h1>
-			<legend style="color:#339900">Activos</legend>
+			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
 			<table class="table">
 			  <thead>
 				<tr>
@@ -24,13 +24,13 @@
 					  <td>{{ empleado.nrcuil }}</td>
 					  <td>{{ empleado.apeynombre }}</td>
 					  <td>{{ empleado.tipoydoc }}</td>
-					  <td><a href="perfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Perfil" class="icon-user icon-black"></i></a> <a href="editarEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a href="eliminarEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Eliminar" class="icon-remove"></i></a> </td>
+					  <td><a href="perfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Perfil" class="icon-user icon-black"></i></a> <a href="modificarPerfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a href="eliminarEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Eliminar" class="icon-remove"></i></a> </td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
 	  		</table>
 			
-			<legend style="color:#FF0000">Inactivos</legend>
+			<legend style="color:#FF0000">Inactivos ({{ empleadosBaja|length }})</legend>
 			<table class="table">
 			  <thead>
 				<tr>

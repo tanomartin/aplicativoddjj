@@ -40,7 +40,7 @@
               </tr>
             </table>
 			</fieldset>
-			<h3 style="margin-top:20px">Familiares</h3>
+			<h3 style="margin-top:20px">Familiares ({{ familiares|length }})</h3>
 			<fieldset>
 			<table class="table table-striped">
 			  <thead style="font-size:14px">
@@ -72,7 +72,7 @@
 	  		</table>
 			</fieldset>
 			<div clase="hero-unit">
-				<button id="editar" name="editar" class="btn btn-primary" onclick="location.href='modificarPerfilEmpleado.php'">Editar Perfil</button>
+				<button id="editar" name="editar" class="btn btn-primary" onclick="location.href='modificarPerfilEmpleado.php?cuil={{ empleado.cuil }}'">Editar Perfil</button>
 				<button id="editar" name="editar" class="btn btn-primary" onclick="location.href='nuevoFamiliar.php'">Agregar Familiar</button>
 			</div>
 	</div>
