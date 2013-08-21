@@ -1,8 +1,7 @@
 <?php session_save_path("sesiones");
 session_start();
-
-include('lib/php/verificaConexion.php');
 include('lib/php/verificaSesion.php');
+include('lib/php/verificaConexion.php');
 include('lib/php/funciones.php');
 
 $datos = array_values($_POST);

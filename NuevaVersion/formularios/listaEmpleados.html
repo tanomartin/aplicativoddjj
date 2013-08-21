@@ -5,14 +5,53 @@
 {% use 'loginUsuario.html' %}
 
 {% block contenidos %}
-<section>
-  <ul class="breadcrumb">
-    <li>Lista Empleados</li>
-  </ul>
+<section style="margin-top:50px">
+	<div class="hero-unit">
+	  <h1>Empleados</h1>
+			<legend style="color:#339900">Activos</legend>
+			<table class="table">
+			  <thead>
+				<tr>
+				  <th>CUIL</th>
+				  <th>Apellido y Nombre</th>
+				  <th>Documento</th>
+				  <th>Acciones</th>
+				</tr>
+			  </thead>
+			   <tbody>					
+				{% for empleado in empleadosActivos %}
+					<tr>
+					  <td>{{ empleado.nrcuil }}</td>
+					  <td>{{ empleado.apeynombre }}</td>
+					  <td>{{ empleado.tipoydoc }}</td>
+					  <td><a href="perfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Perfil" class="icon-user icon-black"></i></a> <a href="editarEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a href="eliminarEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Eliminar" class="icon-remove"></i></a> </td>
+					</tr>
+				{% endfor %}
+			   </tbody>	
+	  		</table>
+			
+			<legend style="color:#FF0000">Inactivos</legend>
+			<table class="table">
+			  <thead>
+				<tr>
+				  <th>CUIL</th>
+				  <th>Apellido y Nombre</th>
+				  <th>Documento</th>
+				  <th>Acciones</th>
+				</tr>
+			  </thead>
+			   <tbody>	
+				{% for empleado in empleadosBaja %}
+					<tr>
+					  <td>{{ empleado.nrcuil }}</td>
+					  <td>{{ empleado.apeynombre }}</td>
+					  <td>{{ empleado.tipoydoc }}</td>
+					  <td><a href="perfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i class="icon-user icon-black"></i></a> <a href="editarEmpleado.php?cuil={{ empleado.nrcuil }}"><i class="icon-pencil icon-black"></i></a> </td>
+					</tr>
+				{% endfor %}
+			   </tbody>	
+	  		</table>
+	  <p><a class="btn btn-primary">Agregar Empleado</a></p>
+	</div>
 </section>
-<div class="hero-unit">
-  <h1>Empleados</h1>
-  <p>Aca va el listado de empleados  para consulta y modificacion.</p>
-  <p><a class="btn btn-primary btn-large">Agregar Empleado</a></p>
-</div>
 {% endblock %}

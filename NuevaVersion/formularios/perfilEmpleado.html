@@ -1,0 +1,80 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+	  <h1>Empleado</h1>
+	  	  <legend>Perfil</legend>
+		  <fieldset>
+			<table width="989" border="0">
+              <tr>
+                <td width="650"><label for="cuil">C.U.I.L.</label>{{ empleado.cuil }}</td>
+              </tr>
+              <tr>
+                <td><label for="apeynombre">Apellido y nombre  </label>{{ empleado.apellido }}, {{ empleado.nombre }}</td>
+                <td><label for="fecingreso">Fecha Ingreso</label>{{ empleado.fecingreso }}  </td>
+              </tr>
+              <tr>
+                <td><label for="tipoydoc">Documento</label>{{ empleado.tipdoc }}: {{ empleado.nrodoc }}</td>
+                <td><label for="sexo">Sexo</label>{{ empleado.sexo }}</td>
+              </tr>
+              <tr>
+                <td><label for="fecnac">Fecha de Nacimiento</label>{{ empleado.fecnac }}</td>
+                <td><label for="estado">Estado Civil</label>{{ empleado.estado }}</label></td>
+              </tr>
+              <tr>
+                <td><label for="direccion">Domicilio</label>{{ empleado.direccion }}, {{ empleado.localidad }},  {{ empleado.provin}} ({{ empleado.codpos}})</td>
+                <td><label for="actividad">Nacionalidad</label>{{ empleado.nacion }} </td>
+              </tr>
+              <tr>
+                <td><label for="categoria">Categoria</label>{{ empleado.categoria }}</td>
+				<td> {% if empleado.activo == 'SI' %}
+							<label for="activo">En Actividad</label><div style="color:#339900">{{ empleado.activo }}</div>
+					 {% else  %}
+					 		<label for="activo">En Actividad</label><div style="color:#FF0000">{{ empleado.activo }}</div>
+					 {% endif %}
+              </tr>
+            </table>
+			</fieldset>
+			<h3 style="margin-top:20px">Familiares</h3>
+			<fieldset>
+			<table class="table table-striped">
+			  <thead style="font-size:14px">
+				<tr>
+				  <th>Apellido y Nombre</th>
+				  <th>Documento</th>
+				  <th>Parentesco</th>
+				  <th>Sexo</th>
+				  <th>Fecha Nacimiento</th>
+				  <th>Fecha Ingreso</th>
+				  <th>Beneficiario <br> Seguro de Vida</th>
+				  <th>Acciones</th>
+				</tr>
+			  </thead>
+			   <tbody style="font-size:12px">	
+				{% for familiar in familiares %}
+					<tr>
+					  <td>{{ familiar.apeynombre }}</td>
+					  <td>{{ familiar.tipoydoc }}</td>
+					  <td>{{ familiar.parentesco }}</td>
+					  <td>{{ familiar.sexo }}</td>
+					  <td>{{ familiar.fecnac }}</td>
+					  <td>{{ familiar.fecing }}</td>
+					  <td>{{ familiar.benefi }}</td>
+					  <td><a href="editarFamiliar.php?id={{ familiar.id }}&cuil={{ familiar.cuil }}"><i title="Editar" class="icon-pencil icon-black"></i></a>  <a href="eliminarFamiliar.php?id={{ familiar.id }}&cuil={{ familiar.cuil }}"><i title="Eliminar" class="icon-remove"></i></a></td>
+					</tr>
+				{% endfor %}
+			   </tbody>	
+	  		</table>
+			</fieldset>
+			<div clase="hero-unit">
+				<button id="editar" name="editar" class="btn btn-primary" onclick="location.href='modificarPerfilEmpleado.php'">Editar Perfil</button>
+				<button id="editar" name="editar" class="btn btn-primary" onclick="location.href='nuevoFamiliar.php'">Agregar Familiar</button>
+			</div>
+	</div>
+</section>
+{% endblock %}

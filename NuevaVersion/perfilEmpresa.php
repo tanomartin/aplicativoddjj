@@ -1,8 +1,8 @@
 <?php session_save_path("sesiones");
-session_start();
+	session_start();
 	$root = '';
-	include('lib/php/verificaConexion.php');
 	include('lib/php/verificaSesion.php');
+	include('lib/php/verificaConexion.php');
 	include('lib/php/funciones.php');
 
 	// Incluyo el template engine
@@ -27,7 +27,7 @@ session_start();
 	$empresa = (object) array('cuit' => $empresaData['nrcuit'], 'nombre' => $empresaData['nombre'], 'domicilio' => $empresaData['domile'], 'localidad' => $empresaData['locali'],'provincia' => $provinData['descripcion'], 'codpostal' => $empresaData['copole'],  'telefono' => $empresaData['telfon'], 'email' => $empresaData['emails'], 'actividad' => $empresaData['activi'], 'rama' => $ramaData['descripcion'], 'inicio' => invertirFecha($empresaData['fecini']));
 
 	// Cargo la plantilla
-	$twig->display('perfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa, "provincias" => $provincias));
+	$twig->display('perfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa));
 
 
 ?>

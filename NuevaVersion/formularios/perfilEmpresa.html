@@ -5,53 +5,34 @@
 {% use 'loginUsuario.html' %}
 
 {% block contenidos %}
-<section class="container" style="margin-top:50px">
+<section style="margin-top:50px">
 	<div class="hero-unit">
 	  <h1>Empresa</h1>
+	  	  <legend>Perfil</legend>
 		  <fieldset>
-			<legend> Perf&iacute;l</legend>
 			<table width="989" border="0">
               <tr>
-                <td width="506"><label for="cuit">C.U.I.T.</label>{{ empresa.cuit }}</td>
-                <td width="473"><label for="nombre"></label></td>
+                <td width="650"><label for="cuit">C.U.I.T.</label>{{ empresa.cuit }}</td>
               </tr>
               <tr>
-                <td><label for="nombre">Raz&oacute;n Social </label>{{ empresa.nombre }}
-			    <label for="domicilio"></label></td>
-                <td><label for="domicilio">Domicilio</label>{{ empresa.domicilio }}  
-			    <label for="localidad"></label></td>
+                <td><label for="nombre">Raz&oacute;n Social </label>{{ empresa.nombre }}</td>
+                <td><label for="domicilio">Domicilio</label>{{ empresa.domicilio }}  </td>
               </tr>
               <tr>
-                <td><label for="localidad">Localidad</label>
-{{ empresa.localidad }}
-<label for="provincia"></label></td>
-                <td><label for="provincia">Provincia</label>
-{{ empresa.provincia }}
-<label for="codpostal"></label></td>
+                <td><label for="localidad">Localidad</label>{{ empresa.localidad }}</td>
+                <td><label for="provincia">Provincia</label>{{ empresa.provincia }}</td>
               </tr>
               <tr>
-                <td><label for="codpostal">C&oacute;digo Postal</label>
-{{ empresa.codpostal }}
-<label for="telefono"></label></td>
-                <td><label for="telefono">Tel&eacute;fono</label>
-{{ empresa.telefono }}
-<label for="email"></label></td>
+                <td><label for="codpostal">C&oacute;digo Postal</label>{{ empresa.codpostal }}</td>
+                <td><label for="telefono">Tel&eacute;fono</label>{{ empresa.telefono }}</td>
               </tr>
               <tr>
-                <td><label for="email">Correo Electr&oacute;nico</label>
-{{ empresa.email }}
-<label for="actividad"></label></td>
-                <td><label for="actividad">Actividad</label>
-{{ empresa.actividad }} </td>
+                <td><label for="email">Correo Electr&oacute;nico</label>{{ empresa.email }}</td>
+                <td><label for="actividad">Actividad</label>{{ empresa.actividad }} </td>
               </tr>
               <tr>
-                <td><label for="inicio"></label>
-                  <label for="rama">Rama</label>
-{{ empresa.rama }}
-<label for="actividad"></label></td>
-                <td><label for="inicio">Inicio de Actividad</label>
-{{ empresa.inicio }}
-  <label for="actividad"></label>  <label for="rama"></label></td>
+                <td><label for="rama">Rama</label>{{ empresa.rama }}</td>
+                <td><label for="inicio">Inicio de Actividad</label>{{ empresa.inicio }}</td>
               </tr>
             </table>
 			<p>
@@ -60,13 +41,4 @@
 		  </fieldset>
 	</div>
 </section>
-{% block javaScripts %}
-	<script>
-		$("#modificarPerfil").validate();	
-	</script>
-	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
-	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
-{% endblock %}	
-
 {% endblock %}
