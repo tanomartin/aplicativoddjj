@@ -37,6 +37,8 @@ function verificaUsuarioClave($data,$dbLink) {
 function enviaMail($data,$dbLink) {
 	// Inicializo la respuesta
 	$response = false;
+
+	// Verifico que vengan los parametros
 	if(!empty($data) && !empty($dbLink)) {
 		$consulta = sprintf("SELECT * FROM empresa WHERE nrcuit='%s' AND emails='%s' LIMIT 1", trim($data['clave_cuit']),trim($data['clave_correo']));
 
@@ -72,5 +74,64 @@ function enviaMail($data,$dbLink) {
 		}
 	}
 	return $response;
+}
+
+function verificaCuit($data,$dbLink) {
+	// Inicializo la respuesta
+	$response = true;
+
+	// Verifico que vengan los parametros
+	if(!empty($data) && !empty($dbLink)) {
+		$consulta = sprintf("SELECT * FROM empresa WHERE nrcuit='%s' LIMIT 1", trim($data['cuit']));
+
+		// Ejecuto la consulta
+		$respuesta = $dbLink -> query($consulta);
+
+		// Verifico si encuentro datos
+		if($respuesta -> num_rows != 0){
+			// Devuelvo la respuesta en FALSE
+			$response = false;
+		}
+	}
+	return $response;
+}
+
+function guardaAlta($data,$dbLink) {
+	// Inicializo la respuesta
+	$response = true;
+
+	// Verifico que vengan los parametros
+	if(!empty($data) && !empty($dbLink)) {
+		include('lib/php/funciones.php');
+
+		$nrcuit = $_POST['cuit'];
+		$nombre = strtoupper($_POST['nombre']);
+		$domici = strtoupper($_POST['domicilio']);
+		$locali = strtoupper($_POST['localidad']);
+		$provin = $_POST['provincia'];
+		$copole = strtoupper($_POST['codpostal']);
+		$telfon = $_POST['telefono'];
+		$emails = $_POST['email'];
+		$activi = $_POST['actividad'];
+		$corama = $_POST['rama'];
+		$fecini = fechaParaGuardar($_POST['inicio']);
+		$clavea = $_POST['clave'];
+
+
+		//Armo consulta SQL
+		$sqlActualizaPerfil = "INSERT INTO empresa set 
+		nombre = ?,
+		domile = ?,
+		locali = ?,
+		provin = ?,
+		copole = ?,
+		telfon = ?,
+		emails = ?,
+		activi = ?,
+		fecini = ?
+		where nrcuit = ?";
+
+
+	}
 }
 ?>

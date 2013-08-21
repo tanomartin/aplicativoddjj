@@ -21,11 +21,27 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['accion'])) {
 					if(enviaMail($_POST, $mysqli)) {
 							$appRespuesta['respuesta'] = true;
 							$appRespuesta['mensaje'] = "La consulta se ha realizado exitosamente. En instantes recibira su contrasenia por correo electronico";
-						} else {
+					} else {
 							$appRespuesta['mensaje'] = "No se envio la clave de acceso";
-						}
+					}
 				} else {
 					$appRespuesta['mensaje'] = "Usuario no encontrado. Verifique los datos y reintentelo.";
+				}
+			}
+		break;
+		case 'altaEmpresa':
+			// verifico que llegue el campo cuit
+			if(!empty($_POST['cuit'])) {
+				// Verifico si ya existe el cuit
+				if(verificaCuit($_POST, $mysqli)) {
+					if(guardaAlta($_POST, $mysqli)) {
+							$appRespuesta['respuesta'] = true;
+							$appRespuesta['mensaje'] = "El Registro se ha realizado exitosamente. Ya puede ingresar al sistema desde la seccion LOGIN";
+					} else {
+							$appRespuesta['mensaje'] = "El Registro no ha podido realizarse";
+					}
+				} else {
+					$appRespuesta['mensaje'] = "C.U.I.T. ya existente. Verifique los datos y reintentelo.";
 				}
 			}
 		break;

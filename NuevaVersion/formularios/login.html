@@ -58,53 +58,52 @@
 {% endblock %}
 
 {% block ventanaEmpresa %}
-<div id="registroEmpresa" title="Registro de Empresa Nueva" class="hide">
-	<form id="formEmpresa" name="formEmpresa">
+<div id="registroEmpresa" title="Registro de Nueva Empresa" class="hide">
+	<form class="form-horizontal" id="formEmpresa" name="formEmpresa">
 		<fieldset id="datosEmpresa">
 			<label for="cuit">C.U.I.T.</label>
 			<span></span>
-			<input type="text" id="cuit" name="cuit" required placeholder="C.U.I.T. sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
+			<input type="text" id="cuit" name="cuit" required placeholder="C.U.I.T. sin guiones" class="span2"/>
 			<label for="nombre">Raz&oacute;n Social </label>
 			<span></span>
 			<input type="text" id="nombre" name="nombre" required class="{required:true, maxlength: 100, minlength: 4} span6"/>
 			<label for="domicilio">Domicilio</label>
 			<span></span>
-			<input type="text" id="domicilio" name="domicilio" required class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			<input type="text" id="domicilio" name="domicilio" required class="{required:true, maxlength: 50, minlength: 4} span6"/>
 			<label for="localidad">Localidad</label>
 			<span></span>
-			<input type="text" id="localidad" name="localidad" required onchange="cleanProvincia()" class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			<input type="text" id="localidad" name="localidad" required class="{required:true, maxlength: 50, minlength: 4} span6"/>
 			<label for="provincia">Provincia</label>
 			<span></span>
-			<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
-				<option title="Seleccione un valor" value="">Seleccione un valor</option>
+			<select id="provincia" name="provincia" required class="{required:true} span3">	
 			</select>
 			<label for="codpostal">C&oacute;digo Postal</label>
 			<span></span>
-			<input type="text" id="codpostal" name="codpostal" required class="{required:true, maxlength: 8, minlength: 4}"/>
+			<input type="text" id="codpostal" name="codpostal" required class="{required:true, maxlength: 8, minlength: 4} span2"/>
 			<label for="telefono">Tel&eacute;fono</label>
 			<span></span>
-			<input type="text" id="telefono" name="telefono" required class="{required:true, maxlength: 14, minlength: 6}"/>
+			<input type="text" id="telefono" name="telefono" required class="{required:true, maxlength: 14, minlength: 6} span2"/>
 			<label for="email">Correo Electr&oacute;nico</label>
 			<span></span>
-			<input type="email" id="email" name="email" required class="{required:true, maxlength: 60} span3"/>
+			<input type="text" id="email" name="email" required class="{required:true, email:true, maxlength: 60} span6"/>
 			<label for="actividad">Actividad</label>
 			<span></span>
-			<input type="text" id="actividad" name="actividad" required class="{required:true, maxlength: 60} span3"/>
+			<input type="text" id="actividad" name="actividad" required class="{required:true, maxlength: 60} span6"/>
 			<label for="rama">Rama</label>
 			<span></span>
-			<select id="rama" name="rama" class="input-xlarge {required:true}">	
-				<option title="Seleccione un valor" value="">Seleccione un valor</option>
+			<select id="rama" name="rama" class="{required:true} span6">	
 			</select>
 			<label for="inicio">Inicio de Actividad</label>
 			<span></span>
-			<input type="text" id="inicio" name="inicio" placeholder="(DD/MM/AAAA)"/>
+			<input type="text" id="inicio" name="inicio" placeholder="(DD/MM/AAAA)" class="span2"/>
 			<label for="clave">Contrase&ntilde;a</label>
 			<span></span>
 			<input type="text" id="clave" name="clave" required class="{required:true, maxlength: 10, minlength: 4} span2"/>
 		</fieldset>
 		<fieldset id="animacionAjaxEmpresa" style="text-align:center;">
 			<img alt="" src="img/loader.gif" id="ajaxGifEmpresa" class="hide">
-			<div class="alert alert-error font-small hide" id="EmpresaError"><strong><span id="mensajeError">Usuario o Correo Electr&oacute;nico Incorrectos, intente de nuevo por favor.</span></strong></div>
+			<div class="alert alert-error font-small hide" id="EmpresaError"><strong><span id="mensajeError">Empresa Existente.</span></strong></div>
+			<div class="alert alert-error font-small hide" id="EmpresaExito"><strong><span id="mensajeError">El Registro se ha realizado exitosamente. Ya puede ingresar al sistema desde la secci&oacute;n LOGIN.</span></strong></div>
 		</fieldset>
 		<fieldset id="botonera" class="small-padding" style="text-align:center;">
 			<button class="btn btn-small btn-primary" type="submit" id="botonEmpresa">Registrar</button>
@@ -122,7 +121,11 @@
 	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
 	<script type="text/javascript" src="lib/js/jquery/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script type="text/javascript">
+		$.validator.addMethod("escuitvalido", verificaCuil);
+		$.validator.addMethod("esfechavalida", esFechaValida);
+		$.validator.addMethod("esfechapasada", esFechaPasada);
 		$(function(){
 			//Valido el formulario de Login
 			$('#formLogin').validate({
@@ -250,11 +253,63 @@
 				}
 			});
 
+			var provAjax = $.get("selectProvincias.php");
+			provAjax.success(function(provincias){
+				$("#provincia").html(provincias);
+			});
+
+			var ramaAjax = $.get("selectRamas.php");
+			ramaAjax.success(function(ramas){
+				$("#rama").html(ramas);
+			});
+
 			//Valido el formulario de registro de nueva empresa
 			$('#formEmpresa').validate({
+				rules: {
+					cuit: { escuitvalido: true, required: true, number: true, rangelength: [11,11]},
+            		inicio: { esfechavalida: true, required: true,  esfechapasada: true}
+        		},
+				messages: {
+					cuit: 'Introduzca un C.U.I.T. valido',
+            		inicio: 'Introduzca una fecha valida y no futura'
+        		},
 				submitHandler: function(){
 					var formEmpresa = $('#formEmpresa').serialize();
 					alert(formEmpresa);
+					$.ajax({
+						beforeSend: function(){
+							// Verificamos si hay mensaje de error visible
+							if($('#empresaError').is(':visible')) {
+								$('#empresaError').addClass('hide');
+							}
+							if($('#empresaExito').is(':visible')) {
+								$('#empresaExito').addClass('hide');
+							}
+							$('#ajaxGifEmpresa').removeClass('hide');
+						},
+						cache: false,
+						type: "POST",
+						dataType: "json",
+						url:"respuestasApp.php",
+						data:formClave + "&accion=altaEmpresa&id=" + Math.random(),
+						success: function(response) {
+							//Controlo errores
+							if(response.respuesta == true) {
+								//alert(response.mensaje);
+								$('#empresaExito').removeClass('hide');
+								$('#botonEmpresa').addClass('hide');
+								//$('#recuperaClave').dialog('close');
+        			        } else {
+								//alert(response.mensaje);
+								$('#empresaError').removeClass('hide');
+							}
+							$('#ajaxGifClave').addClass('hide');
+						},
+						error:function() {
+							alert('Error del Sistema, intentelo mas tarde.');
+							$('#ajaxGifEmpresa').addClass('hide');
+						}
+					});
 					return false;
 				},
 				errorPlacement: function(error, element){

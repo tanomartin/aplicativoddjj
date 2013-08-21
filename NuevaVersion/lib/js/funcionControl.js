@@ -33,18 +33,14 @@ function verificaCuil(sCUIT) {
         if (iResult == aCUIT[10]) {
 			return true;	
         } else {
-			alert("CUIT INVALIDO");
 			return false;
 		}
     } else {
 		if (sCUIT  && sCUIT.length != 11) {
-			alert("CUIT INVALIDO");
 			return false;	
 		} else {
-			alert("CUIT INVALIDO");
 			return false;	
     	}
-		alert("CUIT INVALIDO");
 		return false;	
 	}
 }
