@@ -22,8 +22,12 @@
 			  <input name="nombre" type="text" id="nombre" class="{required:true, maxlength: 50, minlength: 4} span4"/>
 			</p>
 			<p>
-			  <label for="codpar">Parentesco</label>
-			  <input name="codpar" type="text" id="codpar" class="{required:true, maxlength: 16}"/>
+			 <label for="codpar">Parentesco</label>
+			 <select id="codpar" name="codpar" class="input-xlarge {required:true}">	
+				{% for codpar in parentescos %}
+						<option value="{{ codpar.codigo }}">{{ codpar.descri }}</option>
+				{% endfor %}			
+			  </select>
 			</p>
 			<p>
 			<label for="sexo">Sexo</label>

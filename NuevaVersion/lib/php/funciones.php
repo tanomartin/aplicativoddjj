@@ -19,4 +19,14 @@ function fechaParaGuardar($fecha) {
 	$fechaLista = $anio."-".$mes."-".$dia;
 	return($fechaLista);
 }
+
+function getParentescos(){
+	$paren[0] = array('codigo' => NULL, 'descri' =>  "Seleccione Parentesco");
+	$paren[1] = array('codigo' => "CONYUGE", 'descri' =>  "CONYUGE"); 
+	$paren[2] = array('codigo' => "CONCUBINO", 'descri' =>  "CONCUBINO"); 
+	$paren[3] = array('codigo' => "FAMILIAR A CARGO", 'descri' =>  "FAMILIAR A CARGO"); 
+	$paren[4] = array('codigo' => "HIJO", 'descri' =>  "HIJO"); 
+	return($paren);
+}
+
 ?>

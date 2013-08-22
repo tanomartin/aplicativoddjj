@@ -1,0 +1,132 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+	  <h1>Empleado</h1>
+	  
+	  <form class="nuevoEmpleado" id="nuevoEmpleado" method="post" action="grabanuevoEmpleado.php">
+		  <fieldset>
+			<legend>Datos del empleado </legend>
+			<p>
+			  <label for="cuil">C.U.I.L.</label>
+			  <input name="cuil" type="text" id="cuil" />
+			</p>
+			<p>
+			  <label for="apellido">Apellido</label>
+			  <input name="apellido" type="text" id="apellido" class="{required:true, maxlength: 50, minlength: 4} span4"/>
+			</p>
+			<p>
+			  <label for="nombre">Nombre</label>
+			  <input name="nombre" type="text" id="nombre" class="{required:true, maxlength: 50, minlength: 4} span4"/>
+			</p>
+			<p>
+			  <label for="ingreso">Fecha de Ingreso</label>
+			  <input id="ingreso" type="text" name="inicio" placeholder="(DD/MM/AAAA)"/>
+			</p>
+			<p>
+			  <label for="tipdoc">Tipo de Documento</label>
+			  <input name="tipdoc" type="text" id="tipdoc" class="{required:true, maxlength: 5}"/> 
+			</p>
+			<p>
+			  <label for="numdoc">N&uacute;mero de Documento</label>
+			  <input name="numdoc" type="text" id="numdoc" class="{number:true, required:true, maxlength: 9}"/>
+			</p>
+			<p>
+			<label for="sexo">Sexo</label>
+				<label class="radio"><input type="radio" name="sexo" id="maculino" value="MASCULINO" checked> MASCULINO </label>
+				<label class="radio"><input type="radio" name="sexo" id="femenino" value="FEMENINO"> FEMENINO </label>
+			</p>
+			<p>
+			  <label for="nacimiento">Fecha de Nacimiento</label>
+			  <input id="nacimiento" type="text" name="nacimiento" placeholder="(DD/MM/AAAA)"/>
+			</p>
+			<p>
+			  <label for="civil">Estado Civil</label>
+			  <input id="civil" type="text" name="civil" class="{required:true, maxlength: 10}" />
+			</p>
+			<p>
+			  <label for="direccion">Direccion</label>
+			  <input id="direccion" type="text" name="direccion" class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			</p>
+			<p>
+			  <label for="localidad">Localidad</label>
+			  <input id="localidad" type="text" name="localidad" onchange="cleanProvincia()" class="{required:true, maxlength: 50, minlength: 4} span3"/>
+			</p>
+			<p>
+			<label for="provincia">Provincia</label>
+				<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
+				{% for provincia in provincias %}
+						<option value="{{ provincia.codigo }}">{{ provincia.descripcion }}</option>
+				{% endfor %}			
+				</select>
+			</p>
+			<p>
+			  <label for="codpostal">C&oacute;digo Postal</label>
+			  <input id="codpostal" type="text" name="codpostal" class="{required:true, maxlength: 8, minlength: 4}"/>
+			</p>
+			<p>
+			  <label for="nacion">Nacionalidad</label>
+			  <input id="nacion" type="text" name="nacion" class="{required:true, maxlength: 20, minlength: 6}"/>
+			</p>
+			<p>
+			<label for="categoria">Categoria</label>
+				<select id="categoria" name="categoria" class="input-xlarge {required:true}">	
+				{% for categoria in categorias %}
+						<option value="{{ categoria.codigo }}">{{ categoria.descripcion }}</option>
+				{% endfor %}			
+				</select>
+			</p>
+			<label for="sexo">Activo</label>
+					<label class="radio"><input type="radio" name="activo" id="si" value="SI" checked> SI </label>
+					<label class="radio"><input type="radio" name="activo" id="no" value="NO"> NO </label>
+			</p>
+			<p>
+				<button id="guardar" name="guardar" type="submit" class="btn btn-primary">Guardar</button>
+			</p>
+		  </fieldset>
+	</form>
+	</div>
+</section>
+
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
+	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
+	<script>
+		function cleanProvincia(){ 
+			document.forms.modificarPerfil.provincia[0].selected = true;
+		}
+		
+		$.validator.addMethod("esfechavalida", esFechaValida);
+		$.validator.addMethod("esfechapasada", esFechaPasada);
+		$.validator.addMethod("escuilvalido", verificaCuil);
+		
+		$(function(){
+			//Valido el formulario de edicion de empresa
+			$('#nuevoEmpleado').validate({
+				rules: {
+            		ingreso: { esfechavalida: true, required: true,  esfechapasada: true},
+					nacimiento: { esfechavalida: true, required: true,  esfechapasada: true},
+					cuil: { escuilvalido: true, required: true }
+        		},
+				messages: {
+            		ingreso: 'Introduzca una fecha valida y no futura',
+					nacimiento: 'Introduzca una fecha valida y no futura',
+					cuil: 'Introduzca un C.U.I.L. valido'
+        		},
+				
+				submitHandler: function(){
+					form.submit();  
+				},
+			});
+		});
+	</script>
+{% endblock %}	
+
+{% endblock %}

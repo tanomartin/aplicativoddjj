@@ -23,7 +23,15 @@
 			</p>
 			<p>
 			  <label for="codpar">Parentesco</label>
-			  <input name="codpar" type="text" id="codpar" value="{{ familiar.codpar }}" class="{required:true, maxlength: 16}"/>
+			 <select id="codpar" name="codpar" class="input-xlarge {required:true}">	
+				{% for codpar in parentescos %}
+					{% if familiar.codpar == codpar.descri  %}
+						<option value="{{ codpar.codigo }}" selected>{{ codpar.descri }}</option>
+					{%  else  %}
+						<option value="{{ codpar.codigo }}">{{ codpar.descri }}</option>
+					{% endif %}
+				{% endfor %}			
+			  </select>
 			</p>
 			<p>
 			<label for="sexo">Sexo</label>

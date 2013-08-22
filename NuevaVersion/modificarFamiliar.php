@@ -29,9 +29,10 @@ session_start();
 	$familiar = (object) array('id' => $familiaData['id'], 'cuil' => $familiaData['nrcuil'], 'nombre' => $familiaData['nombre'], 'apellido' => $familiaData['apelli'], 'codpar' => $familiaData['codpar'], 'sexo' => $familiaData['ssexxo'], 'fecnac' => invertirFecha($familiaData['fecnac']), 'fecing' => invertirFecha($familiaData['fecing']), 'tipdoc' => $familiaData['tipdoc'], 'nrodoc' => $familiaData['nrodoc'], 'benefi' =>  $familiaData['benefi']);
 	
 	//var_dump($familiar);
-			
+	
+	$parentescos = getParentescos();
 	// Cargo la plantilla
-	$twig->display('modificarFamiliar.html',array("userName" => $_SESSION['userNombre'], "familiar" => $familiar, "titular" => $titular));
+	$twig->display('modificarFamiliar.html',array("userName" => $_SESSION['userNombre'], "familiar" => $familiar, "titular" => $titular, "parentescos" => $parentescos));
 
 
 ?>

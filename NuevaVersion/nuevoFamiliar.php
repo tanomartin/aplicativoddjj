@@ -15,8 +15,11 @@ session_start();
 	$respuesta = $mysqli -> query($consulta);
 	$titularData = $respuesta -> fetch_assoc();
 	$titular = (object) array('cuil' =>  $titularData['nrcuil'], 'apellido' => $titularData['apelli'], 'nombre' => $titularData['nombre']);	
-	
+
+	$parentescos = getParentescos();
+	//var_dump($parentescos);
+
 	// Cargo la plantilla
-	$twig->display('nuevoFamiliar.html',array("userName" => $_SESSION['userNombre'], "titular" => $titular));
+	$twig->display('nuevoFamiliar.html',array("userName" => $_SESSION['userNombre'], "titular" => $titular, "parentescos" => $parentescos));
 
 ?>
