@@ -46,12 +46,12 @@
 					  <td>{{ empleado.nrcuil }}</td>
 					  <td>{{ empleado.apeynombre }}</td>
 					  <td>{{ empleado.tipoydoc }}</td>
-					  <td><a href="perfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i class="icon-user icon-black"></i></a> <a href="editarEmpleado.php?cuil={{ empleado.nrcuil }}"><i class="icon-pencil icon-black"></i></a> </td>
+					  <td><a href="perfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i class="icon-user icon-black"></i></a> <a href="modificarPerfilEmpleado.php?cuil={{ empleado.nrcuil }}"><i class="icon-pencil icon-black"></i></a> <a href="eliminarEmpleado.php?cuil={{ empleado.nrcuil }}"><i title="Eliminar" class="icon-remove"></i></a></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
 	  		</table>
-	  <p><a class="btn btn-primary">Agregar Empleado</a></p>
+	  <p><button id="nuevoEmpleado" name="nuevoEmpleado" class="btn btn-primary" onclick="location.href='nuevoEmpleado.php'">Agregar Empleado</button></p>
 	</div>
 </section>
 {% endblock %}

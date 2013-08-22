@@ -9,7 +9,7 @@
 	<div class="hero-unit">
 	  <h1>Empleado</h1>
 	  
-	  <form class="modificarPerfil" id="modificarPerfil" method="post" action="grabamodificacionEmpleado.php">
+	  <form class="modificarPerfil" id="modificarPerfil" method="post" action="grabamodificacionEmpleado.php?cuil={{ empleado.cuil }}">
 		  <fieldset>
 			<legend>Edici&oacute;n de datos </legend>
 			<p>
@@ -34,7 +34,7 @@
 			</p>
 			<p>
 			  <label for="numdoc">N&uacute;mero de Documento</label>
-			  <input name="numdoc" type="text" id="numdoc" value="{{ empleado.nrodoc }}" class="{required:true, maxlength: 9}"/>
+			  <input name="numdoc" type="text" id="numdoc" value="{{ empleado.nrodoc }}" class="{number:true, required:true, maxlength: 9}"/>
 			</p>
 			<p>
 			<label for="sexo">Sexo</label>
@@ -49,6 +49,10 @@
 			<p>
 			  <label for="nacimiento">Fecha de Nacimiento</label>
 			  <input id="nacimiento" type="text" name="nacimiento" value="{{ empleado.fecnac }}" placeholder="(DD/MM/AAAA)"/>
+			</p>
+			<p>
+			  <label for="civil">Estado Civil</label>
+			  <input id="civil" type="text" name="civil" value="{{ empleado.estado }}" class="{required:true, maxlength: 10}" />
 			</p>
 			<p>
 			  <label for="direccion">Direccion</label>
