@@ -1,0 +1,92 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+	  <h1>Nuevo Familiar</h1>
+	  <form class="nuevoFamiliar" id="nuevoFamiliar" method="post" action="grabanuevoFamiliar.php?cuil={{ titular.cuil }}">
+		  <fieldset>
+			<legend>Datos del titular </legend>
+			<legend> C.U.I.L.: {{ titular.cuil }}<br> Apellido y Nombre: {{ titular.apellido }}, {{ titular.nombre }} </legend>
+			<legend>Datos del Familiar </legend>
+			<p>
+			  <label for="apellido">Apellido</label>
+			  <input name="apellido" type="text" id="apellido" class="{required:true, maxlength: 50, minlength: 4} span4"/>
+			</p>
+			<p>
+			  <label for="nombre">Nombre</label>
+			  <input name="nombre" type="text" id="nombre" class="{required:true, maxlength: 50, minlength: 4} span4"/>
+			</p>
+			<p>
+			  <label for="codpar">Parentesco</label>
+			  <input name="codpar" type="text" id="codpar" class="{required:true, maxlength: 16}"/>
+			</p>
+			<p>
+			<label for="sexo">Sexo</label>
+				<label class="radio"><input type="radio" name="sexo" id="maculino" value="MASCULINO" checked> MASCULINO </label>
+				<label class="radio"><input type="radio" name="sexo" id="femenino" value="FEMENINO"> FEMENINO </label>
+			</p>
+			<p>
+			  <label for="nacimiento">Fecha de Nacimiento</label>
+			  <input id="nacimiento" type="text" name="nacimiento" placeholder="(DD/MM/AAAA)"/>
+			</p>
+			<p>
+			  <label for="ingreso">Fecha de Ingreso</label>
+			  <input id="ingreso" type="text" name="ingreso" placeholder="(DD/MM/AAAA)"/>
+			</p>
+			<p>
+			  <label for="tipdoc">Tipo de Documento</label>
+			  <input name="tipdoc" type="text" id="tipdoc" class="{required:true, maxlength: 5}"/> 
+			</p>
+			<p>
+			  <label for="numdoc">N&uacute;mero de Documento</label>
+			  <input name="numdoc" type="text" id="numdoc" class="{number:true, required:true, maxlength: 9}"/>
+			</p>
+			<p>
+			<label for="sexo">Beneficiario Seguro de Vida</label>
+				<label class="radio"><input type="radio" name="activo" id="si" value="SI" checked> SI </label>
+				<label class="radio"><input type="radio" name="activo" id="no" value="NO"> NO </label>
+			</p>
+			<p>
+				<button id="guardar" name="guardar" type="submit" class="btn btn-primary">Guardar</button>
+			</p>
+		  </fieldset>
+	</form>
+	</div>
+</section>
+
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
+	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
+	<script>
+		
+		$.validator.addMethod("esfechavalida", esFechaValida);
+		$.validator.addMethod("esfechapasada", esFechaPasada);
+
+		$(function(){
+			//Valido el formulario de edicion de empresa
+			$('#nuevoFamiliar').validate({
+				rules: {
+            		ingreso: { esfechavalida: true, required: true,  esfechapasada: true},
+					nacimiento: { esfechavalida: true, required: true,  esfechapasada: true}
+        		},
+				messages: {
+            		ingreso: 'Introduzca una fecha valida y no futura',
+					nacimiento: 'Introduzca una fecha valida y no futura'
+        		},
+				
+				submitHandler: function(){
+					form.submit();  
+				},
+			});
+		});
+	</script>
+{% endblock %}	
+
+{% endblock %}
