@@ -1,0 +1,62 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Cambio de Contrase&ntilde;a</h1>
+	</div>
+</section>
+<section>
+	<div class="hero-unit">
+		<form id="cambiarClave" name="cambiarClave" method="post" action="grabaCambioContrasenia.php">
+			<fieldset>
+				<legend>Cambiar la clave de acceso al sistema</legend>
+			</fieldset>
+			<fieldset id="datosClave">
+				<label for="claveActual">Clave Actual</label>
+				<span></span>
+				<input type="password" id="claveActual" name="claveActual" required placeholder="Ingrese clave actual" class="span2"/>
+				<label for="claveNueva">Clave Nueva</label>
+				<span></span>
+				<input type="password" id="claveNueva" name="claveNueva" required placeholder="Ingrese clave nueva" class="span2"/>
+				<label for="reClaveNueva">Clave Nueva</label>
+				<span></span>
+				<input type="password" id="reClaveNueva" name="reClaveNueva" required placeholder="Repita clave nueva" class="span2"/>
+			</fieldset>
+			<fieldset>
+				<p>
+					<button id="guardar" name="guardar" type="submit" class="btn btn-primary">Cambiar Clave</button>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+</section>
+{% endblock %}
+
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
+	<script>
+		$(function(){
+			//Valido los campos del formulario
+			$('#cambiarClave').validate({
+				rules: {
+					claveActual: {required: true},
+					claveNueva: {required:true, minlength:8, maxlength:10},
+					reClaveNueva: {equalTo: "#claveNueva"}
+				},
+				submitHandler: function(){
+					form.submit();  
+				},
+				errorPlacement: function(error, element){
+					error.appendTo(element.prev("span").append());
+				}
+			});
+		});
+	</script>
+{% endblock %}

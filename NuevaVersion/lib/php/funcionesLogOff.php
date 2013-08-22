@@ -98,7 +98,7 @@ function verificaCuit($data,$dbLink) {
 
 function guardaAlta($data,$dbLink) {
 	// Inicializo la respuesta
-	$response = true;
+	$response = false;
 
 	// Verifico que vengan los parametros
 	if(!empty($data) && !empty($dbLink)) {
@@ -119,19 +119,26 @@ function guardaAlta($data,$dbLink) {
 
 
 		//Armo consulta SQL
-		$sqlActualizaPerfil = "INSERT INTO empresa set 
-		nombre = ?,
-		domile = ?,
-		locali = ?,
-		provin = ?,
-		copole = ?,
-		telfon = ?,
-		emails = ?,
-		activi = ?,
-		fecini = ?
-		where nrcuit = ?";
-
-
+		$sqlAddEmpresa = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,rramaa,fecini,claveacc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		// Simulo que guarda el registro bien !!! NO OLVIDARSE DE SACARLO !!!!!!!!!
+		//$response = true;
+		//Ejecuto la actualizacion
+		try {
+			if ($setactualiza = $dbLink->prepare($sqlAddEmpresa)) {
+				$setactualiza->bind_param('ssssissssiss', $nrcuit, $nombre, $domici, $locali, $provin, $copole, $telfon, $emails, $activi, $corama, $fecini, $clavea);
+				$setactualiza->execute();
+				$setactualiza->close();
+				// Devuelvo la respuesta en TRUE
+				$response = true;
+			} else {
+				 die("ERROR MYSQLI: <br>".$dbLink->error );
+			}
+		} 
+		catch(Exception $e) {
+			$dbLink->rollback();
+			die("ERROR MYSQLI: <br>".$e->getMessage() );
+		}
 	}
+	return $response;
 }
 ?>

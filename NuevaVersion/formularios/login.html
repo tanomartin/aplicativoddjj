@@ -19,8 +19,8 @@
 						<img alt="" src="img/loader.gif" id="ajaxGif" class="hide"/>
 						<div class="alert alert-error font-small hide" id="loginError"><strong>Usuario o Clave Incorrectos</strong></div>
 						</fieldset>
-						<fieldset id="botonera">
-						<button class="btn btn-small btn-info" type="submit" id="botonLogin">Ingresar</button>
+						<fieldset id="botonera" style="text-align:center;">
+						<button class="btn btn-mini btn-info" type="submit" id="botonLogin">Ingresar</button>
 						</fieldset>
 						<div class="divider"></div>
 						<a href="" class="btn btn-link" id="altaEmpresa">Registrase Como Nuevo Usuario</a><br/>
@@ -43,23 +43,22 @@
 			<input type="text" id="clave_cuit" name="clave_cuit" required placeholder="C.U.I.T. sin guiones" class="{required:true, number:true, rangelength: [11,11]}  span2"/>
 			<label for="clave_correo">Correo Electr&oacute;nico </label>
 			<span></span>
-			<input type="text" id="clave_correo" name="clave_correo" required class="{required:true,email:true, maxlength:60} span3"/>
+			<input type="text" id="clave_correo" name="clave_correo" required class="{required:true, email:true, maxlength:60} span3"/>
 		</fieldset>
 		<fieldset id="animacionAjaxClave" style="text-align:center;">
 			<img alt="" src="img/loader.gif" id="ajaxGifClave" class="hide">
-			<div class="alert alert-error font-small hide" id="claveError"><strong><span id="msgClaveError">Usuario o Correo Electr&oacute;nico incorrectos, intente de nuevo por favor.</span></strong></div>
-			<div class="alert alert-success font-small hide" id="claveExito"><strong><span id="msgClaveExito">La consulta se ha realizado exitosamente. En instantes recibira su contrase&ntilde;a por correo electr&oacute;nico.</span></strong></div>
+			<div class="alert alert-error font-small hide" id="claveMensaje"><strong><span id="txtClaveMensaje"></span></strong></div>
 		</fieldset>
-		<fieldset id="botonera" class="small-padding" style="text-align:center;">
-			<button class="btn btn-small btn-primary" type="submit" id="botonClave">Enviar</button>
-		</fieldset>
+			<fieldset id="botoneraClave" class="small-padding" style="text-align:center;">
+				<button class="btn btn-small btn-primary" type="submit" id="botonClave">Enviar</button>
+			</fieldset>
 	</form>
 </div>
 {% endblock %}
 
 {% block ventanaEmpresa %}
 <div id="registroEmpresa" title="Registro de Nueva Empresa" class="hide">
-	<form class="form-horizontal" id="formEmpresa" name="formEmpresa">
+	<form id="formEmpresa" name="formEmpresa" class="form-horizontal">
 		<fieldset id="datosEmpresa">
 			<label for="cuit">C.U.I.T.</label>
 			<span></span>
@@ -82,7 +81,7 @@
 			<input type="text" id="codpostal" name="codpostal" required class="{required:true, maxlength: 8, minlength: 4} span2"/>
 			<label for="telefono">Tel&eacute;fono</label>
 			<span></span>
-			<input type="text" id="telefono" name="telefono" required class="{required:true, maxlength: 14, minlength: 6} span2"/>
+			<input type="text" id="telefono" name="telefono" required class="{required:true, number: true, maxlength: 14, minlength: 6} span2"/>
 			<label for="email">Correo Electr&oacute;nico</label>
 			<span></span>
 			<input type="text" id="email" name="email" required class="{required:true, email:true, maxlength: 60} span6"/>
@@ -91,7 +90,7 @@
 			<input type="text" id="actividad" name="actividad" required class="{required:true, maxlength: 60} span6"/>
 			<label for="rama">Rama</label>
 			<span></span>
-			<select id="rama" name="rama" class="{required:true} span6">	
+			<select id="rama" name="rama" required class="{required:true} span6">	
 			</select>
 			<label for="inicio">Inicio de Actividad</label>
 			<span></span>
@@ -102,10 +101,9 @@
 		</fieldset>
 		<fieldset id="animacionAjaxEmpresa" style="text-align:center;">
 			<img alt="" src="img/loader.gif" id="ajaxGifEmpresa" class="hide">
-			<div class="alert alert-error font-small hide" id="EmpresaError"><strong><span id="mensajeError">Empresa Existente.</span></strong></div>
-			<div class="alert alert-error font-small hide" id="EmpresaExito"><strong><span id="mensajeError">El Registro se ha realizado exitosamente. Ya puede ingresar al sistema desde la secci&oacute;n LOGIN.</span></strong></div>
+			<div class="alert alert-error font-small hide" id="empreMensaje"><strong><span id="txtEmpreMensaje"></span></strong></div>
 		</fieldset>
-		<fieldset id="botonera" class="small-padding" style="text-align:center;">
+		<fieldset id="botoneraEmpresa" class="small-padding" style="text-align:center;">
 			<button class="btn btn-small btn-primary" type="submit" id="botonEmpresa">Registrar</button>
 		</fieldset>
 	</form>
@@ -173,14 +171,8 @@
 				width:350,
 				minHeight: 'auto',
 				close:function(){
-					$('#clave_cuit').val('');
-					$('#clave_correo').val('');
-					//if($('#claveError').is(':visible')) {
-					//	$('#claveError').addClass('hide');
-					//}
-					//if($('#claveExito').is(':visible')) {
-					//	$('#claveExito').addClass('hide');
-					//}
+					$('#formClave')[0].reset();
+					$('#claveMensaje').addClass('hide');
 				}
 			});
 
@@ -191,6 +183,8 @@
 				width:'auto',
 				minHeight: 'auto',
 				close:function(){
+					$('#formEmpresa')[0].reset();
+					$('#empreMensaje').addClass('hide');
 				}
 			});
 
@@ -210,16 +204,12 @@
 			$('#formClave').validate({
 				submitHandler: function() {
 					var formClave = $('#formClave').serialize();
-					//alert(formClave);
 					// ajax para ejecutar la recuperación de contraseña
 					$.ajax({
 						beforeSend: function(){
 							// Verificamos si hay mensaje de error visible
-							if($('#claveError').is(':visible')) {
-								$('#claveError').addClass('hide');
-							}
-							if($('#claveExito').is(':visible')) {
-								$('#claveExito').addClass('hide');
+							if($('#claveMensaje').is(':visible')) {
+								$('#claveMensaje').addClass('hide');
 							}
 							$('#ajaxGifClave').removeClass('hide');
 						},
@@ -231,13 +221,17 @@
 						success: function(response) {
 							//Controlo errores
 							if(response.respuesta == true) {
-								//alert(response.mensaje);
-								$('#claveExito').removeClass('hide');
-								$('#botonClave').addClass('hide');
-								//$('#recuperaClave').dialog('close');
+								var mensaje = 'La consulta se ha realizado exitosamente. En instantes recibira su contrase&ntilde;a por correo electr&oacute;nico.';
+								$('#txtClaveMensaje').html(mensaje);
+								$('#claveMensaje').removeClass('alert-error');
+								$('#claveMensaje').addClass('alert-success');
+								$('#claveMensaje').removeClass('hide');
         			        } else {
-								//alert(response.mensaje);
-								$('#claveError').removeClass('hide');
+								var mensaje = 'Usuario o Correo Electr&oacute;nico incorrectos, verifique los datos e intente de nuevo por favor.';
+								$('#txtClaveMensaje').html(mensaje);
+								$('#claveMensaje').removeClass('alert-success');
+								$('#claveMensaje').addClass('alert-error');
+								$('#claveMensaje').removeClass('hide');
 							}
 							$('#ajaxGifClave').addClass('hide');
 						},
@@ -275,15 +269,12 @@
         		},
 				submitHandler: function(){
 					var formEmpresa = $('#formEmpresa').serialize();
-					alert(formEmpresa);
+					// ajax para ejecutar el registro de nueva empresa
 					$.ajax({
 						beforeSend: function(){
 							// Verificamos si hay mensaje de error visible
-							if($('#empresaError').is(':visible')) {
-								$('#empresaError').addClass('hide');
-							}
-							if($('#empresaExito').is(':visible')) {
-								$('#empresaExito').addClass('hide');
+							if($('#empreMensaje').is(':visible')) {
+								$('#empreMensaje').addClass('hide');
 							}
 							$('#ajaxGifEmpresa').removeClass('hide');
 						},
@@ -291,19 +282,23 @@
 						type: "POST",
 						dataType: "json",
 						url:"respuestasApp.php",
-						data:formClave + "&accion=altaEmpresa&id=" + Math.random(),
+						data:formEmpresa + "&accion=altaEmpresa&id=" + Math.random(),
 						success: function(response) {
 							//Controlo errores
 							if(response.respuesta == true) {
-								//alert(response.mensaje);
-								$('#empresaExito').removeClass('hide');
-								$('#botonEmpresa').addClass('hide');
-								//$('#recuperaClave').dialog('close');
+								var mensaje = 'El registro ha sido exitoso. Ya puede ingresar desde la secci&oacute;n Login.';
+								$('#txtEmpreMensaje').html(mensaje);
+								$('#empreMensaje').removeClass('alert-error');
+								$('#empreMensaje').addClass('alert-success');
+								$('#empreMensaje').removeClass('hide');
         			        } else {
-								//alert(response.mensaje);
-								$('#empresaError').removeClass('hide');
+								var mensaje = 'La empresa que intenta registrar ya ha sido registrada con anterioridad.';
+								$('#txtEmpreMensaje').html(mensaje);
+								$('#empreMensaje').removeClass('alert-success');
+								$('#empreMensaje').addClass('alert-error');
+								$('#empreMensaje').removeClass('hide');
 							}
-							$('#ajaxGifClave').addClass('hide');
+							$('#ajaxGifEmpresa').addClass('hide');
 						},
 						error:function() {
 							alert('Error del Sistema, intentelo mas tarde.');
