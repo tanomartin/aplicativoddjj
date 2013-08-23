@@ -28,10 +28,16 @@
 			  <label for="ingreso">Fecha de Ingreso</label>
 			  <input id="ingreso" type="text" name="inicio" value="{{ empleado.fecingreso }}" placeholder="(DD/MM/AAAA)"/>
 			</p>
-			<p>
-			  <label for="tipdoc">Tipo de Documento</label>
-			  <input name="tipdoc" type="text" id="tipdoc" value="{{ empleado.tipdoc }}" class="{required:true, maxlength: 5}"/> 
-			</p>
+			<label for="provincia">Tipo de Documento</label>
+				<select id="tipdoc" name="tipdoc" class="input-xlarge {required:true}">	
+				{% for tipoDocu in tiposDocu %}
+					{% if tipoDocu.codigo == empleado.tipdoc  %}
+						<option value="{{ tipoDocu.codigo }}" selected="selected">{{ tipoDocu.descri }}</option>
+					{% else %}
+						<option value="{{ tipoDocu.codigo }}">{{ tipoDocu.descri }}</option>
+					{% endif %}
+				{% endfor %}			
+				</select>
 			<p>
 			  <label for="numdoc">N&uacute;mero de Documento</label>
 			  <input name="numdoc" type="text" id="numdoc" value="{{ empleado.nrodoc }}" class="{number:true, required:true, maxlength: 9}"/>
@@ -50,9 +56,16 @@
 			  <label for="nacimiento">Fecha de Nacimiento</label>
 			  <input id="nacimiento" type="text" name="nacimiento" value="{{ empleado.fecnac }}" placeholder="(DD/MM/AAAA)"/>
 			</p>
-			<p>
-			  <label for="civil">Estado Civil</label>
-			  <input id="civil" type="text" name="civil" value="{{ empleado.estado }}" class="{required:true, maxlength: 10}" />
+			<label for="provincia">Estado Civil</label>
+				<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
+				{% for estado in estados %}
+					{% if estado.codigo == empleado.estado  %}
+						<option value="{{ estado.codigo }}" selected="selected">{{ estado.descri }}</option>
+					{% else %}
+						<option value="{{ estado.codigo }}">{{ estado.descri }}</option>
+					{% endif %}
+				{% endfor %}			
+				</select>
 			</p>
 			<p>
 			  <label for="direccion">Direccion</label>

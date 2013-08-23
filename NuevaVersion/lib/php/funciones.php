@@ -29,4 +29,23 @@ function getParentescos(){
 	return($paren);
 }
 
+function getEstadoCivil(){
+	$estado[0] = array('codigo' => NULL, 'descri' =>  "Seleccione Estado Civil");
+	$estado[1] = array('codigo' => "SOLTERO", 'descri' =>  "SOLTERO"); 
+	$estado[2] = array('codigo' => "CASADO", 'descri' =>  "CASADO"); 
+	$estado[3] = array('codigo' => "SEPARADO", 'descri' =>  "SEPARADO"); 
+	$estado[4] = array('codigo' => "DIVORCIADO", 'descri' =>  "DIVORCIADO"); 
+	$estado[5] = array('codigo' => "VIUDO", 'descri' =>  "VIUDO"); 
+	return($estado);
+}
+
+function getTipoDocu(){
+	$tipdoc[0] = array('codigo' => NULL, 'descri' =>  "Seleccione Tipo de Documento");
+	$tipdoc[1] = array('codigo' => "DNI", 'descri' =>  "DNI"); 
+	$tipdoc[2] = array('codigo' => "LE", 'descri' =>  "LE"); 
+	$tipdoc[3] = array('codigo' => "LC", 'descri' =>  "LC"); 
+	$tipdoc[4] = array('codigo' => "CI", 'descri' =>  "CI"); 
+	return($tipdoc);
+}
+
 ?>

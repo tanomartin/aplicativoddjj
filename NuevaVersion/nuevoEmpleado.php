@@ -44,7 +44,10 @@ session_start();
     	}
 	}
 	
+	$estadoCivil = getEstadoCivil();
+	$tiposDocu = getTipoDocu();
+	
 	// Cargo la plantilla
-	$twig->display('nuevoEmpleado.html',array("userName" => $_SESSION['userNombre'], "provincias" => $provincias, "categorias" => $categorias));
+	$twig->display('nuevoEmpleado.html',array("userName" => $_SESSION['userNombre'], "provincias" => $provincias, "categorias" => $categorias, "estados" => $estadoCivil, "tiposDocu" => $tiposDocu));
 
 ?>

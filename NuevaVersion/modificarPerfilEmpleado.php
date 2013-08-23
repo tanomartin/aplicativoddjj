@@ -54,9 +54,11 @@ session_start();
 	}
 		
 	//var_dump($categorias);
-		
+	$estadoCivil = getEstadoCivil();
+	$tiposDocu = getTipoDocu();
+	
 	// Cargo la plantilla
-	$twig->display('modificarPerfilEmpleado.html',array("userName" => $_SESSION['userNombre'], "empleado" => $empleado, "provincias" => $provincias, "categorias" => $categorias));
+	$twig->display('modificarPerfilEmpleado.html',array("userName" => $_SESSION['userNombre'], "empleado" => $empleado, "provincias" => $provincias, "categorias" => $categorias, "estados" => $estadoCivil, "tiposDocu" => $tiposDocu));
 
 
 ?>

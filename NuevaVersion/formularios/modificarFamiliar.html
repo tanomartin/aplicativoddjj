@@ -53,7 +53,15 @@
 			</p>
 			<p>
 			  <label for="tipdoc">Tipo de Documento</label>
-			  <input name="tipdoc" type="text" id="tipdoc" value="{{ familiar.tipdoc }}" class="{required:true, maxlength: 5}"/> 
+			  <select id="tipdoc" name="tipdoc" class="input-xlarge {required:true}">	
+				{% for tipoDocu in tiposDocu %}
+					{% if familiar.tipdoc == tipoDocu.codigo  %}
+						<option value="{{ tipoDocu.codigo }}" selected>{{ tipoDocu.descri }}</option>
+					{%  else  %}
+						<option value="{{ tipoDocu.codigo }}">{{ tipoDocu.descri }}</option>
+					{% endif %}
+				{% endfor %}			
+			  </select>
 			</p>
 			<p>
 			  <label for="numdoc">N&uacute;mero de Documento</label>

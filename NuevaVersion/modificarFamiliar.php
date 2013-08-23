@@ -31,8 +31,10 @@ session_start();
 	//var_dump($familiar);
 	
 	$parentescos = getParentescos();
+	$tiposDocu = getTipoDocu();
+	
 	// Cargo la plantilla
-	$twig->display('modificarFamiliar.html',array("userName" => $_SESSION['userNombre'], "familiar" => $familiar, "titular" => $titular, "parentescos" => $parentescos));
+	$twig->display('modificarFamiliar.html',array("userName" => $_SESSION['userNombre'], "familiar" => $familiar, "titular" => $titular, "parentescos" => $parentescos, "tiposDocu" => $tiposDocu));
 
 
 ?>
