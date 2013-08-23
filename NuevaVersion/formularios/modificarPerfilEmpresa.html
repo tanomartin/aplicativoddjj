@@ -18,18 +18,22 @@
 			</p>
 			<p>
 			  <label for="nombre">Raz&oacute;n Social </label>
+			  <span></span>
 			  <input name="nombre" type="text" id="nombre" value="{{ empresa.nombre }}" class="{required:true, maxlength: 100, minlength: 4} span6"/>
 			</p>
 			<p>
 			  <label for="domicilio">Domicilio</label>
+			  <span></span>
 			  <input id="domicilio" name="domicilio" type="text" value="{{ empresa.domicilio }}"  class="{required:true, maxlength: 50, minlength: 4} span3"/>
 			</p>
 			<p>
 			  <label for="localidad">Localidad</label>
+			  <span></span>
 			  <input id="localidad" type="text" name="localidad" value="{{ empresa.localidad }}" onchange="cleanProvincia()" class="{required:true, maxlength: 50, minlength: 4} span3"/>
 			</p>
 			<p>
 			<label for="provincia">Provincia</label>
+			<span></span>
 				<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
 				{% for provincia in provincias %}
 					{% if provincia.codigo == empresa.provincia  %}
@@ -42,26 +46,32 @@
 			</p>
 			<p>
 			  <label for="codpostal">C&oacute;digo Postal</label>
+			  <span></span>
 			  <input id="codpostal" type="text" name="codpostal" value="{{ empresa.codpostal }}" class="{required:true, maxlength: 8, minlength: 4}"/>
 			</p>
 			<p>
 			  <label for="telefono">Tel&eacute;fono</label>
+			  <span></span>
 			  <input id="telefono" type="text" name="telefono" value="{{ empresa.telefono }}" class="{required:true, maxlength: 14, minlength: 6}"/>
 			</p>
 			<p>
 			  <label for="email">Correo Electr&oacute;nico</label>
+			  <span></span>
 			  <input id="email" type="email" name="email" value="{{ empresa.email }}" class="{required:true, maxlength: 60} span3"/>
 			</p>
 			<p>
 			  <label for="actividad">Actividad</label>
+			  <span></span>
 			  <input id="actividad" type="text" name="actividad" value="{{ empresa.actividad }}" class="{required:true, maxlength: 60} span3"/>
 			</p>
 			<p>
 			  <label for="rama">Rama</label>
+			  <span></span>
 			  <input name="rama" disabled="disabled" type="text" id="rama" value="{{ empresa.rama }}"/>
 			</p>
 			<p>
 			  <label for="inicio">Inicio de Actividad</label>
+			  <span></span>
 			  <input id="inicio" type="text" name="inicio" value="{{ empresa.inicio }}" placeholder="(DD/MM/AAAA)"/>
 			</p>
 			<p>
@@ -98,6 +108,9 @@
 				submitHandler: function(){
 					form.submit();  
 				},
+				errorPlacement: function(error, element){
+					error.appendTo(element.prev("span").append());
+				}
 			});
 		});
 	</script>
