@@ -8,10 +8,12 @@
 <section style="margin-top:50px">
 	<div class="hero-unit">
 	  <h1>Familiar</h1>
+	  <legend>Datos del titular </legend>
+	  <legend> C.U.I.L.: {{ familiar.cuil }}<br> Apellido y Nombre: {{ titular.apellido }}, {{ titular.nombre }} </legend>
+	 </div>
+	 <div class="hero-unit">
 	  <form class="modificarPerfil" id="modificarPerfil" method="post" action="grabamodificacionFamiliar.php?cuil={{ familiar.cuil }}&id={{ familiar.id }}">
 		  <fieldset>
-			<legend>Datos del titular </legend>
-			<legend> C.U.I.L.: {{ familiar.cuil }}<br> Apellido y Nombre: {{ titular.apellido }}, {{ titular.nombre }} </legend>
 			<legend>Edici&oacute;n de datos </legend>
 			<p>
 			  <label for="apellido">Apellido</label>

@@ -7,11 +7,13 @@
 {% block contenidos %}
 <section style="margin-top:50px">
 	<div class="hero-unit">
-	  <h1>Nuevo Familiar</h1>
+	  	<h1>Nuevo Familiar</h1>
+	  	<legend>Datos del titular </legend>
+		<legend> C.U.I.L.: {{ titular.cuil }}<br> Apellido y Nombre: {{ titular.apellido }}, {{ titular.nombre }} </legend>
+	 </div>
+	 <div class="hero-unit">
 	  <form class="nuevoFamiliar" id="nuevoFamiliar" method="post" action="grabanuevoFamiliar.php?cuil={{ titular.cuil }}">
-		  <fieldset>
-			<legend>Datos del titular </legend>
-			<legend> C.U.I.L.: {{ titular.cuil }}<br> Apellido y Nombre: {{ titular.apellido }}, {{ titular.nombre }} </legend>
+		  <fieldset>		
 			<legend>Datos del Familiar </legend>
 			<p>
 			  <label for="apellido">Apellido</label>

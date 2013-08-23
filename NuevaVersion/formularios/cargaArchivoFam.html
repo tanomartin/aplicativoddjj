@@ -1,0 +1,25 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Importacion de Familiares</h1>
+	</div>
+	<div class="hero-unit">
+			<legend>Subida de archivo</legend>
+			<form action="subidaArcFam.php" method="post" enctype="multipart/form-data">
+				<p>
+				<input type="file" name="archivo" />
+				</p>
+				<p>
+				<button id="subir" name="subir" type="submit" class="btn btn-primary">Subir Archivo</button>
+				</p>
+			</form>
+	</div>
+</section>
+
+{% endblock %}
