@@ -11,7 +11,7 @@
 	 </div>
 	 <div class="hero-unit">
 			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
-			<table class="table">
+			<table id="activos" class="tablesorter">
 			  <thead>
 				<tr>
 				  <th>CUIL</th>
@@ -33,7 +33,7 @@
 	  		</table>
 			
 			<legend style="color:#FF0000">Inactivos ({{ empleadosBaja|length }})</legend>
-			<table class="table">
+			<table id="inactivos" class="tablesorter">
 			  <thead>
 				<tr>
 				  <th>CUIL</th>
@@ -56,4 +56,17 @@
 	  <p><button id="nuevoEmpleado" name="nuevoEmpleado" class="btn btn-primary" onclick="location.href='nuevoEmpleado.php'">Agregar Empleado</button></p>
 	</div>
 </section>
+{% endblock %}
+{% block cssPropios %}
+	<link rel="stylesheet" href="css/tablesorter/themes/blue/style.css" type="text/css" id="" media="print, projection, screen" />
+{% endblock %}
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.metadata.js"></script>
+	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.tablesorter.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$("#activos").tablesorter({widgets:['zebra'], headers:{3:{sorter:false}}});
+		$("#inactivos").tablesorter({widgets:['zebra'], headers:{3:{sorter:false}}});
+	});
+</script>
 {% endblock %}

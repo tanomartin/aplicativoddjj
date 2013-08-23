@@ -1,0 +1,20 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Cambio de Contrase&ntilde;a</h1>
+	</div>
+</section>
+<section>
+	<div class="hero-unit">
+		<fieldset>
+			<legend>Cambiar la clave de acceso al sistema</legend>
+		</fieldset>
+	</div>
+</section>
+{% endblock %}

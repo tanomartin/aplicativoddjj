@@ -104,24 +104,22 @@ function guardaAlta($data,$dbLink) {
 	if(!empty($data) && !empty($dbLink)) {
 		include('lib/php/funciones.php');
 
-		$nrcuit = $_POST['cuit'];
-		$nombre = strtoupper($_POST['nombre']);
-		$domici = strtoupper($_POST['domicilio']);
-		$locali = strtoupper($_POST['localidad']);
-		$provin = $_POST['provincia'];
-		$copole = strtoupper($_POST['codpostal']);
-		$telfon = $_POST['telefono'];
-		$emails = $_POST['email'];
-		$activi = $_POST['actividad'];
-		$corama = $_POST['rama'];
-		$fecini = fechaParaGuardar($_POST['inicio']);
-		$clavea = $_POST['clave'];
+		$nrcuit = $data['cuit'];
+		$nombre = strtoupper($data['nombre']);
+		$domici = strtoupper($data['domicilio']);
+		$locali = strtoupper($data['localidad']);
+		$provin = $data['provincia'];
+		$copole = strtoupper($data['codpostal']);
+		$telfon = $data['telefono'];
+		$emails = $data['email'];
+		$activi = $data['actividad'];
+		$corama = $data['rama'];
+		$fecini = fechaParaGuardar($data['inicio']);
+		$clavea = $data['clave'];
 
 
 		//Armo consulta SQL
 		$sqlAddEmpresa = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,rramaa,fecini,claveacc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-		// Simulo que guarda el registro bien !!! NO OLVIDARSE DE SACARLO !!!!!!!!!
-		//$response = true;
 		//Ejecuto la actualizacion
 		try {
 			if ($setactualiza = $dbLink->prepare($sqlAddEmpresa)) {
