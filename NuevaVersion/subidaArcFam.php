@@ -38,16 +38,16 @@ function controlarNombreArc($nombre,$type,$mysqli) {
 						return array(21,"Error CUIT en nombre de archivo inexistente");
 					}
 				} else {
-					return array(20,"Error nombre de archivo (EMP-nrocuit.txt)");
+					return array(20,"Error nombre de archivo");
 				}
 			} else {
-				return array(20,"Error nombre de archivo (EMP-nrocuit.txt)");
+				return array(20,"Error nombre de archivo");
 			}
 		} else {
-			return array(20,"Error nombre de archivo (EMP-nrocuit.txt)");
+			return array(20,"Error nombre de archivo");
 		}
 	} else {
-		return array(20,"Error nombre de archivo (EMP-nrocuit.txt)");
+		return array(20,"Error nombre de archivo");
 	} 
 }
 
@@ -248,13 +248,13 @@ if ($nomArcOK==0) {
 		$res=verificarCampos($archivo_name,$registros[$i],$mysqli,$i+1);
 		//print("Resultado de verificaion: $res<br/><br/>");
 		if ($res!=0) {
-			$contRegMalos++;
 			$regisError = $i + 1;
-			$errores[$i] = array("registro" => $regisError, "coderror" => $res[0], "descrierror" => $res[1]);
+			$errores[$contRegMalos] = array("registro" => $regisError, "coderror" => $res[0], "descrierror" => $res[1]);
+			$contRegMalos++;
 		}
 	}
 } else {
-	$errores[$i] = array("registro" => "-", "coderror" => $nomArcOK[0], "descrierror" => $nomArcOK[1]);
+	$errores[0] = array("registro" => "-", "coderror" => $nomArcOK[0], "descrierror" => $nomArcOK[1]);
 }
 
 //var_dump($arrayErrores);
