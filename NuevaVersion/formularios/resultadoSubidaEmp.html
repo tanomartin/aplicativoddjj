@@ -1,0 +1,47 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+
+<section style="margin-top:50px">
+	<div class="hero-unit">
+	  <h1>Importacion de Empleados</h1>
+	 </div>
+	 <div class="hero-unit">
+	 	 <legend>Resumen revisi&oacute;n de archivos</legend>
+			<label for="regtotales">Cantidad de Registros</label>{{ regtotales }}
+            <label for="regmalos">Registros con Errores</label>{{ regmalos }}
+         	{% if (errores|length != 0) %}
+			 <legend>Listado de Errores</legend>
+				<table class="table">
+				  <thead>
+					<tr>
+					  <th>Nro Registro</th>
+					  <th>Codigo Error</th>
+					  <th>Descripci&oacute;n Error</th>
+					</tr>
+				  </thead>
+				   <tbody>	
+					{% for error in errores %}
+						<tr>
+							<td>{{ error.registro }}</td>
+							<td>{{ error.coderror }}</td>
+							<td>{{ error.descrierror }}</td>
+						</tr>
+					{% endfor %}
+				   </tbody>	
+				</table>
+			{% else %}
+			 	<legend>No se ha encontrado ningun error en los registros</legend>
+			{% endif %}
+			<p>
+				{% if (errores|length  == 0) %}
+					<button id="importar" name="importar" class="btn btn-primary" onclick="location.href='importarEmpleados.php'">Importar Empleados</button>
+				{% endif %}
+			</p>
+	 </div>
+</section>
+{% endblock %}
