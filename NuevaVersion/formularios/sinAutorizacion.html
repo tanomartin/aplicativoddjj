@@ -1,0 +1,14 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+		<section class="container" style="margin-top:50px">
+			<div class="hero-unit">
+				<h1>No tiene autorizaci&oacute;n</h1>
+				<p>Debe pedir acceso a esta secci&oacute;n al departamento de sistemas de U.S.I.M.R.A.</p>
+			</div>
+		</section>
+{% endblock %}
