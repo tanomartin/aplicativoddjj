@@ -7,6 +7,7 @@
     <meta name="description" content="Aplicativo DDJJ Online" />
     <meta name="author" content="USIMRA-Depto de Sistemas" />
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">   
+	<link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="css/default_layout.css">
 
 	{% block cssPropios %} {% endblock %}
@@ -47,15 +48,14 @@
 		<section class="row-fluid">
           <div class="span6 well well-small">
             <h2>Instructivos</h2>
-            <p>Aca contamos que se pueden descargar los instructivos que explica paso a paso en lenguaje coloquial. </p>
-            <p><a class="btn btn-success" href="docs/manual_aplicativo_ddjj.pdf">Aplicativo General &raquo;</a></p>
-			<p>Aca contamos que se pueden descargar los instructivos que explica paso a paso en lenguaje coloquial. </p>
-            <p><a class="btn btn-success" href="docs/instrucGrandes.pdf">Modulo Grandes Empresas &raquo;</a></p>
+            <p>Contamos que se pueden descargar los instructivos que explica paso a paso en lenguaje coloquial.</p>
+            <p><a class="btn btn-primary" href="docs/manual_aplicativo_ddjj.pdf"><i class="icon-book icon-large"></i> Aplicativo General &raquo;</a>
+            <a class="btn btn-primary" href="docs/instrucGrandes.pdf"><i class="icon-book icon-large"></i> Modulo Grandes Empresas &raquo;</a></p>
           </div>
           <div class="span6 well well-small">
             <h2>Noticias</h2>
-            <p>Aca van las noticias principales y boton es un link a leer mas. </p>
-            <p><a class="btn btn-inverse" href="#">Leer Mas &raquo;</a></p>
+            <p>Aca van las noticias principales y boton es un link a leer mas.</p>
+            <p><a class="btn btn-info" href="#"><i class="icon-info icon-large"></i> Leer Mas &raquo;</a></p>
          </div>
         </section>
 		{% endblock %}
