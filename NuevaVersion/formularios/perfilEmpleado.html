@@ -67,7 +67,7 @@
 					  <td>{{ familiar.fecnac }}</td>
 					  <td>{{ familiar.fecing }}</td>
 					  <td>{{ familiar.benefi }}</td>
-					  <td><a href="modificarFamiliar.php?id={{ familiar.id }}&cuil={{ familiar.cuil }}&codpar={{ familiar.parentesco }}"><i title="Editar" class="icon-pencil icon-black"></i></a> <i onclick="disp_confirm({{ familiar.id }})" title="Eliminar" class="icon-remove"></i></td>
+					  <td><a href="modificarFamiliar.php?id={{ familiar.id }}&cuil={{ familiar.cuil }}&codpar={{ familiar.parentesco }}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a><i onclick="disp_confirm({{ familiar.id }})" title="Eliminar" class="icon-remove"></i></a></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	

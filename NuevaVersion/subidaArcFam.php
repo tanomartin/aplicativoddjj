@@ -141,7 +141,7 @@ function verificarCampos($nombreArc,$registro,$mysqli,$numReg) {
 			$sentencia->execute();
 			$sentencia->store_result();
 			$cant = $sentencia->num_rows;
-			if ($cant != 0) {
+			if ($cant == 0) {
 				//print ("Error cuil del registro numero: $numReg <br/>\n");
 				return array(2,"Error CUIL en el registro");
 			}
