@@ -18,7 +18,6 @@ session_start();
 	$respRama = $mysqli -> query($consRama);
 	$ramaData = $respRama -> fetch_assoc();
 
-	
 	$consulta = "SELECT * FROM provincia";
 	if ($sentencia = $mysqli->prepare($consulta)) {
     	$sentencia->execute();
@@ -31,11 +30,22 @@ session_start();
     	}
 	}
 
+	$consulta = "SELECT * FROM actividad";
+	if ($sentencia = $mysqli->prepare($consulta)) {
+    	$sentencia->execute();
+    	$sentencia->bind_result($id, $descri);
+		$i = 1;
+		$actividades[0] = array('codigo' => NULL, 'descripcion' => "Seleccionar Actividad");
+		while ($sentencia->fetch()) {
+			$actividades[$i] = array('codigo' => $id, 'descripcion' => $descri);
+			$i = $i + 1;
+    	}
+	}
 	
 	$empresa = (object) array('cuit' => $empresaData['nrcuit'], 'nombre' => $empresaData['nombre'], 'domicilio' => $empresaData['domile'], 'localidad' => $empresaData['locali'],'provincia' => $empresaData['provin'], 'codpostal' => $empresaData['copole'],  'telefono' => $empresaData['telfon'], 'email' => $empresaData['emails'], 'actividad' => $empresaData['activi'], 'rama' => $ramaData['descripcion'], 'inicio' => invertirFecha($empresaData['fecini']));
 
 	// Cargo la plantilla
-	$twig->display('modificarPerfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa, "provincias" => $provincias));
+	$twig->display('modificarPerfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa, "provincias" => $provincias, "actividades" => $actividades));
 
 
 ?>

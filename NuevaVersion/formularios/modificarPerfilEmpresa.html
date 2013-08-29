@@ -61,9 +61,17 @@
 			  <input id="email" type="email" name="email" value="{{ empresa.email }}" class="{required:true, maxlength: 60} span3"/>
 			</p>
 			<p>
-			  <label for="actividad">Actividad</label>
+			  <label for="actividad">Actividad</label> 
 			  <span></span>
-			  <input id="actividad" type="text" name="actividad" value="{{ empresa.actividad }}" class="{required:true, maxlength: 60} span3"/>
+				<select id="actividad" name="actividad" class="input-xlarge {required:true}">	
+				{% for actividad in actividades %}
+					{% if actividad.descripcion ==  empresa.actividad  %}
+						<option value="{{ actividad.descripcion }}" selected="selected">{{ actividad.descripcion }}</option>
+					{% else %}
+						<option value="{{ actividad.descripcion }}">{{ actividad.descripcion }}</option>
+					{% endif %}
+				{% endfor %}			
+				</select>
 			</p>
 			<p>
 			  <label for="rama">Rama</label>
