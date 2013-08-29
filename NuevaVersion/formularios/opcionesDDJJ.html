@@ -1,0 +1,54 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Declaraciones Juradas</h1>
+	</div>
+	<div class="hero-unit">
+		<h2>Nueva DDJJ</h2>		
+		<p><a class="btn btn-primary btn-large" href="#">Generar Nueva Declaracion Jurada &raquo;</a></p>
+	</div>
+	<section class="row-fluid">
+          <div class="span4 well well-small">
+            <h3>DDJJ Pagas</h3>
+            <p>DDJJ pagas confirmadas por el banco</p>
+            <p><a class="btn btn-primary" href="#">Ver Todas &raquo;</a></p>
+          </div>
+          <div class="span4 well well-small">
+            <h3>DDJJ c/ Documenento Cancelatorio</h3>
+            <p><a class="btn btn-primary" href="#">Ver Todas &raquo;</a></p>
+         </div>
+		 <div class="span4 well well-small">
+            <h3>DDJJ s/ Documenento Cancelatorio</h3>
+			<table id="ddjjsindocu" class="table">
+			  <thead>
+				<tr>
+				  <th>A&ntilde;o</th>
+				  <th>Mes</th>
+				  <th>Total </th>
+				  <th>Acciones</th>
+				</tr>
+			  </thead>
+			   <tbody>					
+				{% for ddjjsdocu in ddjjsindocu %}
+					<tr>
+					  <td>{{ ddjjsdocu.perano }}</td>
+					  <td>{{ ddjjsdocu.permes }}</td>
+					  <td>{{ ddjjsdocu.totapo }}</td>
+					  <td><a href="seleccionarDocumento.php"><i title="Imprimir Documento" class="icon-print icon-black"></i></a> <a href="eliminarDDJJ.php"><i title="Eliminar" class="icon-trash"></i></a> </td>
+					</tr>
+				{% endfor %}
+			   </tbody>	
+	  		</table>
+			
+            <p><a class="btn btn-primary" href="#">Ver Todas &raquo;</a></p>
+         </div>
+        </section>
+</section>
+
+{% endblock %}
