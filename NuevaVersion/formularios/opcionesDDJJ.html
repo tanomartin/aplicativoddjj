@@ -9,46 +9,107 @@
 	<div class="hero-unit">
 		<h1>Declaraciones Juradas</h1>
 	</div>
-	<div class="hero-unit">
-		<h2>Nueva DDJJ</h2>		
-		<p><a class="btn btn-primary btn-large" href="#">Generar Nueva Declaracion Jurada &raquo;</a></p>
-	</div>
-	<section class="row-fluid">
-          <div class="span4 well well-small">
-            <h3>DDJJ Pagas</h3>
-            <p>DDJJ pagas confirmadas por el banco</p>
-            <p><a class="btn btn-primary" href="#">Ver Todas &raquo;</a></p>
-          </div>
-          <div class="span4 well well-small">
-            <h3>DDJJ c/ Documenento Cancelatorio</h3>
-            <p><a class="btn btn-primary" href="#">Ver Todas &raquo;</a></p>
+	<section class="row-fluid">   
+		<div class="well well-small">
+			<h2>Nueva DDJJ</h2>		
+			<p><a class="btn btn-primary btn-large" href="#">Generar Nueva Declaracion Jurada &raquo;</a></p>
+		</div>
+	</section>
+	<section class="row-fluid">   
+		 <div class="span6 well well-small">
+            <h3>DDJJ No pagas <br /> Sin Documento Cancelatorio</h3>
+			{% if ddjjsindocu|length > 0 %}			
+				<table id="ddjjsindocu" class="table">
+				  <thead>
+					<tr>
+					  <th>A&ntilde;o</th>
+					  <th>Mes</th>
+					  <th>Total </th>
+					  <th>Acciones</th>
+					</tr>
+				  </thead>
+				   <tbody>					
+					{% for ddjjsdocu in ddjjsindocu %}
+						<tr>
+						  <td>{{ ddjjsdocu.perano }}</td>
+						  <td>{{ ddjjsdocu.permes }}</td>
+						  <td>{{ ddjjsdocu.totapo }}</td>
+						  <td><a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a><a href="seleccionarDocumento.php?control={{ddjjsdocu.control}}"><i title="Seleccionar Instrumento de Pago" class="icon-location-arrow  icon-black"></i></a> <a href="imprimirDDJJ.php?control={{ddjjsdocu.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a> <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> </td>
+						</tr>
+					{% endfor %}
+				   </tbody>	
+				</table>
+				<p><a class="btn btn-primary" href="#">Ver Mas &raquo;</a></p>
+			{% else %}
+				<legend> No contiene ddjj no pagas sin documento cancelatorio </legend>
+			{% endif %}	
          </div>
-		 <div class="span4 well well-small">
-            <h3>DDJJ s/ Documenento Cancelatorio</h3>
-			<table id="ddjjsindocu" class="table">
+		 <div class="span6 well well-small">
+            <h3>DDJJ No Pagas <br /> Con Documento Cancelatorio</h3>
+			{% if ddjjcondocu|length > 0 %}			
+				<table id="ddjjcondocu" class="table">
+				  <thead>
+					<tr>
+					  <th>A&ntilde;o</th>
+					  <th>Mes</th>
+					  <th>Total </th>
+					  <th>Instr. Pago </th>
+					  <th>Acciones</th>
+					</tr>
+				  </thead>
+				   <tbody>					
+					{% for ddjjcdocu in ddjjcondocu %}
+						<tr>
+						  <td>{{ ddjjcdocu.perano }}</td>
+						  <td>{{ ddjjcdocu.permes }}</td>
+						  <td>{{ ddjjcdocu.totapo }}</td>
+						  <td>{{ ddjjcdocu.instrumento }}</td>
+						  <td><a href="imprimirDDJJ.php?control={{ddjjcdocu.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+						</tr>
+					{% endfor %}
+				   </tbody>	
+				</table>
+				<p><a class="btn btn-primary" href="#">Ver Mas &raquo;</a></p>
+			{% else %}
+				<legend> No contiene ddjj no pagas con documento cancelatorio </legend>
+			{% endif %}	
+           
+         </div>
+	
+	</section>
+	<section class="row-fluid">
+		 <div class="well well-small">
+            <h3>DDJJ Pagas <br />Confirmadas por banco</h3>
+          	{% if ddjjvalidas|length > 0 %}			
+		   	<table id="ddjjvalidas" class="table">
 			  <thead>
 				<tr>
 				  <th>A&ntilde;o</th>
 				  <th>Mes</th>
 				  <th>Total </th>
+				  <th>Instr. Pago </th>
 				  <th>Acciones</th>
 				</tr>
 			  </thead>
 			   <tbody>					
-				{% for ddjjsdocu in ddjjsindocu %}
+				{% for ddjjvalidas in ddjjvalidas %}
 					<tr>
-					  <td>{{ ddjjsdocu.perano }}</td>
-					  <td>{{ ddjjsdocu.permes }}</td>
-					  <td>{{ ddjjsdocu.totapo }}</td>
-					  <td><a href="seleccionarDocumento.php"><i title="Imprimir Documento" class="icon-print icon-black"></i></a> <a href="eliminarDDJJ.php"><i title="Eliminar" class="icon-trash"></i></a> </td>
+					  <td>{{ ddjjvalidas.perano }}</td>
+					  <td>{{ ddjjvalidas.permes }}</td>
+					  <td>{{ ddjjvalidas.totapo }}</td>
+					  <td>{{ ddjjvalidas.instrumento }}</td>
+					  <td><a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> <a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
 	  		</table>
+			<p><a class="btn btn-primary" href="#">Ver Mas &raquo;</a></p>
+			{% else %}
+				<legend> No contiene ddjj pagas confirmadas por banco </legend>
+			{% endif %}	
 			
-            <p><a class="btn btn-primary" href="#">Ver Todas &raquo;</a></p>
-         </div>
-        </section>
+          </div>
+    </section>
 </section>
 
 {% endblock %}
