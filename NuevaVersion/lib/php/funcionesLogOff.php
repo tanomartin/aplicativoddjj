@@ -118,6 +118,13 @@ function guardaAlta($data,$dbLink) {
 		$clavea = $data['clave'];
 		$autori = 0;
 
+		//Consulto Tabla Actividad para tomar la descripcion
+		$sqlActividad = "SELECT * FROM actividad WHERE id = $activi";
+		$resActividad = $dbLink -> query($sqlActividad);
+		$datActividad = $resActividad -> fetch_assoc();
+
+		$activi = $datActividad['descripcion'];
+
 		//Armo consulta SQL de Tabla Empresa
 		$sqlAddEmpresa = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,rramaa,fecini,claveacc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -126,18 +133,18 @@ function guardaAlta($data,$dbLink) {
 
 		//Ejecuto los inserts
 		try {
-			if ($setactuempre = $dbLink->prepare($sqlAddEmpresa)) {
-				$setactuempre->bind_param('ssssissssiss', $nrcuit, $nombre, $domici, $locali, $provin, $copole, $telfon, $emails, $activi, $corama, $fecini, $clavea);
-				$setactuempre->execute();
-				$setactuempre->close();
+			if ($setActuEmpre = $dbLink->prepare($sqlAddEmpresa)) {
+				$setActuEmpre->bind_param('ssssissssiss', $nrcuit, $nombre, $domici, $locali, $provin, $copole, $telfon, $emails, $activi, $corama, $fecini, $clavea);
+				$setActuEmpre->execute();
+				$setActuEmpre->close();
 
 				// Devuelvo la respuesta en TRUE
 				$response = true;
 	
-				if ($setactuhabil = $dbLink->prepare($sqlAddHabilita)) {
-					$setactuhabil->bind_param('si', $nrcuit, $autori);
-					$setactuhabil->execute();
-					$setactuhabil->close();
+				if ($setActuHabil = $dbLink->prepare($sqlAddHabilita)) {
+					$setActuHabil->bind_param('si', $nrcuit, $autori);
+					$setActuHabil->execute();
+					$setActuHabil->close();
 				} else {
 					 die("ERROR MYSQLI: <br>".$dbLink->error );
 				}

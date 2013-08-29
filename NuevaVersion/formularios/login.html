@@ -87,7 +87,8 @@
 			<input type="text" id="email" name="email" required class="{required:true, email:true, maxlength: 60} span6"/>
 			<label for="actividad">Actividad</label>
 			<span></span>
-			<input type="text" id="actividad" name="actividad" required class="{required:true, maxlength: 60} span6"/>
+			<select id="actividad" name="actividad" required class="{required:true} span6">	
+			</select>
 			<label for="rama">Rama</label>
 			<span></span>
 			<select id="rama" name="rama" required class="{required:true} span6">	
@@ -97,7 +98,7 @@
 			<input type="text" id="inicio" name="inicio" placeholder="(DD/MM/AAAA)" class="span2"/>
 			<label for="clave">Contrase&ntilde;a</label>
 			<span></span>
-			<input type="text" id="clave" name="clave" required class="{required:true, maxlength: 10, minlength: 4} span2"/>
+			<input type="text" id="clave" name="clave" required class="{required:true, maxlength: 10, minlength: 8} span2"/>
 		</fieldset>
 		<fieldset id="animacionAjaxEmpresa" style="text-align:center;">
 			<img alt="" src="img/loader.gif" id="ajaxGifEmpresa" class="hide">
@@ -180,6 +181,7 @@
 			$('#registroEmpresa').dialog({
 				autoOpen:false,
 				modal:true,
+				position: { my: "bottom", at: "bottom", of: window },
 				width:'auto',
 				minHeight: 'auto',
 				close:function(){
@@ -256,6 +258,12 @@
 			ramaAjax.success(function(ramas){
 				$("#rama").html(ramas);
 			});
+
+			var actiAjax = $.get("selectActividades.php");
+			actiAjax.success(function(actividades){
+				$("#actividad").html(actividades);
+			});
+
 
 			//Valido el formulario de registro de nueva empresa
 			$('#formEmpresa').validate({
