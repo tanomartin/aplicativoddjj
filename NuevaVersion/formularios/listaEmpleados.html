@@ -11,6 +11,7 @@
 	 </div>
 	 <div class="hero-unit">
 			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
+			{% if empleadosActivos|length > 0 %}
 			<table id="activos" class="tablesorter">
 			  <thead>
 				<tr>
@@ -31,8 +32,9 @@
 				{% endfor %}
 			   </tbody>	
 	  		</table>
-			
+			{% endif %}
 			<legend style="color:#FF0000">Inactivos ({{ empleadosBaja|length }})</legend>
+			{% if empleadosBaja|length > 0 %}
 			<table id="inactivos" class="tablesorter">
 			  <thead>
 				<tr>
@@ -53,6 +55,7 @@
 				{% endfor %}
 			   </tbody>	
 	  		</table>
+			{% endif %}
 	  <p><button id="nuevoEmpleado" name="nuevoEmpleado" class="btn btn-primary" onclick="location.href='nuevoEmpleado.php'">Agregar Empleado</button></p>
 	</div>
 </section>
