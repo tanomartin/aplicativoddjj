@@ -9,8 +9,8 @@
 	<div class="hero-unit">
 	  <h1>Nuneva DDJJ</h1>
   </div>
-	 <div class="hero-unit">
-		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" action="#">
+	 <div class="hero-unit" style="font-size:14px">
+		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" action="guardarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}">
 			<legend> Seleccione Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
@@ -31,9 +31,6 @@
 				 <td width="600"><span id="mensajeNoRem"></span></td>
               </tr>
             </table>
-			
-			<label for="tipdoc"></label>
-			<label for="tipdoc"></label>
 			<legend> Remuneraci&oacute;n Empleados </legend>
 			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
 			{% if empleadosActivos|length > 0 %}
@@ -57,15 +54,17 @@
 			   <tbody>					
 				{% for empleado in empleadosActivos %}
 					<tr>
-						<td>{{ empleado.nrcuil }}</td>
+						<td><input type="text" style="width: 80px" id="activo{{empleado.nrcuil}}" style="text-align:right" name="activo{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly/></td>
 						<td>{{ empleado.apeynombre }}</td>
 						<td>{{ empleado.tipoydoc }}</td>
-						<td><span></span><input type="text" id="remu{{empleado.nrcuil }}" name="remu{{empleado.nrcuil }}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
-						<td class="hide" id="alic{{empleado.nrcuil}}"><input type="text" id="alic{{empleado.nrcuil }}" style="text-align:right" name="alic{{empleado.nrcuil }}" class="span1" readonly/></td>
-						<td><input type="text" id="por6{{empleado.nrcuil }}" style="text-align:right" name="por6{{empleado.nrcuil }}" class="span1" readonly/></td>
-						<td><input type="text" id="por1{{empleado.nrcuil }}" style="text-align:right" name="por1{{empleado.nrcuil }}" class="span1" readonly/></td>
-						<td><input type="text" id="por15{{empleado.nrcuil }}" style="text-align:right" name="por15{{empleado.nrcuil }}" class="span1" readonly/></td>
-						<td><input type="text" id="totemp{{empleado.nrcuil }}" style="text-align:right"name="totemp{{empleado.nrcuil }}" class="span1" readonly/></td>
+						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" name="remu{{empleado.nrcuil}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
+						<td class="hide" id="alicTd{{empleado.nrcuil}}">
+							<input type="text" id="alic{{empleado.nrcuil}}" style="text-align:right" name="alic{{empleado.nrcuil}}" class="span1" readonly/>
+						</td>
+						<td><input type="text" id="por6{{empleado.nrcuil}}" style="text-align:right" name="por6{{empleado.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="por1{{empleado.nrcuil}}" style="text-align:right" name="por1{{empleado.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="por15{{empleado.nrcuil}}" style="text-align:right" name="por15{{empleado.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="totemp{{empleado.nrcuil}}" style="text-align:right"name="totemp{{empleado.nrcuil}}" class="span1" readonly/></td>
 					</tr>
 				{% endfor %}
 				<tr>
@@ -114,7 +113,7 @@
 			   <tbody>	
 				{% for empleado in empleadosBaja %}
 					<tr>
-					  <td>{{ empleado.nrcuil }}</td>
+					  <td><input type="text" style="width: 80px" id="baja{{empleado.nrcuil}}" style="text-align:right" name="baja{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly/></td>
 					  <td>{{ empleado.apeynombre }}</td>
 					  <td>{{ empleado.tipoydoc }}</td>
 					  <td><input type="text" id="motivo{{empleado.nrcuil}}" name="motivo{{empleado.nrcuil}}" class="span4"/></td>
@@ -139,17 +138,29 @@
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.metadata.js"></script>
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script>
+		var valorextra = 0;
+		var tipoextra = 0;
+		var retiene060 = 1;
+		var retiene100 = 1;
+		var retiene150 = 1;
+		
 		function formReset(periodo) {
 			var nombreRemu;
+			var spanRemu;
+			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
+				spanRemu = "spanremu"+cuil;
 				document.getElementById(nombreRemu).value = "";
-				CalcularPorcentajes("",cuil);
+				document.getElementById(spanRemu).innerHTML = "";
+				document.getElementById(nombreRemu).readOnly = false;
+				CalcularPorcentajes(0,cuil);
 			{% endfor %}
 			document.getElementById("recargo").value = "";
-			recalcularTotal();
 			formatoFormulario(periodo);
+			recalcularTotal();
+			cargarExtraordinario();
 		}
 	
 		function formatoFormulario(periodo){
@@ -161,12 +172,11 @@
 				clase = "hide";
 				colum = 4;
 				mensaje = "";
-			}
-			
+			}		
 			document.getElementById("alicuota").className = clase;
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
-				nombrealic = "alic"+cuil;
+				nombrealic = "alicTd"+cuil;
 				document.getElementById(nombrealic).className = clase;
 			{% endfor %}
 			document.getElementById("totalic").className = clase;
@@ -177,14 +187,69 @@
    			fila[3].colSpan=colum;
 			document.getElementById("totalgeneral").className = clase;
 		}
+		
+		function cargarExtraordinario() {
+			periodo = document.getElementById("mes").value;
+			anio = document.getElementById("anio").value;
+			if (periodo > 12) {
+				{% for extra in extraordinario %}
+					var extraanio = "{{ extra.anio }}";
+					var extrames = "{{ extra.mes }}";
+					if (extraanio == anio && extrames == periodo) {
+						tipoextra = "{{ extra.tipo }}";
+						valorextra = "{{ extra.valor }}";
+						retiene060 = "{{ extra.retiene060 }}";
+						retiene100 = "{{ extra.retiene100 }}";
+						retiene150 = "{{ extra.retiene150 }}";
+						if (tipoextra == 0) {
+							cargarFijo(valorextra);
+						}
+					}
+				{% endfor %}
+			}
+		}
+		
+		function cargarFijo(valorextra) {
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				valorextra = parseFloat(valorextra).toFixed(2);
+				document.getElementById(nombreRemu).value = valorextra;
+				CalcularPorcentajes(valorextra,cuil);
+				document.getElementById(nombreRemu).readOnly = true;
+				formatoFormulario(0);
+			{% endfor %}
+		}
 	
 		function CalcularPorcentajes(remu, cuil){ 
+			periodo = document.getElementById("mes").value;
+			if (periodo > 12) {
+				if (tipoextra == 1) {
+					var nombreali = "alic"+cuil;
+					remu = (parseFloat(remu) * parseFloat(valorextra)).toFixed(2);
+					document.getElementById(nombreali).value = remu;
+				}
+			}
 			
+			var por6  = 0;
+			var por1  = 0;
+			var por15 = 0;
+			if (retiene060 == 1) {
+				por6 = (remu * 0.006).toFixed(2);
+			} else {
+				por6 = 0.0;
+			}
+			if (retiene100 == 1) {
+				por1 = (remu * 0.01).toFixed(2);
+			} else  {
+				por1 = 0.0
+			}
+			if (retiene150 == 1) {
+				por15 = (remu * 0.015).toFixed(2);
+			} else {
+				por15 = 0.0;
+			}
 			
-			
-			var por6 = (remu * 0.006).toFixed(2);
-			var por1 = (remu * 0.01).toFixed(2);
-			var por15 = (remu * 0.015).toFixed(2);
 			var totemp = (parseFloat(por6) + parseFloat(por1) + parseFloat(por15)).toFixed(2);
 			var nombrePor6 = "por6"+cuil;
 			var nombrePor1 = "por1"+cuil;
@@ -252,7 +317,7 @@
 		}
 		
 		function recalcularTotal(){
-			var total = document.getElementById("totrem").value;
+			var total = document.getElementById("total").value;
 			var recargo = document.getElementById("recargo").value;
 			if (recargo == "") {
 				recargo = 0;
@@ -262,8 +327,6 @@
 		}
 		
 		$(function(){
-			/*$("#activos").tablesorter({widgets:['zebra'], headers:{3:{sorter:false},4:{sorter:false},5:{sorter:false},6:{sorter:false}}});
-			$("#inactivos").tablesorter({widgets:['zebra'], headers:{3:{sorter:false},4:{sorter:false},5:{sorter:false},6:{sorter:false}}});*/
 			$('#nuevaDDJJ').validate({
 				submitHandler: function(){
 					form.submit();  

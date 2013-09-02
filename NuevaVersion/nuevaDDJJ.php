@@ -70,6 +70,6 @@
 	}
 
 	// Cargo la plantilla
-	$twig->display('nuevaDDJJ.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "empleadosActivos" => $activos, "empleadosBaja" => $baja, "anios"=> $anios, 'meses' => $meses. 'extra' => $extraordinarios));
+	$twig->display('nuevaDDJJ.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "empleadosActivos" => $activos, "empleadosBaja" => $baja, "anios"=> $anios, 'meses' => $meses, 'extraordinario' => $extraordinarios));
 
 ?>
