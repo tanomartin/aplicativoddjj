@@ -12,12 +12,14 @@ $nrcuit = $_SESSION['userCuit'];
 //*******************************************************************//
 //********************* SIN DOCU **************************************//
 //*******************************************************************//
-$consultaDDJJ = "SELECT ddjj.nrctrl, periodos.descripcion, ddjj.perano, ddjj.totapo FROM ddjj, periodos where ddjj.nrcuit = $nrcuit and ddjj.nrcuil = '99999999999' and periodos.mes = ddjj.permes and periodos.anio = ddjj.perano order by ddjj.nrctrl DESC limit 6";
+$consultaDDJJ = "SELECT ddjj.nrctrl, periodos.descripcion, ddjj.perano, ddjj.totapo, ddjj.recarg FROM ddjj, periodos where ddjj.nrcuit = $nrcuit and ddjj.nrcuil = '99999999999' and periodos.mes = ddjj.permes and periodos.anio = ddjj.perano order by ddjj.nrctrl DESC limit 6";
 if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
     $sentencia->execute();
-    $sentencia->bind_result($control, $mes, $perano, $totapo);
+    $sentencia->bind_result($control, $mes, $perano, $totapo, $recargo);
 	$i = 0;
 	while ($sentencia->fetch()) {
+		$totapo = $totapo + $recargo;
+		$totapo = number_format($totapo,2,',','.');
 		$ddjjsindocu[$i] = array('control' => $control, 'permes' => $mes, 'perano' => $perano, 'totapo' => $totapo);
 		$i = $i + 1;
    	}
@@ -30,7 +32,7 @@ if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
 //*******************************************************************//
 $consultaDDJJconDocu = "
 SELECT 
-ddjjcondocu.nrctrl, periodos.descripcion, ddjjcondocu.perano, ddjjcondocu.totapo , ddjjcondocu.instrumento
+ddjjcondocu.nrctrl, periodos.descripcion, ddjjcondocu.perano, ddjjcondocu.totapo, ddjjcondocu.recarg, ddjjcondocu.instrumento
 FROM 
 ddjjcondocu, periodos 
 WHERE 
@@ -42,9 +44,11 @@ order by ddjjcondocu.nrctrl DESC limit 6";
 
 if ($sentencia = $mysqli->prepare($consultaDDJJconDocu)) {
     $sentencia->execute();
-    $sentencia->bind_result($control, $mes, $perano, $totapo, $documento);
+    $sentencia->bind_result($control, $mes, $perano, $totapo, $recargo, $documento);
 	$i = 0;
 	while ($sentencia->fetch()) {
+		$totapo = $totapo + $recargo;
+		$totapo = number_format($totapo,2,',','.');
 		$ddjjcondocu[$i] = array('control' => $control, 'permes' => $mes, 'perano' => $perano, 'totapo' => $totapo, 'instrumento' => $documento);
 		$i = $i + 1;
    	}
@@ -70,7 +74,7 @@ for($i=0; $i < sizeof($ddjjcondocu); $i++) {
 //*******************************************************************//
 $consultaValidas = "
 SELECT 
-validas.nrctrl, periodos.descripcion, validas.perano, validas.totapo , validas.instrumento
+validas.nrctrl, periodos.descripcion, validas.perano, validas.totapo , validas.recarg ,validas.instrumento
 FROM 
 validas, periodos 
 WHERE 
@@ -84,9 +88,11 @@ order by validas.nrctrl DESC limit 6";
 
 if ($sentencia = $mysqli->prepare($consultaValidas)) {
     $sentencia->execute();
-    $sentencia->bind_result($control, $mes, $perano, $totapo, $documento);
+    $sentencia->bind_result($control, $mes, $perano, $totapo, $recargo, $documento);
 	$i = 0;
 	while ($sentencia->fetch()) {
+		$totapo = $totapo + $recargo;
+		$totapo = number_format($totapo,2,',','.');
 		$ddjjvalidas[$i] = array('control' => $control, 'permes' => $mes, 'perano' => $perano, 'totapo' => $totapo, 'instrumento' => $documento);
 		$i = $i + 1;
    	}

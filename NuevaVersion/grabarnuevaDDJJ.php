@@ -2,7 +2,6 @@
 session_start();
 include('lib/php/verificaSesion.php');
 include('lib/php/verificaConexion.php');
-include('lib/php/funciones.php');
 
 $nrcuit = $_SESSION['userCuit'];
 //echo $nrcuit;echo "<br>";
