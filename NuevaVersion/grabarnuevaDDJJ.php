@@ -61,6 +61,9 @@ try {
 			$alicuo = $datos[$i];
 			$i++;
 			//echo "Alicuo: ".$alicuo;echo "<br>";
+			if ($alicuo != 0) {
+				$remune = $alicuo;
+			}
 			
 			$apo060 = $datos[$i];
 			$i++;
