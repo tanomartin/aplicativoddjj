@@ -34,7 +34,7 @@
 			<legend> Remuneraci&oacute;n Empleados </legend>
 			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
 			{% if empleadosActivos|length > 0 %}
-			<table name="activos" id="activos" class="table table-striped table-condensed">
+			<table id="activos" class="table table-striped table-condensed">
 			  <thead>
 				<tr>
 				  <th><div align="center">CUIL</div></th>
@@ -145,7 +145,6 @@
 		var retiene150 = 1;
 		
 		function formReset(periodo) {
-			cargarExtraordinario();
 			var nombreRemu;
 			var spanRemu;
 			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
@@ -161,8 +160,10 @@
 			{% endfor %}
 			document.getElementById("recargo").value = "";
 			formatoFormulario(periodo);
+			cargarExtraordinario();
 			recalcularSubTotales();
 			recalcularTotal();
+			
 		}
 	
 		function formatoFormulario(periodo){
