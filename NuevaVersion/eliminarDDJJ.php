@@ -7,6 +7,7 @@ $nrcuit = $_SESSION['userCuit'];
 $nrcontrol = $_GET['control'];
 
 $sql = "DELETE from ddjj where nrcuit = ? and nrctrl = ?";
+$sqlInactivos = "DELETE from inactivos where nrcuit = ? and nrctrl = ?";
 
 try {
 	if ($stmt = $mysqli->prepare($sql)) {
@@ -14,9 +15,15 @@ try {
 		$stmt->execute();
 		//print($stmt->error);echo "<br>";
 		$stmt->close();
-		$pagina = "opcionesDDJJ.php";
-		Header("Location: $pagina"); 
-	}
+		if ($stmt = $mysqli->prepare($sqlInactivos)) {
+			$stmt->bind_param('ss', $nrcuit, $nrcontrol);
+			$stmt->execute();
+			//print($stmt->error);echo "<br>";
+			$stmt->close();
+			$pagina = "opcionesDDJJ.php";
+			Header("Location: $pagina"); 
+		} 
+	} 
 } 
 catch(Exception $e){
     $mysqli->rollback();

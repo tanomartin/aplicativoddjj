@@ -54,7 +54,7 @@
 			   <tbody>					
 				{% for empleado in empleadosActivos %}
 					<tr>
-						<td><input type="text" style="width: 80px" id="activo{{empleado.nrcuil}}" style="text-align:right" name="activo{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly/></td>
+						<td><input type="text" id="activo{{empleado.nrcuil}}" name="activo{{empleado.nrcuil}}" style="width: 80px; text-align:right" value="{{ empleado.nrcuil }}" readonly/></td>
 						<td>{{ empleado.apeynombre }}</td>
 						<td>{{ empleado.tipoydoc }}</td>
 						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" name="remu{{empleado.nrcuil}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
@@ -113,7 +113,7 @@
 			   <tbody>	
 				{% for empleado in empleadosBaja %}
 					<tr>
-					  <td><input type="text" style="width: 80px" id="baja{{empleado.nrcuil}}" style="text-align:right" name="baja{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly/></td>
+					  <td><input type="text" id="baja{{empleado.nrcuil}}" style="width: 80px; text-align:right" name="baja{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly /></td>
 					  <td>{{ empleado.apeynombre }}</td>
 					  <td>{{ empleado.tipoydoc }}</td>
 					  <td><input type="text" id="motivo{{empleado.nrcuil}}" name="motivo{{empleado.nrcuil}}" class="span4"/></td>

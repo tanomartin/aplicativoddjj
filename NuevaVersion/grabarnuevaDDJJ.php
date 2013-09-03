@@ -45,7 +45,7 @@ $finBaja = $inicioBaja + $baja * 2;
 
 //Ejecucion de la sentencia SQL
 $sql = "INSERT INTO ddjj (nrcuit,nrcuil,permes,perano,remune,apo060,apo100,apo150,totapo,recarg,nfilas,nrctrl,observ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-$sqlInac = "INSERT INTO inactivos (nrcuit,nrcuil,permes,perano,motivo) VALUES (?,?,?,?,?)";
+$sqlInac = "INSERT INTO inactivos (nrcuit,nrcuil,permes,perano,motivo,nrctrl) VALUES (?,?,?,?,?,?)";
 
 try {
 	if ($stmt = $mysqli->prepare($sql)) {
@@ -108,7 +108,7 @@ try {
 				$motivo = $datos[$i];
 				//echo "MOTIVO: ".$motivo;echo "<br>";
 				
-				$stmt->bind_param('ssiis', $nrcuit, $nrcuil, $permes, $perano, $motivo);
+				$stmt->bind_param('ssiiss', $nrcuit, $nrcuil, $permes, $perano, $motivo, $nrctrl);
 				$stmt->execute();
 				//print($stmt->error);echo "<br>";
 			}
