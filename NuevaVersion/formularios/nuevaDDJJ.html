@@ -41,7 +41,7 @@
 				  <th><div align="center">Apellido y Nombre</div></th>
 				  <th><div align="center">Documento</div></th>
 				  <th><div align="center">Remuneracion</div></th>
-				  <th id="alicuota" class="hide"><div align="center">Alicuota</div></th>
+				  <th id="thalicuota" class="hide"><div align="center">Alicuota</div></th>
 				  <th><div align="center">Art.32 <br /> 
 				  0,6%</div></th>
 				  <th><div align="center">Art.32 <br /> 
@@ -72,7 +72,7 @@
 					<td></td>
 					<td valign="bottom"><div align="right"><strong>Totales</strong></div></td>
 					<td><input type="text" id="totrem" style="text-align:right" name="totrem" class="span2" readonly/></td>
-					<td class="hide" id="totalic"><input type="text" id="totalic" style="text-align:right" name="totalic" class="span1" readonly/></td>
+					<td class="hide" id="tdtotalic"><input type="text" id="totalic" style="text-align:right" name="totalic" class="span1" readonly/></td>
 					<td><input type="text" id="tot6" style="text-align:right" name="tot6" class="span1" readonly/></td>
 					<td><input type="text" id="tot1" style="text-align:right" name="tot1" class="span1" readonly/></td>
 					<td><input type="text" id="tot15" style="text-align:right" name="tot15" class="span1" readonly/></td>
@@ -145,6 +145,7 @@
 		var retiene150 = 1;
 		
 		function formReset(periodo) {
+			cargarExtraordinario();
 			var nombreRemu;
 			var spanRemu;
 			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
@@ -152,15 +153,16 @@
 				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				spanRemu = "spanremu"+cuil;
-				document.getElementById(nombreRemu).value = "";
+				var defaultRemu = 0.0
+				document.getElementById(nombreRemu).value = parseFloat(defaultRemu).toFixed(2);
 				document.getElementById(spanRemu).innerHTML = "";
 				document.getElementById(nombreRemu).readOnly = false;
-				CalcularPorcentajes(0,cuil);
+				CalcularPorcentajes(defaultRemu,cuil);
 			{% endfor %}
 			document.getElementById("recargo").value = "";
 			formatoFormulario(periodo);
+			recalcularSubTotales();
 			recalcularTotal();
-			cargarExtraordinario();
 		}
 	
 		function formatoFormulario(periodo){
@@ -173,13 +175,13 @@
 				colum = 4;
 				mensaje = "";
 			}		
-			document.getElementById("alicuota").className = clase;
+			document.getElementById("thalicuota").className = clase;
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
 				nombrealic = "alicTd"+cuil;
 				document.getElementById(nombrealic).className = clase;
 			{% endfor %}
-			document.getElementById("totalic").className = clase;
+			document.getElementById("tdtotalic").className = clase;
 			document.getElementById("mensajeNoRem").innerHTML = mensaje;
 			
 			var numFila = parseInt({{ empleadosActivos|length }}) + 2;
@@ -265,6 +267,7 @@
 
 		function recalcularSubTotales(){
 			var nombreRemu;
+			var nombreAlic;
 			var nombrePor6;
 			var nombrePor1;
 			var nombrePor15;
@@ -274,9 +277,12 @@
 			var totPor15 = 0; 
 			var totEmp = 0;
 			var totRem = 0;
+			var totAli = 0;
+			
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
+				nombreAlic = "alic"+cuil;
 				nombrePor6 = "por6"+cuil;
 				nombrePor1 = "por1"+cuil;
 				nombrePor15 = "por15"+cuil;
@@ -284,32 +290,37 @@
 				
 				var remu = document.getElementById(nombreRemu).value;
 				if (remu != "") {
-					totRem = (parseFloat(totRem) + parseFloat(remu)).toFixed(2);;
+					totRem = (parseFloat(totRem) + parseFloat(remu)).toFixed(2);
+				}
+				
+				var alic = document.getElementById(nombreAlic).value;
+				if (alic != "") {
+					totAli = (parseFloat(totAli) + parseFloat(alic)).toFixed(2);
 				}
 				
 				var por6 = document.getElementById(nombrePor6).value;
 				if (por6 != "") {
-					totPor6 = (parseFloat(totPor6) + parseFloat(por6)).toFixed(2);;
+					totPor6 = (parseFloat(totPor6) + parseFloat(por6)).toFixed(2);
 				}
 				
 				var por1 = document.getElementById(nombrePor1).value;
 				if (por1 != "") {
-					totPor1 = (parseFloat(totPor1) + parseFloat(por1)).toFixed(2);;
+					totPor1 = (parseFloat(totPor1) + parseFloat(por1)).toFixed(2);
 				}
 				
 				var por15 = document.getElementById(nombrePor15).value;
 				if (por15 != "") {
-					totPor15 = (parseFloat(totPor15) + parseFloat(por15)).toFixed(2);;
+					totPor15 = (parseFloat(totPor15) + parseFloat(por15)).toFixed(2);
 				}
 				
 				var emple = document.getElementById(nombreTotEmp).value;
 				if (emple != "") {
-					totEmp = (parseFloat(totEmp) + parseFloat(emple)).toFixed(2);;
+					totEmp = (parseFloat(totEmp) + parseFloat(emple)).toFixed(2);
 				}
-				
 				
 			{% endfor %}
 			document.getElementById("totrem").value = totRem;	
+			document.getElementById("totalic").value = totAli;	
 			document.getElementById("tot6").value = totPor6;	
 			document.getElementById("tot1").value = totPor1;
 			document.getElementById("tot15").value = totPor15;
