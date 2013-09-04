@@ -66,7 +66,7 @@
 			</p>
 			<label for="provincia">Estado Civil</label>
 			<span></span>
-				<select id="provincia" name="provincia" class="input-xlarge {required:true}">	
+				<select id="estado" name="estado" class="input-xlarge {required:true}">	
 				{% for estado in estados %}
 					{% if estado.codigo == empleado.estado  %}
 						<option value="{{ estado.codigo }}" selected="selected">{{ estado.descri }}</option>
