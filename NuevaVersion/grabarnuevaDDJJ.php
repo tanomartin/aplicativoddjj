@@ -26,6 +26,9 @@ $limiteActivos = 2 + $activo * 7;
 
 $totalRemu = $datos[$limiteActivos];
 $totalAlic = $datos[$limiteActivos+1];
+if ($totalRemu == 0) {
+	$totalRemu = $totalAlic;
+}
 $total060 = $datos[$limiteActivos+2];
 $total100 = $datos[$limiteActivos+3];
 $total150 = $datos[$limiteActivos+4];
@@ -92,9 +95,6 @@ try {
 			$stmt->bind_param('ssiiddddddiss', $nrcuit, $nrcuil, $permes, $perano, $remune, $apo060, $apo100, $apo150, $totapo, $recarg, $nfilas, $nrctrl, $observ);
 			$stmt->execute();
 			//print($stmt->error);echo "<br>";
-		}
-		if ($totalRemu == 0) {
-			$totalRemu = $totalAlic;
 		}
 		
 		$nrcuil = '999999999999';	

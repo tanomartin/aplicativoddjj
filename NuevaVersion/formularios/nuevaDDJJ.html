@@ -10,7 +10,7 @@
 	  <h1>Nuneva DDJJ</h1>
   </div>
 	 <div class="hero-unit" style="font-size:14px">
-		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" action="grabarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}">
+		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" onSubmit="return MsgWait()" action="grabarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}">
 			<legend> Seleccione Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
@@ -121,6 +121,8 @@
 				{% endfor %}
 			   </tbody>	
 	  		</table>
+			{% else %}
+				<h4> No hay empleados de inactivos actulamente </h4>
 			{% endif %}
 	  <p><button id="guardar" name="guardar" type="submit" class="btn btn-primary">Generar Nueva DDJJ</button></p>
 	  </form>
@@ -137,12 +139,18 @@
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.tablesorter.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.metadata.js"></script>
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
+	<script type="text/javascript" src="lib/js/jquery.blockUI.js"></script>
 	<script>
 		var valorextra = 0;
 		var tipoextra = 0;
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
+		
+		function MsgWait() {
+			$.blockUI({ message: "<h1>Grabando DDJJ <br> Puede demorar unos minutos.</h1>" });
+			return true;
+		}
 		
 		function formReset(periodo) {
 			var nombreRemu;

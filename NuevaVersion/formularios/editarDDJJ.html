@@ -10,7 +10,7 @@
 	  <h1>Nuneva DDJJ</h1>
   </div>
 	 <div class="hero-unit" style="font-size:14px">
-		<form id="editarDDJJ" name="editarDDJJ"  method="post" action="grabaredicionDDJJ.php?activo={{ddjj|length}}&baja={{ddjjinactivos|length}}">
+		<form id="editarDDJJ" name="editarDDJJ" onSubmit="return MsgWait()" method="post" action="grabaredicionDDJJ.php?ddjjactivo={{ddjj|length}}&ddjjbaja={{ddjjinactivos|length}}&periodo={{total.permes}}">
 			<legend> Seleccione Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
@@ -98,6 +98,7 @@
 			
 			
 			<legend style="color:#FF0000">Inactivos ({{ ddjjinactivos|length }})</legend>
+			{% if ddjjinactivos|length > 0 %} 
 			<table id="inactivos" class="table table-striped">
 			  <thead>
 				<tr>
@@ -118,7 +119,10 @@
 				{% endfor %}
 			   </tbody>	
 	  		</table>
-	  <p><button id="guardar" name="guardar" type="submit" class="btn btn-primary">Generar Nueva DDJJ</button></p>
+			{% else %}
+				<h4> No hay empleados de inactivos en esta declaraci&oacute;n jurada </h4>
+			{% endif %}
+	  <p><button id="modificar" name="modificar" type="submit" class="btn btn-primary">Modificar DDJJ</button></p>
 	  </form>
 	</div>
 </section>
@@ -133,6 +137,7 @@
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.tablesorter.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.metadata.js"></script>
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
+	<script type="text/javascript" src="lib/js/jquery.blockUI.js"></script>
 	<script>
 		var valorextra = 0;
 		var tipoextra = 0;
@@ -140,6 +145,10 @@
 		var retiene100 = 1;
 		var retiene150 = 1;
 		
+		function MsgWait() {
+			$.blockUI({ message: "<h1>Modificando DDJJ <br> Puede demorar unos minutos.</h1>" });
+			return true;
+		}
 		
 		function formFull(periodo) {
 			formatoFormulario(periodo);
@@ -184,8 +193,8 @@
 				var cuil = "{{dj.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				nombrealic = "alic"+cuil;
-				var remune =  parseFloat({{dj.remune}}).toFixed(2) / parseFloat(valorextra);
-				document.getElementById(nombreRemu).value = remune;
+				var remune =  parseFloat({{dj.remune}}) / parseFloat(valorextra);
+				document.getElementById(nombreRemu).value = remune.toFixed(2);
 				document.getElementById(nombrealic).value = parseFloat({{dj.remune}}).toFixed(2);
 				CalcularPorcentajes(remune, cuil);
 			{% endfor %}
