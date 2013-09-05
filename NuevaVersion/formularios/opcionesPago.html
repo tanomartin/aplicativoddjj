@@ -1,0 +1,85 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Pagar DDJJ</h1>
+	</div>
+
+	<section class="row-fluid">   
+		<div class="well well-small">
+			{% if ddjjsindocu|length > 0 %}
+				<section class="row-fluid">   
+					<div class="well well-small">
+						<h2 align="center">Seleccionar Instrumento de Pago</h2>		
+						<fieldset id="botonera" style="text-align:center;">
+						<button class="btn btn-primary btn-info" type="button" id="botonBoleta">Boleta de Deposito</button>
+						<button class="btn btn-primary btn-info" type="button" id="botonTransferencia">Transferencia Bancaria</button>
+						</fieldset>
+					</div>
+				</section>
+				<form id="cuerpoDDJJ" name="cuerpoDDJJ" class="hide" method="post" action="confirmarPago.php">
+					<table id="ddjjsindocu" class="table">
+					  <thead>
+						<tr>
+						  <th>A&ntilde;o</th>
+						  <th>Mes</th>
+						  <th>Total</th>
+						  <th>Seleccionar</th>
+						</tr>
+					  </thead>
+					   <tbody>					
+						{% for ddjjsdocu in ddjjsindocu %}
+							<tr>
+							  <td>{{ ddjjsdocu.perano }}</td>
+							  <td>{{ ddjjsdocu.permes }}</td>
+							  <td>{{ ddjjsdocu.totapo }}</td>
+							  <td><input id="checkPago[]" name="checkPago[]" type="checkbox" value="{{ ddjjsdocu.control }}" onClick="javascript:controlSeleccion()"/></td>
+							</tr>
+						{% endfor %}
+					   </tbody>	
+					</table>
+					<legend></legend>
+					<p><button id="confirmar" name="confirmar" type="submit" class="btn btn-primary">Confirmar Pago</button>
+					   <input id="tipoPago" name="tipoPago" type="text" value="" class="span1"/>
+					</p>
+				</form>
+			{% else %}
+				<legend><h2 align="center">No hay Declaraciones Juradas pendientes de pago</h2></legend>
+			{% endif %}	
+		</div>
+	</section>
+</section>
+{% endblock %}
+{% block javaScripts %}
+<script type="text/javascript">
+	$(function(){
+		$('body').on('click','#botonBoleta',function() {
+			//alert("Toco Boleta");
+			//var iteraccion = "{{ ddjjsindocu|length}}";
+			//alert(iteraccion);
+			$('#cuerpoDDJJ').removeClass('hide');
+			$("#tipoPago").val("B");
+			//$('#checkPago').addClass('hide');
+		});
+
+		$('body').on('click','#botonTransferencia',function() {
+			//alert("Toco Transferencia");
+			//var iteraccion = "{{ ddjjsindocu|length}}";
+			//alert(iteraccion);
+			$('#cuerpoDDJJ').removeClass('hide');
+			$("#tipoPago").val("T");
+			//$('#checkPago').removeClass('hide');
+		});
+	});
+
+	function controlSeleccion() {
+		var contenido = document.getElementById("checkPago[]").value;
+		//alert(contenido);
+	}
+</script>
+{% endblock %}

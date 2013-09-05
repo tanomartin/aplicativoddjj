@@ -1,0 +1,29 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Confirmacion del Pago </h1>
+	</div>
+	<section class="row-fluid">   
+		<div class="well well-small">
+			<section class="row-fluid">   
+				<div class="well well-small">
+					<h2 align="center">Detalles del Pago</h2>		
+				</div>
+			</section>
+				<legend></legend>
+				{% if tipoPago == B %}
+					<p><button id="generar" name="generar" type="submit" class="btn btn-primary">Generar Boleta de Deposito</button></p>
+				{% endif %}
+				{% if tipoPago == T %}
+					<p><button id="generar" name="generar" type="submit" class="btn btn-primary">Generar Ticket de Transferencia</button></p>
+				{% endif %}
+		</div>
+	</section>
+</section>
+{% endblock %}
