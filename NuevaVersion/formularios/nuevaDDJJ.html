@@ -98,6 +98,8 @@
 				</tr>
 			   </tbody>	
 	  		</table>
+			{% else %}
+				<h4> No hay empleados de activos actulamente </h4>
 			{% endif %}
 			<legend style="color:#FF0000">Inactivos ({{ empleadosBaja|length }})</legend>
 			{% if empleadosBaja|length > 0 %}
