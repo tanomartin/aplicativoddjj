@@ -184,14 +184,14 @@
 						if (tipoextra == 0) {
 							cargarFijo(valorextra);
 						} else {
-							cargarRemu();
+							cargarRemuDeAlicuota();
 						}
 					}
 				{% endfor %}
 			}
 		}
 		
-		function cargarRemu() {
+		function cargarRemuDeAlicuota() {
 			{% for dj in ddjj %}
 				var cuil = "{{dj.nrcuil}}";
 				nombreRemu = "remu"+cuil;
@@ -203,11 +203,23 @@
 			{% endfor %}
 		}
 		
+		function cargarFijo(valorextra) {
+			{% for dj in ddjj %}
+				var cuil = "{{dj.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				valorextra = parseFloat(valorextra).toFixed(2);
+				document.getElementById(nombreRemu).value = valorextra;
+				CalcularPorcentajes(valorextra,cuil);
+				document.getElementById(nombreRemu).readOnly = true;
+				formatoFormulario(0);
+			{% endfor %}
+		}
+		
 		function formatoFormulario(periodo){
 			var nombrealic;
 			var clase = "";
 			var colum = 5;
-			var mensaje = "HAY QUE HBLAR CON LU PARA VER QUE PONEMOS";
+			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
 			if (periodo <= 12) {
 				clase = "hide";
 				colum = 4;
@@ -228,18 +240,6 @@
 			var fila=document.getElementById("activos").rows[numFila].cells
    			fila[3].colSpan=colum;
 			document.getElementById("totalgeneral").className = clase;
-		}
-		
-		function cargarFijo(valorextra) {
-			{% for dj in ddjj %}
-				var cuil = "{{dj.nrcuil}}";
-				nombreRemu = "remu"+cuil;
-				valorextra = parseFloat(valorextra).toFixed(2);
-				document.getElementById(nombreRemu).value = valorextra;
-				CalcularPorcentajes(valorextra,cuil);
-				document.getElementById(nombreRemu).readOnly = true;
-				formatoFormulario(0);
-			{% endfor %}
 		}
 		
 		function CalcularPorcentajes(remu, cuil){ 

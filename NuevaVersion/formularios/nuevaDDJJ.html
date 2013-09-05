@@ -57,9 +57,9 @@
 						<td><input type="text" id="activo{{empleado.nrcuil}}" name="activo{{empleado.nrcuil}}" style="width: 80px; text-align:right" value="{{ empleado.nrcuil }}" readonly/></td>
 						<td>{{ empleado.apeynombre }}</td>
 						<td>{{ empleado.tipoydoc }}</td>
-						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" name="remu{{empleado.nrcuil}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
+						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" value="0.00" name="remu{{empleado.nrcuil}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
 						<td class="hide" id="alicTd{{empleado.nrcuil}}">
-							<input type="text" id="alic{{empleado.nrcuil}}" style="text-align:right" name="alic{{empleado.nrcuil}}" class="span1" readonly/>
+							<input type="text" id="alic{{empleado.nrcuil}}" style="text-align:right" name="alic{{empleado.nrcuil}}" value="0.00" class="span1" readonly/>
 						</td>
 						<td><input type="text" id="por6{{empleado.nrcuil}}" style="text-align:right" name="por6{{empleado.nrcuil}}" class="span1" readonly/></td>
 						<td><input type="text" id="por1{{empleado.nrcuil}}" style="text-align:right" name="por1{{empleado.nrcuil}}" class="span1" readonly/></td>
@@ -162,13 +162,19 @@
 				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				spanRemu = "spanremu"+cuil;
+				
 				var defaultRemu = 0.0
 				document.getElementById(nombreRemu).value = parseFloat(defaultRemu).toFixed(2);
+				nominputalic = "alic"+cuil;
+				var defaultAlic = 0.0
+				document.getElementById(nominputalic).value = parseFloat(defaultAlic).toFixed(2);
+				
 				document.getElementById(spanRemu).innerHTML = "";
 				document.getElementById(nombreRemu).readOnly = false;
 				CalcularPorcentajes(defaultRemu,cuil);
 			{% endfor %}
-			document.getElementById("recargo").value = "";
+			var defaultRecarg = 0.0
+			document.getElementById("recargo").value = parseFloat(defaultRecarg).toFixed(2);
 			formatoFormulario(periodo);
 			cargarExtraordinario();
 			recalcularSubTotales();
@@ -180,12 +186,13 @@
 			var nombrealic;
 			var clase = "";
 			var colum = 5;
-			var mensaje = "HAY QUE HBLAR CON LU PARA VER QUE PONEMOS";
+			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
 			if (periodo <= 12) {
 				clase = "hide";
 				colum = 4;
 				mensaje = "";
-			}		
+			}	
+				
 			document.getElementById("thalicuota").className = clase;
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
