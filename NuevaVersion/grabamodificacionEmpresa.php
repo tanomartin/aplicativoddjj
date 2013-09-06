@@ -15,7 +15,6 @@ $copole = strtoupper($datos [4]);
 $telfon = $datos [5];
 $emails = $datos [6];
 $activi = $datos [7];
-$fecini = fechaParaGuardar($datos [8]);
 
 //Ejecucion de la sentencia SQL
 $sqlActualizaPerfil = "update empresa set 
@@ -26,14 +25,13 @@ provin = ?,
 copole = ?,
 telfon = ?,
 emails = ?,
-activi = ?,
-fecini = ?
+activi = ?
 where nrcuit = ?";
 
 
 try {
 	if ($stmt = $mysqli->prepare($sqlActualizaPerfil)) {
-		$stmt->bind_param('ssssssssss', $nombre, $domile, $locali, $provin, $copole, $telfon, $emails, $activi, $fecini, $nrcuit);
+		$stmt->bind_param('sssssssss', $nombre, $domile, $locali, $provin, $copole, $telfon, $emails, $activi, $nrcuit);
 		$stmt->execute();
 		$stmt->close();
 		$pagina = "perfilEmpresa.php";

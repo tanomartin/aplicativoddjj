@@ -10,7 +10,7 @@
 	  <h1>Nuneva DDJJ</h1>
   </div>
 	 <div class="hero-unit" style="font-size:14px">
-		<form id="editarDDJJ" name="editarDDJJ" onSubmit="return MsgWait()" method="post" action="grabaredicionDDJJ.php?ddjjactivo={{ddjj|length}}&ddjjbaja={{ddjjinactivos|length}}&periodo={{total.permes}}">
+		<form id="editarDDJJ" name="editarDDJJ" method="post" action="grabaredicionDDJJ.php?ddjjactivo={{ddjj|length}}&ddjjbaja={{ddjjinactivos|length}}&periodo={{total.permes}}">
 			<legend> Seleccione Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
@@ -52,7 +52,7 @@
 						<td>{{ dj.tipoydoc }}</td>
 						<td>
 							<span></span>
-							<input type="text" id="remu{{dj.nrcuil}}" name="remu{{dj.nrcuil}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{dj.nrcuil}});"/>
+							<input type="text" id="remu{{dj.nrcuil}}" name="remu{{dj.nrcuil}}" class="{number:true, required:true, min: 0} span2" onchange="CalcularPorcentajes(this.value, {{dj.nrcuil}});"/>
 						</td>
 						<td class="hide" id="alicTd{{dj.nrcuil}}">
 							<input type="text" id="alic{{dj.nrcuil}}" style="text-align:right" name="alic{{dj.nrcuil}}" class="span1" readonly/>
@@ -81,7 +81,7 @@
 					<td></td>
 					<td valign="bottom"><div align="right"><strong>Recargo</strong></div></td>
 					<td colspan="4"><input type="text" id="motRec" name="motRec" class="span5" value="{{total.observ}}" placeholder="Motivo del Recargo" /></td>
-					<td><span></span><input type="text" id="recargo" name="recargo" placeholder="Importe" value="{{total.recarg}}" class="{number:true} span1" onchange="recalcularTotal();"/></td>
+					<td><span></span><input type="text" id="recargo" name="recargo" placeholder="Importe" value="{{total.recarg}}" class="{number:true, min: 0} span1" onchange="recalcularTotal();"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -92,7 +92,7 @@
 					<td></td>
 					<td id="totalgeneral" class="hide"></td>
 					<td valign="bottom"><div align="right"><strong>Total</strong></div></td>
-					<td><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
+					<td><span></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
 				</tr>
 			   </tbody>	
 	  		</table>
@@ -108,7 +108,7 @@
 				  <th><div align="center">CUIL</div></th>
 				  <th><div align="center">Apellido y Nombre</div></th>
 				  <th><div align="center">Documento</div></th>
-				  <th><div align="center">Motivo de Baja</div></th>
+				  <th><div align="center">Motivo de Inactividad</div></th>
 				</tr>
 			  </thead>
 			   <tbody>	
@@ -117,7 +117,7 @@
 					  <td><input type="text" id="baja{{djina.nrcuil}}" style="width: 80px; text-align:right" name="baja{{djina.nrcuil}}" value="{{ djina.nrcuil }}" readonly/></td>
 					  <td>{{ djina.apeynombre }}</td>
 					  <td>{{ djina.tipoydoc }}</td>
-					  <td><input type="text" id="motivo{{djina.nrcuil}}" name="motivo{{djina.nrcuil}}" value="{{djina.motivo}}" class="span4"/></td>
+					  <td><input type="text" id="motivo{{djina.nrcuil}}" name="motivo{{djina.nrcuil}}" value="{{djina.motivo}}" class="span6"/></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
@@ -147,6 +147,7 @@
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
+		var minimoBoleta = 50;
 		
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Modificando DDJJ <br> Puede demorar unos minutos.</h1>" });
@@ -155,6 +156,7 @@
 		
 		function formFull(periodo) {
 			formatoFormulario(periodo);
+			minimoBoleta = 50;
 			if (periodo > 12) {
 				cargarExtraordinario(periodo);
 			} else {
@@ -181,6 +183,7 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
+						minimoBoleta = minimoBoleta * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
 							cargarFijo(valorextra);
 						} else {
@@ -348,6 +351,9 @@
 		
 		function recalcularTotal(){
 			var total = document.getElementById("total").value;
+			if (total == "") {
+				total = 0;
+			}
 			var recargo = document.getElementById("recargo").value;
 			if (recargo == "") {
 				recargo = 0;
@@ -355,12 +361,27 @@
 			var totalGeneral = (parseFloat(total) + parseFloat(recargo)).toFixed(2);
 			document.getElementById("totalGeneral").value = totalGeneral;
 		}
+		
+		function superaMinimoBoleta(total) {
+			if (parseFloat(total) < parseFloat(minimoBoleta)) {
+				return false;
+			}
+			return true;
+		}
 	
+		$.validator.addMethod("superaminimo", superaMinimoBoleta);
 		$(function(){
 			formFull({{ total.permes }});
-		
+			
 			$('#editarDDJJ').validate({
+				rules: {
+            		totalGeneral: { superaminimo: true, required: true},
+        		},
+				messages: {
+            		totalGeneral: 'El total no supera el minimo estipulado para este periodo',
+        		},
 				submitHandler: function(){
+					MsgWait();
 					form.submit();  
 				},
 				errorPlacement: function(error, element){

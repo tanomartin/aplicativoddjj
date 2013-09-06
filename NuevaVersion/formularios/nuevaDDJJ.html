@@ -10,7 +10,7 @@
 	  <h1>Nueva DDJJ</h1>
   </div>
 	 <div class="hero-unit" style="font-size:14px">
-		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" onSubmit="return MsgWait()" action="grabarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}">
+		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" action="grabarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}">
 			<legend> Seleccione Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
@@ -57,7 +57,7 @@
 						<td><input type="text" id="activo{{empleado.nrcuil}}" name="activo{{empleado.nrcuil}}" style="width: 80px; text-align:right" value="{{ empleado.nrcuil }}" readonly/></td>
 						<td>{{ empleado.apeynombre }}</td>
 						<td>{{ empleado.tipoydoc }}</td>
-						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" value="0.00" name="remu{{empleado.nrcuil}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
+						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" value="0.00" name="remu{{empleado.nrcuil}}" class="{number:true, required:true, min: 0} span2" onchange="CalcularPorcentajes(this.value, {{empleado.nrcuil}});"/></td>
 						<td class="hide" id="alicTd{{empleado.nrcuil}}">
 							<input type="text" id="alic{{empleado.nrcuil}}" style="text-align:right" name="alic{{empleado.nrcuil}}" value="0.00" class="span1" readonly/>
 						</td>
@@ -83,7 +83,7 @@
 					<td></td>
 					<td valign="bottom"><div align="right"><strong>Recargo</strong></div></td>
 					<td colspan="4"><input type="text" id="motRec" name="motRec" class="span5" placeholder="Motivo del Recargo" /></td>
-					<td><span></span><input type="text" id="recargo" name="recargo" placeholder="Importe"  class="{number:true} span1" onchange="recalcularTotal();"/></td>
+					<td><span></span><input type="text" id="recargo" value="0.00" name="recargo" placeholder="Importe"  class="{number:true, min: 0} span1" onchange="recalcularTotal();"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -94,7 +94,7 @@
 					<td></td>
 					<td id="totalgeneral" class="hide"></td>
 					<td valign="bottom"><div align="right"><strong>Total</strong></div></td>
-					<td><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
+					<td><span></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
 				</tr>
 			   </tbody>	
 	  		</table>
@@ -109,7 +109,7 @@
 				  <th><div align="center">CUIL</div></th>
 				  <th><div align="center">Apellido y Nombre</div></th>
 				  <th><div align="center">Documento</div></th>
-				  <th><div align="center">Motivo de Baja</div></th>
+				  <th><div align="center">Motivo de Inactividad</div></th>
 				</tr>
 			  </thead>
 			   <tbody>	
@@ -118,7 +118,7 @@
 					  <td><input type="text" id="baja{{empleado.nrcuil}}" style="width: 80px; text-align:right" name="baja{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly /></td>
 					  <td>{{ empleado.apeynombre }}</td>
 					  <td>{{ empleado.tipoydoc }}</td>
-					  <td><input type="text" id="motivo{{empleado.nrcuil}}" name="motivo{{empleado.nrcuil}}" class="span4"/></td>
+					  <td><input type="text" id="motivo{{empleado.nrcuil}}" name="motivo{{empleado.nrcuil}}" class="span6"/></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
@@ -140,14 +140,15 @@
 	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.tablesorter.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.metadata.js"></script>
-	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script type="text/javascript" src="lib/js/jquery/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script>
 		var valorextra = 0;
 		var tipoextra = 0;
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
+		var minimoBoleta = 50;
 		
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando DDJJ <br> Puede demorar unos minutos.</h1>" });
@@ -157,6 +158,7 @@
 		function formReset(periodo) {
 			var nombreRemu;
 			var spanRemu;
+			minimoBoleta = 50;
 			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
@@ -221,6 +223,7 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
+						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
 							cargarFijo(valorextra);
 						}
@@ -347,6 +350,9 @@
 		
 		function recalcularTotal(){
 			var total = document.getElementById("total").value;
+			if (total == "") {
+				total = 0;
+			}
 			var recargo = document.getElementById("recargo").value;
 			if (recargo == "") {
 				recargo = 0;
@@ -355,9 +361,24 @@
 			document.getElementById("totalGeneral").value = totalGeneral;
 		}
 		
+		function superaMinimoBoleta(total) {
+			if (parseFloat(total) < parseFloat(minimoBoleta)) {
+				return false;
+			}
+			return true;
+		}
+		
+		$.validator.addMethod("superaminimo", superaMinimoBoleta);
 		$(function(){
 			$('#nuevaDDJJ').validate({
+				rules: {
+            		totalGeneral: { superaminimo: true, required: true},
+        		},
+				messages: {
+            		totalGeneral: 'El total no supera el minimo estipulado para este periodo',
+        		},
 				submitHandler: function(){
+					MsgWait();
 					form.submit();  
 				},
 				errorPlacement: function(error, element){

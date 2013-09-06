@@ -44,6 +44,7 @@
 			</fieldset>
 			<h3 style="margin-top:20px">Familiares ({{ familiares|length }})</h3>
 			<fieldset>
+			{% if familiares|length > 0 %}
 			<table class="table table-striped">
 			  <thead style="font-size:14px">
 				<tr>
@@ -72,6 +73,9 @@
 				{% endfor %}
 			   </tbody>	
 	  		</table>
+			{% else %}
+				<h4> No hay familiares cargados para este titular</h4>
+			{% endif %}
 			</fieldset>
 			<div clase="hero-unit">
 				<button id="editar" name="editar" class="btn btn-primary" onclick="location.href='modificarPerfilEmpleado.php?cuil={{ empleado.cuil }}'">Editar Perfil</button>
