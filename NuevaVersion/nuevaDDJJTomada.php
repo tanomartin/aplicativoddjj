@@ -142,6 +142,6 @@
 	//var_dump($ddjjTotalData);
 	
 	// Cargo la plantilla
-	$twig->display('nuevaDDJJTomada.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "activos" => $activos, "baja" => $baja, "anios"=> $anios, 'meses' => $meses, 'extraordinario' => $extraordinarios, 'permes' => $ddjjTotalData['permes'], 'perano' => $ddjjTotalData['perano']));
+	$twig->display('nuevaDDJJTomada.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "activos" => $activos, "baja" => $baja, "anios"=> $anios, 'meses' => $meses, 'permes' => $ddjjTotalData['permes'], 'perano' => $ddjjTotalData['perano']));
 
 ?>

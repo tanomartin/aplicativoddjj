@@ -98,7 +98,11 @@
 					  <td>{{ ddjjvalidas.permes }}</td>
 					  <td>{{ ddjjvalidas.totapo }}</td>
 					  <td>{{ ddjjvalidas.instrumento }}</td>
-					  <td><a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> <a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+					  <td>
+					  		{% if ddjjvalidas.mescod <= 12 %}
+					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> 
+							{% endif %}
+							<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	

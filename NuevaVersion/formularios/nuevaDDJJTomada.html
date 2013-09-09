@@ -24,7 +24,7 @@
 			   </td>
                 <td width="200"><label for="mes">Mes</label>
                 	<span></span>
-                  <select id="mes" name="mes" class="{required:true}" onchange="fullForm(document.forms.nuevaDDJJ.mes[selectedIndex].value, document.forms.nuevaDDJJ.anio.value);">
+                  <select id="mes" name="mes" class="{required:true}" >
                     <option value="">Seleccionar</option>
                   </select>
 				 </td>
@@ -59,10 +59,10 @@
 						<td>{{ activo.tipoydoc }}</td>
 						<td>
 							<span></span>
-							<input type="text" id="remu{{activo.nrcuil}}" name="remu{{activo.nrcuil}}" value="{{activo.remune}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{activo.nrcuil}}, document.forms.nuevaDDJJ.mes.value);"/>
+							<input type="text" id="remu{{activo.nrcuil}}" name="remu{{activo.nrcuil}}" value="{{activo.remune}}" class="{number:true, required:true} span2" onchange="CalcularPorcentajes(this.value, {{activo.nrcuil}});"/>
 						</td>
 						<td class="hide" id="alicTd{{activo.nrcuil}}">
-							<input type="text" id="alic{{activo.nrcuil}}" style="text-align:right" name="alic{{activo.nrcuil}}" class="span1" readonly/>
+							<input type="text" id="alic{{activo.nrcuil}}" style="text-align:right" name="alic{{activo.nrcuil}}" value="0.00" class="span1" readonly/>
 						</td>
 						<td><input type="text" id="por6{{activo.nrcuil}}" style="text-align:right" name="por6{{activo.nrcuil}}" class="span1" readonly/></td>
 						<td><input type="text" id="por1{{activo.nrcuil}}" style="text-align:right" name="por1{{activo.nrcuil}}" class="span1" readonly/></td>
@@ -75,9 +75,7 @@
 					<td></td>
 					<td valign="bottom"><div align="right"><strong>Totales</strong></div></td>
 					<td><input type="text" id="totrem" style="text-align:right" name="totrem" class="span2" readonly/></td>
-					<td class="hide" id="tdtotalic">
-					<input type="text" id="totalic" style="text-align:right" name="totalic" class="span1" readonly/>
-					</td>
+					<td class="hide" id="tdtotalic"><input type="text" id="totalic" style="text-align:right" name="totalic" class="span1" readonly/></td>
 					<td><input type="text" id="tot6" style="text-align:right" name="tot6" class="span1" readonly/></td>
 					<td><input type="text" id="tot1" style="text-align:right" name="tot1" class="span1" readonly/></td>
 					<td><input type="text" id="tot15" style="text-align:right" name="tot15" class="span1" readonly/></td>
@@ -147,154 +145,27 @@
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script type="text/javascript" src="lib/js/jquery/jquery.blockUI.js"></script>
 	<script>
-		var valorextra = 0;
-		var tipoextra = 0;
-		var retiene060 = 1;
-		var retiene100 = 1;
-		var retiene150 = 1;
 		var minimoBoleta = 50;
-		var periodoAbs = {{permes}};
-		var anioAbs = {{perano}};
-		
+
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando Nueva DDJJ <br> Puede demorar unos minutos.</h1>" });
 			return true;
 		}
 		
-		function fullForm(periodo, anio) {
-			formatoFormulario(periodo);
-			cargarExtraordinario(periodo, anio);
-			if (periodo <= 12) {
-				llamadoCalcularPorcentaje(periodo);
-			}
-			recalcularSubTotales();
-			recalcularTotal();
-		}
-		
-		function formatoFormulario(periodo){
-			var nombrealic;
-			var clase = "";
-			var colum = 5;
-			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
-			if (periodo <= 12) {
-				clase = "hide";
-				colum = 4;
-				mensaje = "";
-			}
-		
-			document.getElementById("thalicuota").className = clase;
-			{% for activo in activos %}
-				var cuil = "{{activo.nrcuil}}";
-				nombrealic = "alicTd"+cuil;
-				nominputalic = "alic"+cuil;
-				document.getElementById(nominputalic).value = 0.0;
-				document.getElementById(nombrealic).className = clase;
-			{% endfor %}
-			
-			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").innerHTML = mensaje;
-			
-			var numFila = parseInt({{ activos|length }}) + 2;
-			var fila=document.getElementById("activos").rows[numFila].cells
-   			fila[3].colSpan=colum;
-			document.getElementById("totalgeneral").className = clase;
-		}
-		
-		function cargarExtraordinario(periodo, anio) {
-			minimoBoleta = 50;
-			if (periodo > 12) {
-				{% for extra in extraordinario %}
-					var extraanio = "{{ extra.anio }}";
-					var extrames = "{{ extra.mes }}";
-					if (extraanio == anio && extrames == periodo) {
-						tipoextra = "{{ extra.tipo }}";
-						valorextra = "{{ extra.valor }}";
-						retiene060 = "{{ extra.retiene060 }}";
-						retiene100 = "{{ extra.retiene100 }}";
-						retiene150 = "{{ extra.retiene150 }}";
-						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
-						if (tipoextra == 0) {
-							cargarFijo(valorextra,periodo);
-						} else {
-							cargarRemu(periodo);
-						}
-					}
-				{% endfor %}
-			} else {
-				valorextra = 0;
-				tipoextra = 0;
-				retiene060 = 1;
-				retiene100 = 1;
-				retiene150 = 1;
-			}
-		}
-		
-		function cargarFijo(valorextra,periodo) {
-			{% for activo in activos %}
-				var cuil = "{{activo.nrcuil}}";
-				nombreRemu = "remu"+cuil;
-				valorextra = parseFloat(valorextra).toFixed(2);
-				document.getElementById(nombreRemu).value = valorextra;
-				CalcularPorcentajes(valorextra,cuil,periodo);
-				document.getElementById(nombreRemu).readOnly = true;
-				formatoFormulario(0);
-			{% endfor %}
-		}
-		
-		function cargarRemu(periodo) {
-			{% for activo in activos %}
-				var cuil = "{{activo.nrcuil}}";
-				nombreRemu = "remu"+cuil;
-				document.getElementById(nombreRemu).readOnly = false;
-				nombrealic = "alic"+cuil;
-				var remune =  parseFloat({{activo.remune}}) / parseFloat(valorextra);
-				document.getElementById(nombreRemu).value = remune.toFixed(2);
-				document.getElementById(nombrealic).value = parseFloat({{activo.remune}}).toFixed(2);
-				CalcularPorcentajes(remune, cuil, periodo);
-			{% endfor %}
-		}
-		
-		function llamadoCalcularPorcentaje(periodo) {
+		function llamadoCalcularPorcentaje() {
 			{% for activo in activos %}
 				var cuil = "{{activo.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				document.getElementById(nombreRemu).readOnly = false;
 				remune = document.getElementById(nombreRemu).value;
-				CalcularPorcentajes(remune, cuil, periodo);
+				CalcularPorcentajes(remune, cuil);
 			{% endfor %}
 		}
 		
-		function CalcularPorcentajes(remu, cuil, periodo){ 
-			if (periodo == "") {
-				periodo = periodoAbs;
-			}
-			if (periodo > 12) {
-				if (tipoextra == 1) {
-					var nombreali = "alic"+cuil;
-					remu = (parseFloat(remu) * parseFloat(valorextra)).toFixed(2);
-					document.getElementById(nombreali).value = remu;
-				}
-			}
-			
-			var por6  = 0;
-			var por1  = 0;
-			var por15 = 0;
-			if (retiene060 == 1) {
-				por6 = (remu * 0.006).toFixed(2);
-			} else {
-				por6 = 0.0;
-			}
-			if (retiene100 == 1) {
-				por1 = (remu * 0.01).toFixed(2);
-			} else  {
-				por1 = 0.0
-			}
-			if (retiene150 == 1) {
-				por15 = (remu * 0.015).toFixed(2);
-			} else {
-				por15 = 0.0;
-			}
-			
+		function CalcularPorcentajes(remu, cuil){ 
+			por6 = (remu * 0.006).toFixed(2);
+			por1 = (remu * 0.01).toFixed(2);
+			por15 = (remu * 0.015).toFixed(2);		
 			var totemp = (parseFloat(por6) + parseFloat(por1) + parseFloat(por15)).toFixed(2);
 			var nombrePor6 = "por6"+cuil;
 			var nombrePor1 = "por1"+cuil;
@@ -310,7 +181,6 @@
 		
 		function recalcularSubTotales(){
 			var nombreRemu;
-			var nombreAlic;
 			var nombrePor6;
 			var nombrePor1;
 			var nombrePor15;
@@ -320,12 +190,10 @@
 			var totPor15 = 0; 
 			var totEmp = 0;
 			var totRem = 0;
-			var totAli = 0;
 			
 			{% for activo in activos %}
 				var cuil = "{{activo.nrcuil}}";
 				nombreRemu = "remu"+cuil;
-				nombreAlic = "alic"+cuil;
 				nombrePor6 = "por6"+cuil;
 				nombrePor1 = "por1"+cuil;
 				nombrePor15 = "por15"+cuil;
@@ -334,11 +202,6 @@
 				var remu = document.getElementById(nombreRemu).value;
 				if (remu != "") {
 					totRem = (parseFloat(totRem) + parseFloat(remu)).toFixed(2);
-				}
-				
-				var alic = document.getElementById(nombreAlic).value;
-				if (alic != "") {
-					totAli = (parseFloat(totAli) + parseFloat(alic)).toFixed(2);
 				}
 				
 				var por6 = document.getElementById(nombrePor6).value;
@@ -362,8 +225,7 @@
 				}
 				
 			{% endfor %}
-			document.getElementById("totrem").value = totRem;	
-			document.getElementById("totalic").value = totAli;	
+			document.getElementById("totrem").value = totRem;		
 			document.getElementById("tot6").value = totPor6;	
 			document.getElementById("tot1").value = totPor1;
 			document.getElementById("tot15").value = totPor15;
@@ -389,7 +251,7 @@
 	
 		$.validator.addMethod("superaminimo", superaMinimoBoleta);
 		$(function(){
-			fullForm(periodoAbs, anioAbs);		
+			llamadoCalcularPorcentaje();		
 			$('#nuevaDDJJ').validate({
 				rules: {
             		totalGeneral: { superaminimo: true, required: true},
@@ -421,7 +283,7 @@
 			o.value = '';
 			document.forms.nuevaDDJJ.mes.options.add(o);			
 			{% for mes in meses %}
-				if (anio == "{{ mes.anio }}") {
+				if ((anio == "{{ mes.anio }}") && ("{{ mes.mes }}" <= 12)) {
 					o = document.createElement("OPTION");
 					o.text = "{{ mes.descrip }}";
 					o.value = "{{ mes.mes }}";
