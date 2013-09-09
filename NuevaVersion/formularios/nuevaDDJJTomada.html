@@ -10,7 +10,7 @@
 	  <h1>Nueva DDJJ</h1>
   </div>
 	 <div class="hero-unit" style="font-size:14px">
-		<form id="nuevaDDJJ" name="nuevaDDJJ" method="post" action="grabarnuevaDDJJ.php?activos={{activos|length}}&baja={{baja|length}}">
+		<form id="nuevaDDJJ" name="nuevaDDJJ" method="post" action="grabarnuevaDDJJ.php?activo={{activos|length}}&baja={{baja|length}}">
 			<legend> Seleccione Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
@@ -201,6 +201,7 @@
 		}
 		
 		function cargarExtraordinario(periodo, anio) {
+			minimoBoleta = 50;
 			if (periodo > 12) {
 				{% for extra in extraordinario %}
 					var extraanio = "{{ extra.anio }}";
@@ -212,6 +213,7 @@
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
 						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
+						alert(minimoBoleta);
 						if (tipoextra == 0) {
 							cargarFijo(valorextra,periodo);
 						} else {
@@ -225,7 +227,6 @@
 				retiene060 = 1;
 				retiene100 = 1;
 				retiene150 = 1;
-				minimoBoleta = 50;
 			}
 		}
 		
