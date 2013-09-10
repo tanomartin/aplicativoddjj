@@ -17,7 +17,7 @@
 	</section>
 	<section class="row-fluid">   
 		 <div class="span6 well well-small">
-            <h3>DDJJ No pagas <br /> Sin Documento Cancelatorio</h3>
+            <h3>DDJJ No pagas <br /> Sin Instrumento de Pago</h3>
 			{% if ddjjsindocu|length > 0 %}			
 				<table id="ddjjsindocu" class="table">
 				  <thead>
@@ -39,13 +39,13 @@
 					{% endfor %}
 				   </tbody>	
 				</table>
-				<p><a class="btn btn-primary" href="#">Ver Mas &raquo;</a></p>
+				<p><a class="btn btn-primary" href="ddjjsindocumento.php">Ver Mas &raquo;</a></p>
 			{% else %}
-				<legend> No contiene ddjj no pagas sin documento cancelatorio </legend>
+				<legend> No existen ddjj no pagas sin instrumento de pago </legend>
 			{% endif %}	
          </div>
 		 <div class="span6 well well-small">
-            <h3>DDJJ No Pagas <br /> Con Documento Cancelatorio</h3>
+            <h3>DDJJ No Pagas <br /> Con Instrumento de Pago</h3>
 			{% if ddjjcondocu|length > 0 %}			
 				<table id="ddjjcondocu" class="table">
 				  <thead>
@@ -69,9 +69,9 @@
 					{% endfor %}
 				   </tbody>	
 				</table>
-				<p><a class="btn btn-primary" href="#">Ver Mas &raquo;</a></p>
+				<p><a class="btn btn-primary" href="ddjjcondocumento.php">Ver Mas &raquo;</a></p>
 			{% else %}
-				<legend> No contiene ddjj no pagas con documento cancelatorio </legend>
+				<legend> No existen ddjj no pagas con instrumento de pago </legend>
 			{% endif %}	
            
          </div>
@@ -107,9 +107,9 @@
 				{% endfor %}
 			   </tbody>	
 	  		</table>
-			<p><a class="btn btn-primary" href="#">Ver Mas &raquo;</a></p>
+			<p><a class="btn btn-primary" href="ddjjvalidas.php">Ver Mas &raquo;</a></p>
 			{% else %}
-				<legend> No contiene ddjj pagas</legend>
+				<legend> No existen ddjj pagas</legend>
 			{% endif %}	
 			
       </div>

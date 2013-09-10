@@ -1,0 +1,41 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Declaraciones Juradas </h1>
+		<legend> Sin Instrumento de Pago </legend>
+	</div>
+  <section class="row-fluid"></section>
+	<section class="row-fluid">
+		 <div class="well well-small">
+			 <h3>DDJJ No pagas Sin Instrumento de Pago</h3>
+				<table id="ddjjsindocu" class="table">
+				  <thead>
+					<tr>
+					  <th>A&ntilde;o</th>
+					  <th>Mes</th>
+					  <th>Total</th>
+					  <th>Acciones</th>
+					</tr>
+				  </thead>
+				   <tbody>					
+					{% for ddjjsdocu in ddjjsindocu %}
+						<tr>
+						  <td>{{ ddjjsdocu.perano }}</td>
+						  <td>{{ ddjjsdocu.permes }}</td>
+						  <td>{{ ddjjsdocu.totapo }}</td>
+						  <td><a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a href="imprimirDDJJ.php?control={{ddjjsdocu.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a> <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> </td>
+						</tr>
+					{% endfor %}
+				   </tbody>	
+		   </table> 
+      </div>
+    </section>
+</section>
+
+{% endblock %}

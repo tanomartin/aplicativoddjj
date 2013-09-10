@@ -136,7 +136,7 @@
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script>
 		var valorextra = 0;
-		var tipoextra = 0;
+		var tipoextra = 1;
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
@@ -205,6 +205,7 @@
 						retiene150 = "{{ extra.retiene150 }}";
 						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
+							minimoBoleta = 0;
 							cargarFijo(valorextra);
 						} else {
 							cargarRemuDeAlicuota();

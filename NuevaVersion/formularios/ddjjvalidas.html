@@ -1,0 +1,48 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Declaraciones Juradas</h1>
+		<legend> Pagas </legend>
+	</div>
+  <section class="row-fluid"></section>
+  <section class="row-fluid"></section>
+	<section class="row-fluid">
+		 <div class="well well-small">
+            <h3>DDJJ Pagas</h3>	
+		   	<table id="ddjjvalidas" class="table">
+			  <thead>
+				<tr>
+				  <th>A&ntilde;o</th>
+				  <th>Mes</th>
+				  <th>Total </th>
+				  <th>Instr. Pago <a href="docs/instrumento_especificaciones.pdf" onClick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Info" class="icon-info-sign icon-black"></i></a> </th>
+				  <th>Acciones</th>
+				</tr>
+			  </thead>
+			   <tbody>					
+				{% for ddjjvalidas in ddjjvalidas %}
+					<tr>
+					  <td>{{ ddjjvalidas.perano }}</td>
+					  <td>{{ ddjjvalidas.permes }}</td>
+					  <td>{{ ddjjvalidas.totapo }}</td>
+					  <td>{{ ddjjvalidas.instrumento }}</td>
+					  <td>
+					  		{% if ddjjvalidas.mescod <= 12 %}
+					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> 
+							{% endif %}
+							<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+					</tr>
+				{% endfor %}
+			   </tbody>	
+	  		</table>		
+      </div>
+    </section>
+</section>
+
+{% endblock %}
