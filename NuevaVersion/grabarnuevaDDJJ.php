@@ -10,7 +10,12 @@ $datos = array_values($_POST);
 //var_dump($datos);
 $perano = $datos[0];
 //echo $perano;//echo "<br>";
-$permes = $datos[1];
+
+if (isset($_GET['permes'])) {
+	$permes =$_GET['permes'];
+} else {
+	$permes = $datos[1];
+}
 //echo $permes;//echo "<br>";//echo "<br>";
 
 $nrctrl =  date("YmdHis");

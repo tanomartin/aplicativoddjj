@@ -7,26 +7,25 @@
 {% block contenidos %}
 <section style="margin-top:50px">
 	<div class="hero-unit">
-	  <h1>Editar DDJJ</h1>
+	  <h1>Nueva DDJJ</h1>
   </div>
 	 <div class="hero-unit" style="font-size:14px">
-		<form id="editarDDJJ" name="editarDDJJ" method="post" action="grabaredicionDDJJ.php?ddjjactivo={{ddjj|length}}&ddjjbaja={{ddjjinactivos|length}}&periodo={{total.permes}}">
+		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" action="grabarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}&permes={{permes}}">
 			<legend> Periodo a Declarar </legend>
 			<table width="1000" border="0">
               <tr>
                 <td width="200"><label for="anio">A&ntilde;o</label>
-				  <input type="text" id="anio" name="anio" value="{{ total.perano }}" readonly/>
+                  <input type="text" id="anio" name="anio" value="{{ perano }}" readonly/>	        
 			   </td>
                 <td width="200"><label for="mes">Mes</label>
-                	<input type="text" id="mes" name="mes" value="{{ total.descripcion }}" readonly/>
+                  <input type="text" id="mesdes" name="mesdes" value="{{ mesdesc }}" readonly/>	    
 			    </td>
 				 <td width="600"><span id="mensajeNoRem"></span></td>
               </tr>
             </table>
-			
 			<legend> Remuneraci&oacute;n Empleados </legend>
-			<legend style="color:#339900">Activos ({{ ddjj|length }})</legend>
-			{% if ddjj|length > 0 %}
+			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
+			{% if empleadosActivos|length > 0 %}
 			<table id="activos" class="table table-striped table-condensed">
 			  <thead>
 				<tr>
@@ -45,22 +44,19 @@
 				</tr>
 			  </thead>
 			   <tbody>					
-				{% for dj in ddjj %}
+				{% for empleado in empleadosActivos %}
 					<tr>
-						<td><input type="text" style="width: 80px; text-align:right" id="activo{{dj.nrcuil}}" name="activo{{dj.nrcuil}}" value="{{dj.nrcuil}}" readonly/></td>
-						<td>{{ dj.apeynombre }}</td>
-						<td>{{ dj.tipoydoc }}</td>
-						<td>
-							<span></span>
-							<input type="text" id="remu{{dj.nrcuil}}" name="remu{{dj.nrcuil}}" class="{number:true, required:true, min: 0} span2" onchange="CalcularPorcentajes(this.value, {{dj.nrcuil}});"/>
+						<td><input type="text" id="activo{{empleado.nrcuil}}" name="activo{{empleado.nrcuil}}" style="width: 80px; text-align:right" value="{{ empleado.nrcuil }}" readonly/></td>
+						<td>{{ empleado.apeynombre }}</td>
+						<td>{{ empleado.tipoydoc }}</td>
+						<td><span id="spanremu{{empleado.nrcuil}}"></span><input type="text" id="remu{{empleado.nrcuil}}" value="{{ empleado.remune }}" name="remu{{empleado.nrcuil}}" class="span2" readonly /></td>
+						<td class="hide" id="alicTd{{empleado.nrcuil}}">
+							<input type="text" id="alic{{empleado.nrcuil}}" style="text-align:right" name="alic{{empleado.nrcuil}}" value="0.00" class="span1" readonly/>
 						</td>
-						<td class="hide" id="alicTd{{dj.nrcuil}}">
-							<input type="text" id="alic{{dj.nrcuil}}" style="text-align:right" name="alic{{dj.nrcuil}}" class="span1" readonly/>
-						</td>
-						<td><input type="text" id="por6{{dj.nrcuil}}" style="text-align:right" name="por6{{dj.nrcuil}}" class="span1" readonly/></td>
-						<td><input type="text" id="por1{{dj.nrcuil}}" style="text-align:right" name="por1{{dj.nrcuil}}" class="span1" readonly/></td>
-						<td><input type="text" id="por15{{dj.nrcuil}}" style="text-align:right" name="por15{{dj.nrcuil}}" class="span1" readonly/></td>
-						<td><input type="text" id="totemp{{dj.nrcuil}}" style="text-align:right"name="totemp{{dj.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="por6{{empleado.nrcuil}}" style="text-align:right" name="por6{{empleado.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="por1{{empleado.nrcuil}}" style="text-align:right" name="por1{{empleado.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="por15{{empleado.nrcuil}}" style="text-align:right" name="por15{{empleado.nrcuil}}" class="span1" readonly/></td>
+						<td><input type="text" id="totemp{{empleado.nrcuil}}" style="text-align:right"name="totemp{{empleado.nrcuil}}" class="span1" readonly/></td>
 					</tr>
 				{% endfor %}
 				<tr>
@@ -68,9 +64,7 @@
 					<td></td>
 					<td valign="bottom"><div align="right"><strong>Totales</strong></div></td>
 					<td><input type="text" id="totrem" style="text-align:right" name="totrem" class="span2" readonly/></td>
-					<td class="hide" id="tdtotalic">
-					<input type="text" id="totalic" style="text-align:right" name="totalic" class="span1" readonly/>
-					</td>
+					<td class="hide" id="tdtotalic"><input type="text" id="totalic" style="text-align:right" name="totalic" class="span1" readonly/></td>
 					<td><input type="text" id="tot6" style="text-align:right" name="tot6" class="span1" readonly/></td>
 					<td><input type="text" id="tot1" style="text-align:right" name="tot1" class="span1" readonly/></td>
 					<td><input type="text" id="tot15" style="text-align:right" name="tot15" class="span1" readonly/></td>
@@ -80,8 +74,8 @@
 					<td></td>
 					<td></td>
 					<td valign="bottom"><div align="right"><strong>Recargo</strong></div></td>
-					<td colspan="4"><input type="text" id="motRec" name="motRec" class="span5" value="{{total.observ}}" placeholder="Motivo del Recargo" /></td>
-					<td><span></span><input type="text" id="recargo" name="recargo" placeholder="Importe" value="{{total.recarg}}" class="{number:true, min: 0} span1" onchange="recalcularTotal();"/></td>
+					<td colspan="4"><input type="text" id="motRec" name="motRec" class="span5" placeholder="Motivo del Recargo" /></td>
+					<td><span></span><input type="text" id="recargo" value="0.00" name="recargo" placeholder="Importe"  class="{number:true, min: 0} span1" onchange="recalcularTotal();"/></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -97,11 +91,10 @@
 			   </tbody>	
 	  		</table>
 			{% else %}
-				<h4> No hay empleados de activos declarados en esta declaraci&oacute;n jurada </h4>
+				<h4> No hay empleados de activos actulamente </h4>
 			{% endif %}
-			
-			<legend style="color:#FF0000">Inactivos ({{ ddjjinactivos|length }})</legend>
-			{% if ddjjinactivos|length > 0 %} 
+			<legend style="color:#FF0000">Inactivos ({{ empleadosBaja|length }})</legend>
+			{% if empleadosBaja|length > 0 %}
 			<table id="inactivos" class="table table-striped">
 			  <thead>
 				<tr>
@@ -112,20 +105,20 @@
 				</tr>
 			  </thead>
 			   <tbody>	
-				{% for djina in ddjjinactivos %}
+				{% for empleado in empleadosBaja %}
 					<tr>
-					  <td><input type="text" id="baja{{djina.nrcuil}}" style="width: 80px; text-align:right" name="baja{{djina.nrcuil}}" value="{{ djina.nrcuil }}" readonly/></td>
-					  <td>{{ djina.apeynombre }}</td>
-					  <td>{{ djina.tipoydoc }}</td>
-					  <td><input type="text" id="motivo{{djina.nrcuil}}" name="motivo{{djina.nrcuil}}" value="{{djina.motivo}}" class="span6"/></td>
+					  <td><input type="text" id="baja{{empleado.nrcuil}}" style="width: 80px; text-align:right" name="baja{{empleado.nrcuil}}" value="{{ empleado.nrcuil }}" readonly /></td>
+					  <td>{{ empleado.apeynombre }}</td>
+					  <td>{{ empleado.tipoydoc }}</td>
+					  <td><input type="text" id="motivo{{empleado.nrcuil}}" name="motivo{{empleado.nrcuil}}" class="span6"/></td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
 	  		</table>
 			{% else %}
-				<h4> No hay empleados de inactivos declarados en esta declaraci&oacute;n jurada </h4>
+				<h4> No hay empleados de inactivos actulamente </h4>
 			{% endif %}
-	  <p><button id="modificar" name="modificar" type="submit" class="btn btn-primary">Modificar DDJJ</button></p>
+	  <p><button id="guardar" name="guardar" type="submit" class="btn btn-primary">Generar Nueva DDJJ</button></p>
 	  </form>
 	</div>
 </section>
@@ -139,8 +132,8 @@
 	<script type="text/javascript" src="lib/js/jquery-validation-1.10.0/localization/messages_es.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.tablesorter.js"></script>
 	<script type="text/javascript" src="lib/js/jquery-tablesorter/jquery.metadata.js"></script>
-	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script type="text/javascript" src="lib/js/jquery/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script>
 		var valorextra = 0;
 		var tipoextra = 0;
@@ -148,31 +141,58 @@
 		var retiene100 = 1;
 		var retiene150 = 1;
 		var minimoBoleta = 50;
+		var periodo = "{{ permes }}";
+		var anio = "{{ perano }}";
 		
 		function MsgWait() {
-			$.blockUI({ message: "<h1>Modificando DDJJ <br> Puede demorar unos minutos.</h1>" });
+			$.blockUI({ message: "<h1>Grabando DDJJ <br> Puede demorar unos minutos.</h1>" });
 			return true;
 		}
 		
-		function formFull(periodo) {
-			formatoFormulario(periodo);
-			minimoBoleta = 50;
-			if (periodo > 12) {
-				cargarExtraordinario(periodo);
-			} else {
-				var nombreRemu;
-				{% for dj in ddjj %}
-					var cuil = "{{dj.nrcuil}}";
-					nombreRemu = "remu"+cuil;
-					var remune =  parseFloat({{dj.remune}}).toFixed(2);
-					document.getElementById(nombreRemu).value = remune;
-					CalcularPorcentajes(remune, cuil);
-				{% endfor %}
-			}
+		function fullForm() {
+			formatoFormulario();
+			cargarExtraordinario();
+			llamadoCalcularPorcentaje();		
+			recalcularSubTotales();
+			recalcularTotal();
 		}
 		
-		function cargarExtraordinario(periodo) {
-			anio = document.getElementById("anio").value;
+		function llamadoCalcularPorcentaje() {
+			{% for activo in empleadosActivos %}
+				var cuil = "{{activo.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				remune = document.getElementById(nombreRemu).value;
+				document.getElementById(nombreRemu).value = parseFloat(remune).toFixed(2);
+				CalcularPorcentajes(remune, cuil);
+			{% endfor %}
+		}
+	
+		function formatoFormulario(){
+			var nombrealic;
+			var clase = "";
+			var colum = 5;
+			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
+			if (periodo <= 12) {
+				clase = "hide";
+				colum = 4;
+				mensaje = "";
+			}	
+			document.getElementById("thalicuota").className = clase;
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
+				nombrealic = "alicTd"+cuil;
+				document.getElementById(nombrealic).className = clase;
+			{% endfor %}
+			document.getElementById("tdtotalic").className = clase;
+			document.getElementById("mensajeNoRem").innerHTML = mensaje;
+			
+			var numFila = parseInt({{ empleadosActivos|length }}) + 2;
+			var fila=document.getElementById("activos").rows[numFila].cells
+   			fila[3].colSpan=colum;
+			document.getElementById("totalgeneral").className = clase;
+		}
+		
+		function cargarExtraordinario() {
 			if (periodo > 12) {
 				{% for extra in extraordinario %}
 					var extraanio = "{{ extra.anio }}";
@@ -183,7 +203,7 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
-						minimoBoleta = minimoBoleta * parseFloat(valorextra).toFixed(3);
+						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
 							cargarFijo(valorextra);
 						} else {
@@ -195,20 +215,20 @@
 		}
 		
 		function cargarRemuDeAlicuota() {
-			{% for dj in ddjj %}
-				var cuil = "{{dj.nrcuil}}";
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				nombrealic = "alic"+cuil;
-				var remune =  parseFloat({{dj.remune}}) / parseFloat(valorextra);
+				var remune =  parseFloat({{activos.remune}}) / parseFloat(valorextra);
 				document.getElementById(nombreRemu).value = remune.toFixed(2);
-				document.getElementById(nombrealic).value = parseFloat({{dj.remune}}).toFixed(2);
+				document.getElementById(nombrealic).value = parseFloat({{activos.remune}}).toFixed(2);
 				CalcularPorcentajes(remune, cuil);
 			{% endfor %}
 		}
 		
 		function cargarFijo(valorextra) {
-			{% for dj in ddjj %}
-				var cuil = "{{dj.nrcuil}}";
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				valorextra = parseFloat(valorextra).toFixed(2);
 				document.getElementById(nombreRemu).value = valorextra;
@@ -217,36 +237,8 @@
 				formatoFormulario(0);
 			{% endfor %}
 		}
-		
-		function formatoFormulario(periodo){
-			var nombrealic;
-			var clase = "";
-			var colum = 5;
-			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
-			if (periodo <= 12) {
-				clase = "hide";
-				colum = 4;
-				mensaje = "";
-			}
-		
-			document.getElementById("thalicuota").className = clase;
-			{% for dj in ddjj %}
-				var cuil = "{{dj.nrcuil}}";
-				nombrealic = "alicTd"+cuil;
-				document.getElementById(nombrealic).className = clase;
-			{% endfor %}
-			
-			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").innerHTML = mensaje;
-			
-			var numFila = parseInt({{ ddjj|length }}) + 2;
-			var fila=document.getElementById("activos").rows[numFila].cells
-   			fila[3].colSpan=colum;
-			document.getElementById("totalgeneral").className = clase;
-		}
-		
+	
 		function CalcularPorcentajes(remu, cuil){ 
-			periodo = {{ total.permes }};
 			if (periodo > 12) {
 				if (tipoextra == 1) {
 					var nombreali = "alic"+cuil;
@@ -286,7 +278,7 @@
 			recalcularSubTotales();
 			recalcularTotal();
 		}
-		
+
 		function recalcularSubTotales(){
 			var nombreRemu;
 			var nombreAlic;
@@ -301,8 +293,8 @@
 			var totRem = 0;
 			var totAli = 0;
 			
-			{% for dj in ddjj %}
-				var cuil = "{{dj.nrcuil}}";
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
 				nombreRemu = "remu"+cuil;
 				nombreAlic = "alic"+cuil;
 				nombrePor6 = "por6"+cuil;
@@ -368,12 +360,12 @@
 			}
 			return true;
 		}
-	
+		
 		$.validator.addMethod("superaminimo", superaMinimoBoleta);
 		$(function(){
-			formFull({{ total.permes }});
+			fullForm();
 			
-			$('#editarDDJJ').validate({
+			$('#nuevaDDJJ').validate({
 				rules: {
             		totalGeneral: { superaminimo: true, required: true},
         		},
@@ -389,6 +381,6 @@
 				}
 			});
 		});
-			
+		
 	</script>
 {% endblock %}	

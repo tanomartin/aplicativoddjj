@@ -144,9 +144,8 @@ function verificarCampos($nombreArc,$registro,$mysqli) {
 		return array(190,"Error Mes del registro");
 	}
 	if (!is_numeric($anoReg) || $anoReg < 2000 || $anoReg != $anoArc) {
-		return array(191,"Error Año del registro");
+		return array(191,"Error Anio del registro");
 	}	
-	
 	$remuReg=$campos[4];
 	$remuLong=10;
 	$remuVer=verificaRemun($remuReg,$remuLong);
