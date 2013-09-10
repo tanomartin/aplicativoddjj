@@ -189,7 +189,7 @@ function verificarCampos($nombreArc,$registro,$mysqli,$numReg) {
 	$docReg=$campos[6];
 	if (strlen($docReg)!=9 || !is_numeric($docReg)) {
 		//print ("Error en el numero de docuemnto del regsitro numero: $numReg <br/>\n");
-		return array(7,"Error NÚMERO DE DOCUMENTO en el registro");
+		return array(7,"Error NUMERO DE DOCUMENTO en el registro");
 	}
 	
 	//verifico M o F...

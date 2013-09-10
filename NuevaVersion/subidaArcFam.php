@@ -176,7 +176,7 @@ function verificarCampos($nombreArc,$registro,$mysqli,$numReg) {
 	//verifico en parentesco.....
 	$codParReg=$campos[4];
 	if ($codParReg < 1 || $codParReg > 4) {
-		return array(18,"Error Código Parentesco");
+		return array(18,"Error Codigo Parentesco");
 	}
 	
 	
@@ -215,7 +215,7 @@ function verificarCampos($nombreArc,$registro,$mysqli,$numReg) {
 	$docReg=$campos[9];
 	if (strlen($docReg)!=9 || !is_numeric($docReg)) {
 		//print ("Error en el numero de docuemnto del regsitro numero: $numReg <br/>\n");
-		return array(7,"Error NÚMERO DE DOCUMENTO en el registro");
+		return array(7,"Error NUMERO DE DOCUMENTO en el registro");
 	}
 	
 	//verifico si esta activo el beneficiario S/N...

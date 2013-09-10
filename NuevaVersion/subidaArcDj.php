@@ -61,14 +61,14 @@ function controlarNombreArc($nombre,$type,$mysqli) {
 function verificaRemun($campo,$long) {
 	$longCampo=strlen($campo);
 	if ($longCampo != $long) {
-		return array(195,"Error en la cantidad dígitos en la remuneración");
+		return array(195,"Error en la cantidad dígitos en la remuneracion");
 	}
 	if (!is_numeric($campo)) {
-		return array(193,"Error Remuneración no numérica");
+		return array(193,"Error Remuneracion no numerica");
 	}
 	//print("Es un punto $campo[7] --- ");
 	if ($campo[7] != '.') {
-		return array(194,"Error Remuneración sin separación decimal");
+		return array(194,"Error Remuneracion sin separacion decimal");
 	}
 	return 0;
 } 
