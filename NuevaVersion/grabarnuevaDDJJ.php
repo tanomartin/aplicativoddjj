@@ -102,7 +102,7 @@ try {
 			//print($stmt->error);//echo "<br>";
 		}
 		
-		$nrcuil = '999999999999';	
+		$nrcuil = '99999999999';	
 		$stmt->bind_param('ssiiddddddiss', $nrcuit, $nrcuil, $permes, $perano, $totalRemu, $total060, $total100, $total150, $total, $importeRecargo, $activo, $nrctrl, $motivoRecargo);
 		$stmt->execute();
 		//print($stmt->error);//echo "<br>";

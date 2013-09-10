@@ -10,9 +10,14 @@ $id =  $_GET['id'];
 
 //Ejecucion de la sentencia SQL
 $sqlDeleteFamiliar = "DELETE from familia where nrcuil = ? and nrcuit = ? and id = ?";
+$sqlInsertFamilia = "INSERT INTO familiadebaja SELECT * from familia where nrcuil = ? and nrcuit = ? and id = ?";
 
 try {
-	if ($stmt = $mysqli->prepare($sqlDeleteFamiliar)) {
+	if ( ($stmt = $mysqli->prepare($sqlDeleteFamiliar)) && ($stmt2 = $mysqli->prepare($sqlInsertFamilia)) ) {
+		$stmt2->bind_param('sss', $nrcuil, $nrcuit, $id);
+		$stmt2->execute();
+		$stmt2->close();
+		
 		$stmt->bind_param('sss', $nrcuil, $nrcuit, $id);
 		$stmt->execute();
 		$stmt->close();
