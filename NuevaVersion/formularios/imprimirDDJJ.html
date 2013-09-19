@@ -1,0 +1,84 @@
+<style type="text/css" media="print">
+<!--
+.Estilo1 {
+	font-size: 12px;
+	font-weight: bold;
+}
+.nover {display:none}
+-->
+
+</style>
+<div align="center">
+<p><img src="../img/membreteboleta.jpg" width="750"/></p>
+<br>
+<table width="750" border="0">
+  <tr>
+    <td width="97"><strong>Nombre:</strong></td>
+    <td width="541">{{ datosEmpresa. nombre }}</td>
+  </tr>
+  <tr>
+    <td><strong>C.U.I.T.:</strong></td>
+    <td>{{ datosEmpresa. cuit  }}</td>
+  </tr>
+  <tr>
+    <td><strong>Domicilio:</strong></td>
+    <td>{{ datosEmpresa. domile }}, {{ datosEmpresa. locali }}, {{ datosEmpresa. provin }} (CP: {{ datosEmpresa. copole }})</td>
+  </tr>
+  <tr>
+    <td><strong>Actividad:</strong></td>
+    <td>{{ datosEmpresa. activi }}</td>
+  </tr>
+</table>
+<br>
+<table width="750" border="0">
+  <tr>
+    <td width="51"><strong>Per&iacute;odo:</strong></td>
+    <td width="589"><strong>{{ totales.descripcion }} {{ totales.anio }} </strong></td>
+  </tr>
+</table>
+<br>
+<table width="750" border="1" style="font-family:Arial, Helvetica, sans-serif; font-size:11px">
+  <tr align="center" class="Estilo1">
+  	<td width="100">C.U.I.L.</td>
+    <td width="243">NOMBRE</td>
+    <td width="71">FECHA DE INGRESO</td>
+    <td width="116">REMUNERACION</td>
+    <td width="58">Art. 32 0,6%</td>
+    <td width="58">Art. 32 bis 1%</td>
+    <td width="58">Art. 32 bis 1,5%</td>
+  </tr>
+  
+  {% for detalle in detalleDDJJ %}
+   <tr> 
+	<td align="center">{{ detalle.nrcuil }}</td>
+    <td>{{ detalle.nombre }}</td>
+    <td align="center">{{ detalle.fecini }}</td>
+    <td align="right">{{ detalle.remune }}</td>
+    <td align="right">{{ detalle.apo060 }}</td>
+    <td align="right">{{ detalle.apo100 }}</td>
+    <td align="right">{{ detalle.apo150 }}</td>
+  </tr>
+  {% endfor %}
+   <tr class="Estilo1">
+     <td colspan="3" align="center">TOTALES</td>
+     <td align="right">{{ totales.remune }}</td>
+     <td align="right">{{ totales.apo060 }}</td>
+     <td align="right">{{ totales.apo100 }}</td>
+     <td align="right">{{ totales.apo150 }}</td>
+   </tr>
+   <tr class="Estilo1">
+     <td colspan="3" align="center">TOTAL APORTES Y CONTRIBUCIONES</td>
+     <td colspan="4" align="right">{{ totales.totapo}}</td>
+    </tr>
+   <tr class="Estilo1">
+     <td colspan="3" align="center">RECARGO</td>
+     <td colspan="4" align="right">{{totales.recarg}}</td>
+   </tr>
+   <tr class="Estilo1">
+     <td colspan="3" align="center">TOTAL A DEPOSITAR </td>
+     <td colspan="4" align="right">{{totales.totdep}}</td>
+   </tr>
+</table>
+<br>
+<input type="button" class="nover" name="imprimir" value="Imprimir" onClick="window.print();">
+</div>

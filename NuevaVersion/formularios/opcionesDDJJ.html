@@ -34,7 +34,7 @@
 						  <td>{{ ddjjsdocu.perano }}</td>
 						  <td>{{ ddjjsdocu.permes }}</td>
 						  <td>{{ ddjjsdocu.totapo }}</td>
-						  <td><a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a href="imprimirDDJJ.php?control={{ddjjsdocu.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a> <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> </td>
+						  <td><a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a><a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjsdocu.control}},'sindocu')" ></i></a> <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> </td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
@@ -64,7 +64,7 @@
 						  <td>{{ ddjjcdocu.permes }}</td>
 						  <td>{{ ddjjcdocu.totapo }}</td>
 						  <td>{{ ddjjcdocu.instrumento }}</td>
-						  <td><a href="imprimirDDJJ.php?control={{ddjjcdocu.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+						  <td><a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjcdocu.control}},'condocu')"></i></a></td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
@@ -102,7 +102,8 @@
 					  		{% if ddjjvalidas.mescod <= 12 %}
 					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> 
 							{% endif %}
-							<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+							<a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjvalidas.control}},'valida')"></i></a>
+					 </td>
 					</tr>
 				{% endfor %}
 			   </tbody>	
@@ -115,5 +116,20 @@
       </div>
     </section>
 </section>
+
+{% endblock %}
+
+{% block javaScripts %}
+
+<script type="text/javascript">
+
+function verDDJJ(control, tipo){
+	urlDdjj = "imprimirDDJJ.php?control="+control+"&tipo="+tipo;
+	window.showModalDialog(urlDdjj,"",'dialogHeight:600px;dialogWidth:850px;center:Yes;help:No;resizable:Yes;status:No;');
+	//window.open(urlDdjj,"",'dialogHeight:600px;dialogWidth:800px;center:Yes;help:No;resizable: Yes;status:No;');
+	//window.location.href = urlDdjj;
+}
+
+</script>	
 
 {% endblock %}
