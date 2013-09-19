@@ -7,22 +7,63 @@
 {% block contenidos %}
 <section style="margin-top:50px">
 	<div class="hero-unit">
-		<h1>Confirmacion del Pago </h1>
+		<h1>Confirmaci&oacute;n de Pago</h1>
 	</div>
 	<section class="row-fluid">   
 		<div class="well well-small">
+			<form id="cuerpoPago" name="cuerpoPago" method="post" action="generaDocPago.php">
 			<section class="row-fluid">   
 				<div class="well well-small">
-					<h2 align="center">Detalles del Pago</h2>		
+					<h2 align="center">Detalles del Pago</h2>
 				</div>
 			</section>
+			<section class="row-fluid">   
+				<div class="span8 well well-small">
+					<table class="table">
+						<thead>
+							<tr>
+							{% if ddjjsindocu|length == 1 %}
+								<th class="span4">Per&iacute;odo</th>
+							{% else %}
+								<th class="span4">Per&iacute;odos</th>
+							{% endif %}
+								<th class="span4">Monto</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<td class="span4"><div align="center"><strong>Total A Pagar</strong></div></td>
+								<td class="span4"><strong>{{ totApagar }}</strong></td>
+							</tr>
+						</tfoot>
+						<tbody>					
+						{% for ddjjapagar in ddjjsindocu %}
+							<tr>
+								<td class="span4">{{ ddjjapagar.permes }} - {{ ddjjapagar.perano }}</td>
+								<td class="span4">{{ ddjjapagar.totapo }} <input id="nrctrl" name="nrctrl[]" type="text" value="{{ddjjapagar.control}}" readonly="readonly" style="visibility:hidden"/></td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<div class="span4 well well-small">
+				{% if tipoPago == "B" %}
+					<h4>Pago Con Boleta de Dep&oacute;sito</h4>
+				{% else %}
+					<h4>Pago V&iacute;a Transferencia Bancaria</h4>
+				{% endif %}
 				<legend></legend>
-				{% if tipoPago == B %}
-					<p><button id="generar" name="generar" type="submit" class="btn btn-primary">Generar Boleta de Deposito</button></p>
-				{% endif %}
-				{% if tipoPago == T %}
-					<p><button id="generar" name="generar" type="submit" class="btn btn-primary">Generar Ticket de Transferencia</button></p>
-				{% endif %}
+				<h4><i class="icon-arrow-left icon-1x"></i> Conformaci&oacute;n del Total a Pagar</h4>
+				</div>
+			</section>
+			<legend></legend>
+			{% if tipoPago == "B" %}
+				<p><button id="generaPago" name="generaPago" type="submit" class="btn btn-primary"><i class="icon-barcode icon-2x"></i> Generar Boleta de Dep&oacute;sito</button>
+			{% else %}
+				<p><button id="generaPago" name="generaPago" type="submit" class="btn btn-primary"><i class="icon-credit-card icon-2x"></i> Generar Ticket de Transferencia</button>
+			{% endif %}
+			<input id="tipoPago" name="tipoPago" type="text" value="{{tipoPago}}" class="span1 hide"/>
+			</form>
 		</div>
 	</section>
 </section>

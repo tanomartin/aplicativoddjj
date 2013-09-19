@@ -181,9 +181,10 @@
 			$('#registroEmpresa').dialog({
 				autoOpen:false,
 				modal:true,
-				position: { my: "bottom", at: "bottom", of: window },
-				width:'auto',
-				minHeight: 'auto',
+				position: { my: "center center", at: "center center", of: window },
+				width:600,
+				height:800,
+				resizable:false,
 				close:function(){
 					$('#formEmpresa')[0].reset();
 					$('#empreMensaje').addClass('hide');

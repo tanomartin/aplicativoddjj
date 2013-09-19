@@ -1,0 +1,150 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		{% if tipoPago == "B" %}
+			<h2>Boleta de Dep&oacute;sito</h2>
+		{% else %}
+			<h2>Ticket Transferencia Bancaria</h2>
+		{% endif %}
+	</div>
+</section>
+{% if tipoPago == "B" %}
+	<div id="generaBoleta" title="Boleta de Deposito" align="center">
+		<div style="width:650px; font-size: 14px; font-family:Verdana, Arial, Helvetica, sans-serif;">
+		{% for ddjjCDocumento in ddjjCDocu %}
+			{% for cantidadBoletas in canBoleta %}
+				<div align="center" style="border:2px solid #000000; font-family:Arial Narrow">
+					Cta. Cte. <b>N&ordm; 900004/93</b> (F.A.I.M.A. - U.S.I.M.R.A.) BANCO NACION - SUCURSAL CABALLITO
+				</div>
+				<div align="center" style="padding-bottom:10px; padding-top:10px">
+					NOTA DE CREDITO para la Cuenta de Uni&oacute;n de Sindicatos de la Industria Maderera de la Rep&uacute;blica Argentina (U.S.I.M.R.A.) y Federaci&oacute;n Argentina de la Industria Maderera y Afines (F.A.I.M.A.) - CCT 335/75 Art&iacute;culos 32 y 32 bis.
+				</div>
+				<div align="center" style="width:400px; border:2px solid #000000; font-size: 12px; font-family:Arial Narrow">
+					BANCO DE LA NACION ARGENTINA - Sucursal Caballito - Rivadavia 5199 - C.A.B.A.
+				</div>
+				<br>
+				<table border="0" width="650" style="text-align:left; font-size:10px">
+					<tr>
+						<td width="100">Empleador:</td>
+						<td width="300">{{ datosEmpresa.nombre }}</td>
+						<td width="100">CUIT:</td>
+						<td width="150">{{ datosEmpresa.nrcuit }}</td>
+					</tr>
+					<tr>
+						<td width="100">Domicilio:</td>
+						<td width="300">{{ datosEmpresa.domicilio }}</td>
+						<td width="100">Localidad:</td>
+						<td width="150">{{ datosEmpresa.localidad }}</td>
+					</tr>
+				</table>
+				<table width="650" border="2" bordercolor="#000000" style="border-collapse:inherit; text-align:center; line-height:normal; font-size:12px; font-family:'Arial Narrow'">
+					<tr>
+						<td width="141" colspan="4" rowspan="2">Per&iacute;odo Liquidado</td>
+						<td width="69" rowspan="3">Cantidad de Personal</td>
+						<td width="69" rowspan="3">Total Salarios</td>
+						<td width="69">Otros Conceptos</font></td>
+						<td width="212" colspan="3">Contribuciones y Aportes CCT 335/75</td>
+						<td width="76" rowspan="3">Total del Dep&oacute;sito</td>
+					</tr>
+					<tr>
+						<td width="69" rowspan="2">Recargos - Intereses - Otros</td>
+						<td width="141" colspan="2">Contribuciones Patronales</td>
+						<td width="69">Aporte</td>
+					</tr>
+					<tr>
+						<td width="70" colspan="2">Mes</td>
+						<td width="69" colspan="2">A&ntilde;o</td>
+						<td width="70">Art.32 0,6%</td>
+						<td width="69">Art.32 bis 1%</td>
+						<td width="69">Art.32 bis 1,5%</td>
+					</tr>
+					<tr>
+						<td width="70" colspan="2">{{ ddjjCDocumento.permes }}</td>
+						<td width="69" colspan="2">{{ ddjjCDocumento.perano }}</td>
+						<td width="69">{{ ddjjCDocumento.nfilas }}</td>
+						<td width="69">{{ ddjjCDocumento.remune }}</td>
+						<td width="69">{{ ddjjCDocumento.recarg }}</td>
+						<td width="70">{{ ddjjCDocumento.apo060 }}</td>
+						<td width="69">{{ ddjjCDocumento.apo100 }}</td>
+						<td width="69">{{ ddjjCDocumento.apo150 }}</td>
+						<td width="76"><b>{{ ddjjCDocumento.totapo }}</b></td>
+					</tr>
+					<tr>
+						<td width="56"><b>Efectivo</b></td>
+						<td width="12">&nbsp;</td>
+						<td width="54"><b>Cheque</b></td>
+						<td width="13">&nbsp;</td>
+						<td width="491" colspan="7">&nbsp;</td>
+					</tr>
+					<tr>
+						<td width="70" colspan="2"><b>Son Pesos:</b></td>
+						<td width="560" align="left" colspan="9">&nbsp;{{ impLetras }}.-</td>
+					</tr>
+		  </table>
+				
+				<br><br>
+				
+				<table border="0" width="650">
+					<tr>
+						<img border="0" src="img/x.jpg" style="padding:0; width:10px; height:28px"/>
+						{% for codigobarra in archBar %}
+							<img border="0" src="img/{{codigobarra}}" style="padding:0; width:10px; height:28px" />
+						{% endfor %}
+						<img border="0" src="img/x.jpg" style="padding:0; width:10px; height:28px" />
+						<br>
+						<b>{{ codBar }}</b>
+					</tr>
+				</table>
+				
+				<br><br>
+				
+				<div align="left" style="font-family:Arial Narrow">
+						{{ cantidadBoletas }}
+						<br>
+						<img border="0" src="img/tijera.jpg" width="30" height="17">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+				</div>
+				<br>
+			{% endfor %}
+		{% endfor %}
+		</div>
+	</div>
+{% endif %}
+{% endblock %}
+{% block cssPropios %}
+<link rel="stylesheet" href="css/smoothness/jquery-ui-1.9.2.custom.min.css">
+<link rel="stylesheet" href="css/PrintArea-2.2.2/PrintArea.css" />
+{% endblock %}
+{% block javaScripts %}
+	<script type="text/javascript" src="lib/js/jquery/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/JavaScript" src="lib/js/jquery-PrintArea-2.2.2/jquery.PrintArea.js" ></script>
+	<script type="text/javascript">
+
+	$(function(){
+		// Ventana modal para Boleta de Deposito
+		$("#generaBoleta" ).dialog({
+			open: function(event, ui){
+        		$(".ui-dialog-titlebar").find('a').hide();
+			},
+			modal: true,
+			position: { my: "center center", at: "center center", of: window },
+			width:690,
+			height:830,
+			buttons: {
+				"Imprimir": function() {
+					$("div#generaBoleta").printArea();
+					//$( this ).dialog( "close" );
+				},
+				"Cerrar": function() {
+					$( this ).dialog( "close" );
+                }
+            }
+		});
+	});
+	</script>
+{% endblock %}

@@ -26,27 +26,31 @@
 					<table id="ddjjsindocu" class="table">
 					  <thead>
 						<tr>
-						  <th>A&ntilde;o</th>
-						  <th>Mes</th>
-						  <th>Total</th>
-						  <th>Seleccionar</th>
+						  <th><div align="center">A&ntilde;o</div></th>
+						  <th><div align="center">Mes</div></th>
+						  <th><div align="center">Total</div></th>
+						  <th><div align="center">Seleccionar</div></th>
 						</tr>
 					  </thead>
-					   <tbody>					
+					   <tbody>
 						{% for ddjjsdocu in ddjjsindocu %}
 							<tr>
-							  <td>{{ ddjjsdocu.perano }}</td>
-							  <td>{{ ddjjsdocu.permes }}</td>
-							  <td>{{ ddjjsdocu.totapo }}</td>
-							  <td><input id="checkPago[]" name="checkPago[]" type="checkbox" value="{{ ddjjsdocu.control }}" onClick="javascript:controlSeleccion()"/></td>
+							  <td><div align="center">{{ ddjjsdocu.perano }}</div></td>
+							  <td><div align="center">{{ ddjjsdocu.permes }}</div></td>
+							  <td><div align="center">{{ ddjjsdocu.totapo }}</div></td>
+							  <td><div align="center">
+							    <input id="cP{{ddjjsdocu.control}}" name="checkPago[]" type="checkbox" value="{{ddjjsdocu.control}}"/>
+							    <input id="rP{{ddjjsdocu.control}}" name="radioPago[]" type="radio" value="{{ddjjsdocu.control}}"/>
+							    </div></td>
 							</tr>
 						{% endfor %}
 					   </tbody>	
 					</table>
 					<legend></legend>
-					<p><button id="confirmar" name="confirmar" type="submit" class="btn btn-primary">Confirmar Pago</button>
-					   <input id="tipoPago" name="tipoPago" type="text" value="" class="span1"/>
-					</p>
+					<p><button id="confirmarPago" name="confirmarPago" type="submit" class="btn btn-primary">Confirmar Pago</button>
+					   <input id="tipoPago" name="tipoPago" type="text" value="" class="span1 hide"/>
+			      <div id="cartelError"class="alert alert-error hide"><strong>ERROR!  </strong><span id="txtMensaje"></span></div>
+					   </p>
 				</form>
 			{% else %}
 				<legend><h2 align="center">No hay Declaraciones Juradas pendientes de pago</h2></legend>
@@ -59,27 +63,51 @@
 <script type="text/javascript">
 	$(function(){
 		$('body').on('click','#botonBoleta',function() {
-			//alert("Toco Boleta");
-			//var iteraccion = "{{ ddjjsindocu|length}}";
-			//alert(iteraccion);
 			$('#cuerpoDDJJ').removeClass('hide');
-			$("#tipoPago").val("B");
-			//$('#checkPago').addClass('hide');
+			$('#cuerpoDDJJ')[0].reset();
+			$('#tipoPago').val("B");
+			{% for ddjjsdocu in ddjjsindocu %}
+				$('#cP{{ddjjsdocu.control}}').addClass('hide');
+				$('#rP{{ddjjsdocu.control}}').removeClass('hide');
+				$('#cartelError').addClass('hide');
+			{% endfor %}
 		});
 
 		$('body').on('click','#botonTransferencia',function() {
-			//alert("Toco Transferencia");
-			//var iteraccion = "{{ ddjjsindocu|length}}";
-			//alert(iteraccion);
 			$('#cuerpoDDJJ').removeClass('hide');
-			$("#tipoPago").val("T");
-			//$('#checkPago').removeClass('hide');
+			$('#cuerpoDDJJ')[0].reset();
+			$('#tipoPago').val("T");
+			{% for ddjjsdocu in ddjjsindocu %}
+				$('#rP{{ddjjsdocu.control}}').addClass('hide');
+				$('#cP{{ddjjsdocu.control}}').removeClass('hide');
+				$('#cartelError').addClass('hide');
+			{% endfor %}
+		});
+
+		$('body').on('click','#confirmarPago',function(elemento) {
+			var tipopago = $('#tipoPago').val();
+			if(tipopago=="B") {
+				var arrRadio = $.map($('input:radio:checked'), function(e, i) {
+    			    return +e.value;
+				});
+				if(arrRadio.length==0) {
+					elemento.preventDefault();
+					var mensaje = 'Ha optado por pagar con Boleta de Dep&oacute;sito. Obligatoriamente debe seleccionar una DDJJ.';
+					$('#txtMensaje').html(mensaje);
+					$('#cartelError').removeClass('hide');
+				}
+			} else {
+				var arrCheck = $.map($('input:checkbox:checked'), function(e, i) {
+    			    return +e.value;
+				});
+				if(arrCheck.length==0) {
+					elemento.preventDefault();
+					var mensaje = 'Ha optado por pagar via Transferencia Bancaria. Debe seleccionar como m&iacute;nimo una DDJJ.';
+					$('#txtMensaje').html(mensaje);
+					$('#cartelError').removeClass('hide');
+				}
+			}
 		});
 	});
-
-	function controlSeleccion() {
-		var contenido = document.getElementById("checkPago[]").value;
-		//alert(contenido);
-	}
 </script>
 {% endblock %}

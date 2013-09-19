@@ -34,6 +34,7 @@ try {
 		$stmt->bind_param('sssssssss', $nombre, $domile, $locali, $provin, $copole, $telfon, $emails, $activi, $nrcuit);
 		$stmt->execute();
 		$stmt->close();
+		$_SESSION['userNombre'] = $nombre." - ".$nrcuit;
 		$pagina = "perfilEmpresa.php";
 		Header("Location: $pagina"); 
 	} else {

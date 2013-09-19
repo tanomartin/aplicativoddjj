@@ -25,7 +25,5 @@ if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
    	}
 }
 
-//var_dump($ddjjsindocu);
-
 $twig->display('opcionesPago.html',array("userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu));
 ?>
