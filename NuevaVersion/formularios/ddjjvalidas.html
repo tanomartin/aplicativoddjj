@@ -36,7 +36,7 @@
 					  		{% if ddjjvalidas.mescod <= 12 %}
 					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> 
 							{% endif %}
-							<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+							<a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjvalidas.control}},'valida')"></i></a>
 					</tr>
 				{% endfor %}
 			   </tbody>	
@@ -45,4 +45,13 @@
     </section>
 </section>
 
+{% endblock %}
+
+{% block javaScripts %}
+<script type="text/javascript">
+function verDDJJ(control, tipo){
+	urlDdjj = "imprimirDDJJ.php?control="+control+"&tipo="+tipo;
+	window.showModalDialog(urlDdjj,"",'dialogHeight:600px;dialogWidth:850px;center:Yes;help:No;resizable:Yes;status:No;');
+}
+</script>	
 {% endblock %}

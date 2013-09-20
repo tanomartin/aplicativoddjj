@@ -31,7 +31,7 @@
 						  <td>{{ ddjjcdocu.permes }}</td>
 						  <td>{{ ddjjcdocu.totapo }}</td>
 						  <td>{{ ddjjcdocu.instrumento }}</td>
-						  <td><a href="imprimirDDJJ.php?control={{ddjjcdocu.control}}"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+						  <td><a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjcdocu.control}},'condocu')"></i></a></td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
@@ -40,4 +40,13 @@
 	</section>
 </section>
 
+{% endblock %}
+
+{% block javaScripts %}
+<script type="text/javascript">
+function verDDJJ(control, tipo){
+	urlDdjj = "imprimirDDJJ.php?control="+control+"&tipo="+tipo;
+	window.showModalDialog(urlDdjj,"",'dialogHeight:600px;dialogWidth:850px;center:Yes;help:No;resizable:Yes;status:No;');
+}
+</script>	
 {% endblock %}

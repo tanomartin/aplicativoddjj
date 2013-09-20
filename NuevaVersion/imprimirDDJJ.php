@@ -34,8 +34,8 @@ if ($sentencia = $mysqli->prepare($consultaEmpresa)) {
 } 
 
 if($tipo == "sindocu") {
-	$detalleDDJJsd = "select nrcuil, remune, apo060, apo100, apo150 from ddjj where nrcuit = $nrcuit and nrctrl = $control and nrcuil != '99999999999'";
-	if ($sentencia = $mysqli->prepare($detalleDDJJsd)) {
+	$detalleDDJJ = "select nrcuil, remune, apo060, apo100, apo150 from ddjj where nrcuit = $nrcuit and nrctrl = $control and nrcuil != '99999999999'";
+	if ($sentencia = $mysqli->prepare($detalleDDJJ)) {
    		$sentencia->execute();
     	$sentencia->bind_result($nrcuil, $remune, $apo060, $apo100, $apo150);
 		$i = 0;
@@ -59,10 +59,53 @@ if($tipo == "sindocu") {
 }
 
 if($tipo == "condocu") {
-	$consultaDDJJ = "select * from ddjjcondocu where nrcuit = $nrcuit and nrctrl = $control";
+	$detalleDDJJ = "select nrcuil, remune, apo060, apo100, apo150 from ddjjcondocu where nrcuit = $nrcuit and nrctrl = $control and nrcuil != '99999999999'";
+	if ($sentencia = $mysqli->prepare($detalleDDJJ)) {
+   		$sentencia->execute();
+    	$sentencia->bind_result($nrcuil, $remune, $apo060, $apo100, $apo150);
+		$i = 0;
+		while ($sentencia->fetch()) {
+			$detalle[$i] = array('nrcuil' => $nrcuil, 'nombre' => '', 'fecini' => '', 'remune' => $remune, 'apo060' => $apo060, 'apo100' => $apo100, 'apo150' => $apo150);
+			$i = $i + 1;
+		}
+		$sentencia->close();
+	}
+
+	$totales = "select periodos.anio, periodos.descripcion, ddjjcondocu.remune, ddjjcondocu.apo060, ddjjcondocu.apo100, ddjjcondocu.apo150,  ddjjcondocu.totapo, ddjjcondocu.recarg, ddjjcondocu.totapo+ddjjcondocu.recarg as totdep
+					from ddjjcondocu, periodos 
+					where 
+					ddjjcondocu.nrcuit = $nrcuit and 
+					ddjjcondocu.nrctrl = $control and 
+					ddjjcondocu.nrcuil = '99999999999' and
+					ddjjcondocu.perano = periodos.anio and
+					ddjjcondocu.permes = periodos.mes";
+	$respuesta = $mysqli -> query($totales);
+	$totalData = $respuesta -> fetch_assoc();
 }
+
 if($tipo == "valida") {
-	$consultaDDJJ = "select * from validas, ppjj where nrcuit = $nrcuit and nrctrl = $control";
+	$detalleDDJJ = "select nrcuil, remune, apo060, apo100, apo150 from ppjj where nrcuit = $nrcuit and nrctrl = $control and nrcuil != '99999999999'";
+	if ($sentencia = $mysqli->prepare($detalleDDJJ)) {
+   		$sentencia->execute();
+    	$sentencia->bind_result($nrcuil, $remune, $apo060, $apo100, $apo150);
+		$i = 0;
+		while ($sentencia->fetch()) {
+			$detalle[$i] = array('nrcuil' => $nrcuil, 'nombre' => '', 'fecini' => '', 'remune' => $remune, 'apo060' => $apo060, 'apo100' => $apo100, 'apo150' => $apo150);
+			$i = $i + 1;
+		}
+		$sentencia->close();
+	}
+	
+	$totales = "select periodos.anio, periodos.descripcion, validas.remune, validas.apo060, validas.apo100, validas.apo150,  validas.totapo, validas.recarg, validas.totapo+validas.recarg as totdep
+					from validas, periodos 
+					where 
+					validas.nrcuit = $nrcuit and 
+					validas.nrctrl = $control and 
+					validas.nrcuil = '99999999999' and
+					validas.perano = periodos.anio and
+					validas.permes = periodos.mes";
+	$respuesta = $mysqli -> query($totales);
+	$totalData = $respuesta -> fetch_assoc();
 }
 
 for($i=0; $i < sizeof($detalle); $i++){
