@@ -20,7 +20,9 @@ if($respuesta -> num_rows != 0){
 	$_SESSION['userCuit'] = $userData['nrcuit'];
 	$_SESSION['userID'] = $userData['nrcuit'];
 	$_SESSION['host'] = $_SERVER['SERVER_NAME'];
-
+	$_SESSION['ultimoAcceso'] = date("Y-n-j H:i:s");
+	$_SESSION['maxtimeSession'] = 2400;
+	
 	if($respueMge -> num_rows != 0){
 		$mgeData = $respueMge -> fetch_assoc();
 		$_SESSION['userMge'] = (bool)$mgeData['autori'];
