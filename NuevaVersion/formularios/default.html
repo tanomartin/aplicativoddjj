@@ -49,13 +49,24 @@
           <div class="span6 well well-small">
             <h2>Instructivos</h2>
             <p>Contamos que se pueden descargar los instructivos que explica paso a paso en lenguaje coloquial.</p>
-            <p><a class="btn btn-primary" href="docs/manual_aplicativo_ddjj.pdf" onClick="window.open(this.href,'Instructivo','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false"><i class="icon-book icon-large"></i> Aplicativo General &raquo;</a>
-            <a class="btn btn-primary" href="docs/instrucGrandes.pdf" onClick="window.open(this.href,'Instructivo','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i class="icon-book icon-large"></i> Modulo Grandes Empresas &raquo;</a></p>
+            <p><a class="btn btn-primary" href="docs/manual_aplicativo_ddjj.pdf" onClick="window.open(this.href,'Instructivo','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false"><i class="icon-book icon-large"></i> Aplicativo General &raquo;</a></p>
+            <legend></legend>
+			<p>Contamos que se pueden descargar los instructivos que explica paso a paso en lenguaje coloquial.</p>
+			<p><a class="btn btn-primary" href="docs/instrucGrandes.pdf" onClick="window.open(this.href,'Instructivo','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i class="icon-book icon-large"></i> Modulo Grandes Empresas &raquo;</a></p>
           </div>
           <div class="span6 well well-small">
             <h2>Noticias</h2>
-            <p>Aca van las noticias principales y boton es un link a leer mas.</p>
-            <p><a class="btn btn-info" href="#"><i class="icon-info icon-large"></i> Leer Mas &raquo;</a></p>
+            {% for noticia in noticias %}
+				<p>{{ noticia.fechaalta}} - {{ noticia.descripcioncorta}}
+				{% if noticia.descripcionlarga != "" %}
+            		<a href="#"><i title="Leer mas" onClick="window.open('noticia.php?id={{noticia.id}}','Noticias','resizable=NO, Scrollbars=YES', width=800,height=600, top=150, left=100)" class="icon-info icon-large"></i> </a>
+				{% endif %}
+				</p>		
+				<p><legend></legend></p>
+			{% endfor %}
+			{% if login %}
+				<a class="btn btn-info" href="noticiasTodas.php"><i class="icon-info icon-large"></i> Ver Todas &raquo;</a>
+			{% endif %}
          </div>
         </section>
 		{% endblock %}

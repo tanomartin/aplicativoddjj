@@ -1,16 +1,15 @@
 <?php session_save_path("sesiones");
 session_start();
 
-// Directorio Raíz de la app
-// Es utilizado en templateEngine.inc.php
+include('lib/php/verificaSesion.php');
+include('lib/php/verificaConexion.php');
+include('lib/php/funciones.php');
 $root = '';
-
 // Incluyo el template engine
 include('includes/templateEngine.inc.php');
-include('lib/php/conexion.php');
-include('lib/php/funciones.php');
+
 $today = date("Y-n-j");
-$consultaNoticias = "SELECT * FROM noticias where fechavencimiento > '$today' or fechavencimiento is null order by prioritaria DESC, fechaalta LIMIT 3";
+$consultaNoticias = "SELECT * FROM noticias where fechavencimiento > '$today' or fechavencimiento is null order by prioritaria DESC, fechaalta DESC";
 //print($consultaNoticias."<br>");
 if ($sentencia = $mysqli->prepare($consultaNoticias)) {
    	$sentencia->execute();
@@ -22,8 +21,6 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
    	}
 }
 
-//var_dump($noticias);
-// Cargo la plantilla
+$twig->display('noticiasTodas.html',array("userName" => $_SESSION['userNombre'], "noticias" => $noticias));
 
-$twig->display('login.html', array("noticias" => $noticias, "login" => $_SESSION['userLogin']));
 ?>

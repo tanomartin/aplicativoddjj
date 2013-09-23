@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>U.S.I.M.R.A.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Aplicativo DDJJ Online" />
+    <meta name="author" content="USIMRA-Depto de Sistemas" />
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">   
+  </head>
+<body>
+  	<div id="cargaContenido" class="container">
+		{% block contenidos %}
+			<section style="margin-top:25px">
+			<div class="hero-unit">{{ noticia.descripcioncorta }}</div>
+			<div class="hero-unit"><p align="justify" style="font-family:'Courier New', Courier, monospace; font-size:12px">{{ noticia.descripcionlarga }}</p></div>
+			</section>
+		{% endblock %}
+	</div>
+</body>

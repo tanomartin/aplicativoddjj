@@ -1,0 +1,28 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Noticias</h1>
+	</div>
+  <section class="row-fluid"></section>
+	<section class="row-fluid">
+		 <div class="well well-small">
+			<h3>&Uacute;ltimas Noticias Destacadas</h3>	
+			{% for noticia in noticias %}
+				<p>{{ noticia.fechaalta}} - {{ noticia.descripcioncorta}}
+				{% if noticia.descripcionlarga != "" %}
+            		<a href="#"><i title="Leer mas" onClick="window.open('noticia.php?id={{noticia.id}}','Noticias','resizable=NO, Scrollbars=YES', width=800,height=600, top=150, left=100)" class="icon-info icon-large"></i> </a>
+				{% endif %}
+				</p>		
+				<p><legend></legend></p>
+			{% endfor %}
+         </div>
+	</section>
+</section>
+
+{% endblock %}
