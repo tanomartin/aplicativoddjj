@@ -9,9 +9,16 @@
     <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">   
   </head>
 <body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+        		<div class="brand"> <a class="brand" href="#">Aplicativo DDJJ Online - Noticias</a></div>
+			</div>
+		</div>
+	</div>
   	<div id="cargaContenido" class="container">
 		{% block contenidos %}
-			<section style="margin-top:25px">
+			<section style="margin-top:50px">
 			<div class="hero-unit">{{ noticia.descripcioncorta }}</div>
 			<div class="hero-unit"><p align="justify" style="font-family:'Courier New', Courier, monospace; font-size:12px">{{ noticia.descripcionlarga }}</p></div>
 			</section>
