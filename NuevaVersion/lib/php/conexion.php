@@ -4,7 +4,7 @@ session_start();
 define("host", 'localhost');
 define("user", 'uv0472');
 define("pass", 'trozo299tabea');
-define("base", 'uv0472_aplicativo');
+define("base", 'uv0472_newaplicativo');
 
 // Bandera de status de conexion
 $errorDbConexion = false;
