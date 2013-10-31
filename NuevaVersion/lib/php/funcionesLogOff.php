@@ -117,6 +117,7 @@ function guardaAlta($data,$dbLink) {
 		$fecini = fechaParaGuardar($data['inicio']);
 		$clavea = $data['clave'];
 		$autori = 0;
+		$bajada = 0;
 
 		//Consulto Tabla Actividad para tomar la descripcion
 		$sqlActividad = "SELECT * FROM actividad WHERE id = $activi";
@@ -126,7 +127,7 @@ function guardaAlta($data,$dbLink) {
 		$activi = $datActividad['descripcion'];
 
 		//Armo consulta SQL de Tabla Empresa
-		$sqlAddEmpresa = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,rramaa,fecini,claveacc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sqlAddEmpresa = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,rramaa,fecini,claveacc,bajada) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		//Armo consulta SQL de Tabla Habilita
 		$sqlAddHabilita = "INSERT INTO habilita (nrcuit,autori) VALUES (?,?)";
@@ -134,7 +135,7 @@ function guardaAlta($data,$dbLink) {
 		//Ejecuto los inserts
 		try {
 			if ($setActuEmpre = $dbLink->prepare($sqlAddEmpresa)) {
-				$setActuEmpre->bind_param('ssssissssiss', $nrcuit, $nombre, $domici, $locali, $provin, $copole, $telfon, $emails, $activi, $corama, $fecini, $clavea);
+				$setActuEmpre->bind_param('ssssissssissi', $nrcuit, $nombre, $domici, $locali, $provin, $copole, $telfon, $emails, $activi, $corama, $fecini, $clavea, $bajada);
 				$setActuEmpre->execute();
 				$setActuEmpre->close();
 
