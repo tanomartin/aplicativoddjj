@@ -24,15 +24,16 @@ $codpos = strtoupper($datos[12]);
 $nacion = strtoupper($datos[13]);
 $catego = $datos[14];
 $activo = $datos[15];
+$bajada = 0;
 
 //Ejecucion de la sentencia SQL
-$sqlNuevoEmpleado = "INSERT INTO empleados(nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+$sqlNuevoEmpleado = "INSERT INTO empleados(nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo,bajada) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 //echo $sqlActualizaPerfil;
 
 try {
 	if ($stmt = $mysqli->prepare($sqlNuevoEmpleado)) {
-		$stmt->bind_param('sssssssssssssssss', $nrcuit, $nrcuil, $apellido, $nombre, $fecini, $tipdoc, $numdoc, $sexo, $fecnac, $estado, $direccion, $locale, $codpos, $provin, $nacion, $catego, $activo);
+		$stmt->bind_param('sssssssssssssssssi', $nrcuit, $nrcuil, $apellido, $nombre, $fecini, $tipdoc, $numdoc, $sexo, $fecnac, $estado, $direccion, $locale, $codpos, $provin, $nacion, $catego, $activo, $bajada);
 		$stmt->execute();
 		$stmt->close();
 		$pagina = "listaEmpleados.php";

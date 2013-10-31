@@ -20,15 +20,15 @@ $fecing = fechaParaGuardar($datos[5]);
 $tipdoc = $datos[6];
 $numdoc = $datos[7];
 $benefi = $datos[8];
-
+$bajada = 0;
 
 //Ejecucion de la sentencia SQL
-$sqlNuevoFamiliar = "INSERT INTO familia(nrcuit,nrcuil,nombre,apelli,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+$sqlNuevoFamiliar = "INSERT INTO familia(nrcuit,nrcuil,nombre,apelli,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi,bajada) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
 try {
 	if ($stmt = $mysqli->prepare($sqlNuevoFamiliar)) {
-		$stmt->bind_param('sssssssssss', $nrcuit, $nrcuil, $nombre, $apellido, $codpar, $sexo, $fecnac, $fecing, $tipdoc, $numdoc, $benefi);
+		$stmt->bind_param('sssssssssssi', $nrcuit, $nrcuil, $nombre, $apellido, $codpar, $sexo, $fecnac, $fecing, $tipdoc, $numdoc, $benefi, $bajada);
 		
 		$stmt->execute();
 		$stmt->close();

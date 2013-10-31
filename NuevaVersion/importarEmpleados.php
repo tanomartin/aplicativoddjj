@@ -76,13 +76,14 @@ session_start();
 		$campos[13]=formatoNum($campos[13]);
 		$campos[15]=formatoNum(substr($campos[15],3,3));
 		$campos[16]=formatoEstado($campos[16]);
+		$bajada = 0;
 		
 		//Ejecucion de la sentencia SQL
-		$sqlNuevoEmpleado = "INSERT INTO empleados(nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sqlNuevoEmpleado = "INSERT INTO empleados(nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo,bajada) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			if ($stmt = $mysqli->prepare($sqlNuevoEmpleado)) {
-				$stmt->bind_param('sssssssssssssssss', trim($campos[0]),trim($campos[1]), trim($campos[2]), trim($campos[3]), trim($campos[4]), trim($campos[5]), trim($campos[6]),  trim($campos[7]), trim($campos[8]), trim($campos[9]) ,trim($campos[10]), trim($campos[11]), trim($campos[12]), trim($campos[13]), trim($campos[14]), trim($campos[15]), trim($campos[16]));
+				$stmt->bind_param('sssssssssssssssssi', trim($campos[0]),trim($campos[1]), trim(strtoupper($campos[2])), trim(strtoupper($campos[3])), trim($campos[4]), trim($campos[5]), trim($campos[6]),  trim($campos[7]), trim($campos[8]), trim($campos[9]) ,trim(strtoupper($campos[10])), trim(strtoupper($campos[11])), trim($campos[12]), trim($campos[13]), trim(strtoupper($campos[14])), trim($campos[15]), trim($campos[16]),$bajada);
 				$stmt->execute();
 				$stmt->close();
 			} else {

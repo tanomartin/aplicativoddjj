@@ -68,12 +68,12 @@ session_start();
 		$campos[8]=formatoTipoDoc($campos[8]);
 		$campos[9]=(int)$campos[9];
 		$campos[10]=formatoEstado($campos[10]);
-		
-		$sqlNuevoFamiliar = "INSERT INTO familia(nrcuit,nrcuil,nombre,apelli,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		$bajada = 0;
+		$sqlNuevoFamiliar = "INSERT INTO familia(nrcuit,nrcuil,nombre,apelli,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi,bajada) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			if ($stmt = $mysqli->prepare($sqlNuevoFamiliar)) {
-				$stmt->bind_param('sssssssssss', trim($campos[0]),trim($campos[1]),trim($campos[2]), trim($campos[3]), trim($campos[4]), trim($campos[5]), trim($campos[6]), trim($campos[7]), trim($campos[8]), trim($campos[9]), trim($campos[10]));
+				$stmt->bind_param('sssssssssssi', trim($campos[0]),trim($campos[1]),trim(strtoupper($campos[2])), trim(strtoupper($campos[3])), trim($campos[4]), trim($campos[5]), trim($campos[6]), trim($campos[7]), trim($campos[8]), trim($campos[9]), trim($campos[10]), $bajada);
 				$stmt->execute();
 				$stmt->close();
 			} else {
