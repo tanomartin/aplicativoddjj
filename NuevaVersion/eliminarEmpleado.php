@@ -8,21 +8,35 @@ $nrcuit =  $_SESSION['userCuit'];
 $nrcuil =  $_GET['cuil'];
 
 //Ejecucion de la sentencia SQL
-$sqlInsertEmpleado = "INSERT into empleadosdebaja SELECT * from empleados where nrcuit = ? and nrcuil = ?";
+
 $sqlInsertFamilia = "INSERT into familiadebaja SELECT * from familia where nrcuil = ?";
+$sqlUpdateBajadaFamilia = "UPDATE familiadebaja SET bajada = ? where nrcuil = ?";
+
+$sqlInsertEmpleado = "INSERT into empleadosdebaja SELECT * from empleados where nrcuit = ? and nrcuil = ?";
+$sqlUpdateBajadaEmpleado = "UPDATE empleadosdebaja SET bajada = ? where nrcuit = ? and nrcuil = ?";
 
 $sqlDeleteEmpleado = "DELETE from empleados where nrcuit = ? and nrcuil = ?";
 $sqlDeleteFamiliares = "DELETE from familia where nrcuil = ?";
 
 try {
-	if (($stmt = $mysqli->prepare($sqlDeleteEmpleado)) && ($stmt2 = $mysqli->prepare($sqlDeleteFamiliares)) && ($stmt4 = $mysqli->prepare($sqlInsertEmpleado)) && ($stmt3 = $mysqli->prepare($sqlInsertFamilia))) {	
+	if (($stmt = $mysqli->prepare($sqlDeleteEmpleado)) && ($stmt2 = $mysqli->prepare($sqlDeleteFamiliares)) && ($stmt4 = $mysqli->prepare($sqlInsertEmpleado)) && ($stmt3 = $mysqli->prepare($sqlInsertFamilia)) && ($stmt5 = $mysqli->prepare($sqlUpdateBajadaEmpleado)) && ($stmt6 = $mysqli->prepare($sqlUpdateBajadaFamilia)) ) {	
+		$bajada = 0;
+		
 		$stmt3->bind_param('s', $nrcuil);
 		$stmt3->execute();
 		$stmt3->close();
 		
+		$stmt6->bind_param('is', $bajada, $nrcuil);
+		$stmt6->execute();
+		$stmt6->close();
+		
 		$stmt4->bind_param('ss', $nrcuit, $nrcuil);
 		$stmt4->execute();
 		$stmt4->close();
+		
+		$stmt5->bind_param('iss', $bajada, $nrcuit, $nrcuil);
+		$stmt5->execute();
+		$stmt5->close();
 		
 		$stmt2->bind_param('s', $nrcuil);
 		$stmt2->execute();
