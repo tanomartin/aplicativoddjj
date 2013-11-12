@@ -1,0 +1,21 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Ticket de Transferencia Bancaria</h1>
+	</div>
+	<section class="row-fluid">   
+		<div align="center" class="well well-small">
+			<fieldset id="botonera" style="text-align:center;">
+				<p><a class="btn btn-primary" href="{{archivoPDF}}" onClick="window.open(this.href,'Ticket','resizable=NO, Scrollbars=NO', width=500,height=710, top=300, left=150); return false">Imprimir / Descargar</a></p>
+			</fieldset>
+			<p><embed src="{{archivoPDF}}#toolbar=0&navpanes=0&scrollbar=0" width="500" height="710"></embed></p>
+		</div>
+	</section>
+</section>
+{% endblock %}

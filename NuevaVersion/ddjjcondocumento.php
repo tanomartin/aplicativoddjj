@@ -22,7 +22,7 @@ ddjjcondocu.nrcuit = $nrcuit and
 ddjjcondocu.nrcuil = '99999999999' and 
 periodos.mes = ddjjcondocu.permes and
 periodos.anio = ddjjcondocu.perano
-order by ddjjcondocu.nrctrl DESC limit 6";
+order by ddjjcondocu.nrctrl DESC";
 
 if ($sentencia = $mysqli->prepare($consultaDDJJconDocu)) {
     $sentencia->execute();

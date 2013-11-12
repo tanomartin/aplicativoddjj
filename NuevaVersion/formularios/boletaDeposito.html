@@ -1,21 +1,14 @@
-{# Heredando la plantilla principal #}
+<style type="text/css" media="print">
+<!--
+.Estilo1 {
+	font-size: 12px;
+	font-weight: bold;
+}
+.nover {display:none}
+-->
 
-{% extends 'default.html' %}
-{% use 'navegacion.html' %}
-{% use 'loginUsuario.html' %}
-
-{% block contenidos %}
-<section style="margin-top:50px">
-	<div class="hero-unit">
-		{% if tipoPago == "B" %}
-			<h2>Boleta de Dep&oacute;sito</h2>
-		{% else %}
-			<h2>Ticket Transferencia Bancaria</h2>
-		{% endif %}
-	</div>
-</section>
-{% if tipoPago == "B" %}
-	<div id="generaBoleta" title="Boleta de Deposito" align="center">
+</style>
+<div id="generaBoleta" title="Boleta de Deposito" align="center">
 		<div style="width:650px; font-size: 14px; font-family:Verdana, Arial, Helvetica, sans-serif;">
 		{% for ddjjCDocumento in ddjjCDocu %}
 			{% for cantidadBoletas in canBoleta %}
@@ -113,38 +106,14 @@
 			{% endfor %}
 		{% endfor %}
 		</div>
-	</div>
-{% endif %}
-{% endblock %}
-{% block cssPropios %}
-<link rel="stylesheet" href="css/smoothness/jquery-ui-1.9.2.custom.min.css">
-<link rel="stylesheet" href="css/PrintArea-2.2.2/PrintArea.css" />
-{% endblock %}
-{% block javaScripts %}
-	<script type="text/javascript" src="lib/js/jquery/jquery-ui-1.9.2.custom.min.js" ></script>
-	<script type="text/JavaScript" src="lib/js/jquery-PrintArea-2.2.2/jquery.PrintArea.js" ></script>
-	<script type="text/javascript">
-
-	$(function(){
-		// Ventana modal para Boleta de Deposito
-		$("#generaBoleta" ).dialog({
-			open: function(event, ui){
-        		$(".ui-dialog-titlebar").find('a').hide();
-			},
-			modal: true,
-			position: { my: "center center", at: "center center", of: window },
-			width:690,
-			height:830,
-			buttons: {
-				"Imprimir": function() {
-					$("div#generaBoleta").printArea();
-					//$( this ).dialog( "close" );
-				},
-				"Cerrar": function() {
-					$( this ).dialog( "close" );
-                }
-            }
-		});
-	});
-	</script>
-{% endblock %}
+		<table border="0" width="650">
+          <tr>
+            <td width="325"><div align="left">
+              <input id="cerrar" name="cerrar" type="button" class="nover" onClick="window.location.href='opcionesDDJJ.php'" value="Cerrar" />
+            </div></td>
+            <td width="325"><div align="right">
+              <input id="imprimir" name="imprimir" type="button" class="nover" onClick="window.print();" value="Imprimir" />
+            </div></td>
+          </tr>
+        </table>
+</div>
