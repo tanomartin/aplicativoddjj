@@ -1,6 +1,6 @@
 <?php 
 include('lib/php/conexion.php');
-$ramas='<option title ="Seleccione un valor" value="">Seleccione un valor</option>';
+$ramas='<option title ="Seleccione un valor" value="">Rama - Seleccione un valor</option>';
 $consulta = "SELECT * FROM rama";
 if ($sentencia = $mysqli->prepare($consulta)) {
 	$sentencia->execute();

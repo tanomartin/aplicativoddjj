@@ -1,6 +1,6 @@
 <?php 
 include('lib/php/conexion.php');
-$actividades='<option title ="Seleccione un valor" value="">Seleccione un valor</option>';
+$actividades='<option title ="Seleccione un valor" value="">Actividad - Seleccione un valor</option>';
 $consulta = "SELECT * FROM actividad";
 if ($sentencia = $mysqli->prepare($consulta)) {
 	$sentencia->execute();
