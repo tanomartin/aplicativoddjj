@@ -22,7 +22,7 @@ validas.nrcuit = $nrcuit and
 validas.nrcuil = '99999999999' and 
 periodos.mes = validas.permes and
 periodos.anio = validas.perano
-order by validas.nrctrl DESC limit 6";
+order by validas.nrctrl DESC";
 
 //print($consultaValidas);
 
