@@ -38,7 +38,7 @@
 <table width="750" border="0">
   <tr>
     <td width="51"><strong>Per&iacute;odo:</strong></td>
-    <td width="589"><strong>{{ totales.descripcion }} {{ totales.anio }} </strong></td>
+    <td width="589"><strong>{{ totales.descripcion }} {{ totales.anio }}</strong></td>
   </tr>
 </table>
 <br>
@@ -47,7 +47,13 @@
   	<td width="100">C.U.I.L.</td>
     <td width="243">NOMBRE</td>
     <td width="71">FECHA DE INGRESO</td>
-    <td width="116">REMUNERACION</td>
+    <td width="116">
+	{% if  totales.mes < 13 %}	
+		REMUNERACION
+	{% else  %}
+		ALICUOTA
+	{% endif %}
+	</td>
     <td width="58">Art. 32 0,6%</td>
     <td width="58">Art. 32 bis 1%</td>
     <td width="58">Art. 32 bis 1,5%</td>
