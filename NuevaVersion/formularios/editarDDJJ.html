@@ -92,7 +92,7 @@
 					<td></td>
 					<td id="totalgeneral" class="hide"></td>
 					<td valign="bottom"><div align="right"><strong>Total</strong></div></td>
-					<td><span></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
+					<td><span id="errorTotal"></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
 				</tr>
 			   </tbody>	
 	  		</table>
@@ -351,6 +351,7 @@
 		}
 		
 		function recalcularTotal(){
+			document.getElementById("errorTotal").innerHTML = '';
 			var total = document.getElementById("total").value;
 			if (total == "") {
 				total = 0;
