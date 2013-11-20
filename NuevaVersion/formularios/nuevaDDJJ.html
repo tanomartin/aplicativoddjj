@@ -94,7 +94,7 @@
 					<td></td>
 					<td id="totalgeneral" class="hide"></td>
 					<td valign="bottom"><div align="right"><strong>Total</strong></div></td>
-					<td><span></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
+					<td><span id="errorTotal"></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
 				</tr>
 			   </tbody>	
 	  		</table>
@@ -149,7 +149,7 @@
 		var retiene100 = 1;
 		var retiene150 = 1;
 		var minimoBoleta = 50;
-		
+			
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando DDJJ <br> Puede demorar unos minutos.</h1>" });
 			return true;
@@ -350,6 +350,7 @@
 		}
 		
 		function recalcularTotal(){
+			document.getElementById("errorTotal").innerHTML = '';
 			var total = document.getElementById("total").value;
 			if (total == "") {
 				total = 0;
