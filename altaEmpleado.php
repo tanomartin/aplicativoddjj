@@ -110,11 +110,9 @@ function valida_envia(){
 <?php
 include("lib/conexion.php");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 $rama = $row['rramaa'];
-
-
 ?>
 
 <body bgcolor="#E4C192" link="#62641A" vlink="#62641A" alink="#CF8B34">
@@ -141,7 +139,7 @@ $rama = $row['rramaa'];
               <tr> 
 
                 <td width="217"><b><font face="Verdana" size="1">CUIT</font></b></td>
-                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><? echo $cui01."-".$cui02."-".$cui03; ?></font></td>
+                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><?php echo $cui01."-".$cui02."-".$cui03; ?></font></td>
               </tr>
               <tr> 
 
@@ -366,8 +364,7 @@ $rama = $row['rramaa'];
                 <td width="298"><font face="Arial, Helvetica, sans-serif" size="2">
 <?php
 $sqll = "select * from categorias where codram = '$rama'";
-$res = mysql_db_query("uv0472_aplicativo",$sqll,$db);
-//$row = mysql_fetch_array($result);
+$res = mysql_query($sqll,$db);
 ?>
 <select name=D7 size=1 id="D7">
 <?php

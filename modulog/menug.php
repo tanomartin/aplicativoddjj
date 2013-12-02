@@ -1,4 +1,4 @@
-<? session_save_path("../sesiones");
+<?php session_save_path("../sesiones");
 session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: ../caducaSes.php");
@@ -28,11 +28,11 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 </head>
 
 
-<?
+<?php
 include ("conexion.php");
 //Ejecucion de la sentencia SQL
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 

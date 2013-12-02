@@ -31,7 +31,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <?php
 include("lib/conexion.php");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 
@@ -48,9 +48,9 @@ $row = mysql_fetch_array($result);
               <p><font size="2" face="Arial, Helvetica, sans-serif"><a href="carganuevaDdjj.php"><strong>Cargar 
                 una DDJJ nueva</strong></a></font></p>
               <p> 
-              <?
+              <?php
 			$sql = "select * from validas where nrcuit = '$nrcuit' order by perano DESC, permes DESC";
-			$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+			$result = mysql_query($sql,$db);
 			$nfilas = mysql_num_rows($result);
 			if ($nfilas < 1) {
 				$nfilas = 0;
@@ -67,17 +67,13 @@ $row = mysql_fetch_array($result);
               </tr>
               <?php
 $i = 1;
- while ($row=mysql_fetch_array($result)) {
-
-
-print ("<td width=25%><font face=Verdana size=1>".$row['perano']."</font></td>");
-
-print ("<td width=25%><font face=Verdana size=1><b>".$row['permes']."</b></font></td>");
-
-print ("<td width=25%><font face=Verdana size=1>".$row['nfilas']."</font></td>");
-print ("<td width=25%><font face=Verdana size=1><a href=cargaanteriorDdjj.php?nrctrlold=".$row['nrctrl'].">".$row['totapo']."</font></td>");
-print ("</tr>");
-$i++;
+while ($row=mysql_fetch_array($result)) {
+		print ("<td width=25%><font face=Verdana size=1>".$row['perano']."</font></td>");
+		print ("<td width=25%><font face=Verdana size=1><b>".$row['permes']."</b></font></td>");
+		print ("<td width=25%><font face=Verdana size=1>".$row['nfilas']."</font></td>");
+		print ("<td width=25%><font face=Verdana size=1><a href=cargaanteriorDdjj.php?nrctrlold=".$row['nrctrl'].">".$row['totapo']."</font></td>");
+		print ("</tr>");
+		$i++;
 }
 
 ?>

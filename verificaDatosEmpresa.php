@@ -30,7 +30,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <div align="center">
   <table align="center" border=0 cellpadding="5">
     <?php
-$datos = array_values($HTTP_POST_VARS);
+$datos = array_values($_POST);
 $cuit01 = $datos [0];
 $cuit02 = $datos [1];
 $cuit03 = $datos [2];
@@ -68,7 +68,7 @@ else {
 	//Ejecucion de la sentencia SQL
 
 	$sql = "select * from empresa where nrcuit = $nrcuit";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$result = mysql_query($sql,$db);
 	$nocuit = mysql_num_rows($result);
 
 	if ($nocuit > 0) {

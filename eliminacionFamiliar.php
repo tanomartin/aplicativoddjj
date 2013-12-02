@@ -30,16 +30,13 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 
 <?php
 include("lib/conexion.php");
-$sql = "delete from familia
-where nrcuit = '$nrcuit' and
-nrcuil = '$nrcuil' and
-id = '$id'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$nrcuil = $_GET['nrcuil'];
+$id = $_GET['id'];
+$sql = "delete from familia where nrcuit = '$nrcuit' and nrcuil = '$nrcuil' and id = '$id'";
+$result = mysql_query($sql,$db);
 
-//Ejecucion de la sentencia SQL
-$db = mysql_connect($host,$user,$pass);
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 
 
@@ -57,23 +54,21 @@ $row = mysql_fetch_array($result);
             <td width="168" valign="top"><p><font face="Verdana" size="1"><b><font color="#CF8B34"><?php include("menuLateral.php"); ?></font></b></font></p></td>
             
 <?php 
-include("lib/conexion.php");
 $cuil01 = substr($nrcuil,0,2);
 $cuil02 = substr($nrcuil,2,8);
 $cuil03 = substr($nrcuil,10,1);
-$sql = "select * from empleados where nrcuil = '$nrcuil'
-and nrcuit = '$nrcuit'";
-$res = mysql_db_query("uv0472_aplicativo",$sql,$db);
-$nom=mysql_fetch_array($res);
+$sql = "select * from empleados where nrcuil = '$nrcuil' and nrcuit = '$nrcuit'";
+$res = mysql_query($sql,$db);
+$nom = mysql_fetch_array($res);
 ?>            
           <td width="516" valign="top"><p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong> 
-              <? echo $cuil01?>-<? echo $cuil02?>-<? echo $cuil03?>  <? echo $nom['apelli'];?>, <? echo $nom['nombre'];?></strong></font></p>
+              <?php echo $cuil01?>-<?php echo $cuil02?>-<?php echo $cuil03?>  <?php echo $nom['apelli'];?>, <?php echo $nom['nombre'];?></strong></font></p>
             <p align="center"><font color="#800000" size="2" face="Arial, Helvetica, sans-serif"><strong>REGISTRO 
               BORRADO</strong></font></p>
             <p> 
 
             </p>
-            <p><font size="2" face="Arial, Helvetica, sans-serif"><strong><a href="listagrupoFamiliar.php?nrcuil=<? echo $nrcuil;?>"><font color="#800000">Volver</font></a></strong></font>
+            <p><font size="2" face="Arial, Helvetica, sans-serif"><strong><a href="listagrupoFamiliar.php?nrcuil=<?php echo $nrcuil;?>"><font color="#800000">Volver</font></a></strong></font>
 <p></td>
           </tr>
           <tr>

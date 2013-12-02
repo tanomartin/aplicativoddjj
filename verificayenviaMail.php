@@ -1,11 +1,5 @@
-<?
-/*
-if (count($_POST) == 0){
-						header ('location:login.htm');
-						exit(); //sale del php y n hace mas nada
-						}
-*/
-$datos = array_values($HTTP_POST_VARS);
+<?php
+$datos = array_values($_POST);
 
 $mail = $datos [0];
 $nrcuit = $datos [1];
@@ -13,7 +7,7 @@ $nrcuit = $datos [1];
 include ("lib/conexion.php");
 
 $sql = "select * from empresa where nrcuit = '$nrcuit' and emails = '$mail'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $cant = mysql_num_rows($result);
 if ($cant > 0) {
 

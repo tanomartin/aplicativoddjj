@@ -1,7 +1,8 @@
-<? session_save_path("../sesiones");
+<?php session_save_path("../sesiones");
 session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: ../caducaSes.php");
+$filas = $_GET['filas'];
 ?>
 <html>
 <head>
@@ -11,14 +12,13 @@ if($_SESSION['nrcuit'] == null)
   <p align="center"><img border="0" src="top.jpg" width="700" height="120"></p>
 <p><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
 <p>
-<?
+<?php
 include ("conexion.php");
 $ctrlh =  date("YmdHis");
 ?>
 
-<form method="post" action="../grabatotalesDdjj.php?filas=<? echo $filas;?>&ctrlh=<? echo $ctrlh;?>">
-    <?
-	$datos = array_values($HTTP_POST_VARS);
+<form method="post" action="../grabatotalesDdjj.php?filas=<?php echo $filas;?>&ctrlh=<?php echo $ctrlh;?>">
+    <?php $datos = array_values($_POST);
 	
 	$archivo = $datos [0];
 	$permes = $datos [1];
@@ -55,7 +55,7 @@ $ctrlh =  date("YmdHis");
 	
 	//verifico que aportes tengo que calcular y cargo variables.
 	$sqlRemu = "select * from extraordinarios where anio = $perano and mes = $permes";
-	$resRemu = mysql_db_query("uv0472_aplicativo",$sqlRemu,$db);
+	$resRemu = mysql_query($sqlRemu,$db);
 	$nfiRemu = mysql_num_rows($resRemu);
 	if ($nfiRemu == 1) {
 		$rowRemu=mysql_fetch_array($resRemu);
@@ -101,7 +101,7 @@ $ctrlh =  date("YmdHis");
 
 		$sql = "INSERT INTO ddjj (nrcuit,nrcuil,permes,perano,remune,apo060,apo100,apo150,nrctrl)
 		VALUES ('$nrcuit','$nrcuil','$permes','$perano','$rem','$apo060','$apo100','$apo150','$ctrlh')";
-		$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+		$result = mysql_query($sql,$db);
 
 		//TABLA
 		$sql = "SELECT * from ddjj where
@@ -110,7 +110,7 @@ $ctrlh =  date("YmdHis");
 		permes = '$permes' and
 		perano = '$perano' and
 		nrctrl = '$ctrlh'";
-		$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+		$result = mysql_query($sql,$db);
 		$row=mysql_fetch_array($result);
 
 		print ("<input type=hidden name=W".$i." size=20 value=".$row['apo060'].">");
@@ -203,7 +203,7 @@ $ctrlh =  date("YmdHis");
 <input type="submit" value="Procesar Declaración Jurada" name="B1" style="background-color: #E4C192; border-style: solid; border-color: #D28E37">
 </form>
 
-<? print ("<font color=#CD8C34 face=Verdana size=2><a href=djMuestra.php?nombreArc=".$archivo."><b>".Volver."</b></font></div>") ?>
+<?php print ("<font color=#CD8C34 face=Verdana size=2><a href=djMuestra.php?nombreArc=".$archivo."><b>".Volver."</b></font></div>") ?>
 
 </p>
 

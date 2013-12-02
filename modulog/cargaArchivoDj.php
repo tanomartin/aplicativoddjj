@@ -1,4 +1,4 @@
-<? session_save_path("../sesiones");
+<?php session_save_path("../sesiones");
 session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: ../caducaSes.php");
@@ -25,7 +25,7 @@ if($_SESSION['nrcuit'] == null)
         <p align="center">
           <input type="submit" name="Submit" value="Enviar" />
         </p>
-        <p align="center"><? print ("<a href=menug.php>".VOLVER); ?> </p>
+        <p align="center"><?php print ("<a href=menug.php>".VOLVER); ?> </p>
     </form></td>
   </tr>
     <td height="20" colspan="2" bgcolor="#CF8B34"><div align="center"><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif">Copyright 

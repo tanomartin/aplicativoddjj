@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 	
-$datos = array_values($HTTP_POST_VARS);
+$datos = array_values($_POST);
 
 $nrcuil = $datos [0];
 $nombre = $datos [1];
@@ -56,7 +56,7 @@ activo = '$activo'
 where nrcuit = '$nrcuit' and
 nrcuil = '$nrcuil'
 ";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 $pagina = "muestraEmpleado.php?nrcuil=$nrcuil";
 header ("location:$pagina");

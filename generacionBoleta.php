@@ -3,6 +3,7 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 include("lib/conexion.php");
+$nrctrlh = $_GET['nrctrlh'];
 ?>
 <html>
 
@@ -49,7 +50,7 @@ print ("</table>");
 
 //Ejecucion de la sentencia SQL
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 
 $row=mysql_fetch_array($result);
@@ -76,7 +77,7 @@ print ("</table>");
 $sql = "select * from ddjj where nrcuit = '$nrcuit'
 and nrcuil = '99999999999'
 and nrctrl = '$nrctrlh'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row=mysql_fetch_array($result);
 
 //number_format(, 2, ",", "")

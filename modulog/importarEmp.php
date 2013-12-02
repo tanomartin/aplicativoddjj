@@ -1,4 +1,4 @@
-<? session_save_path("../sesiones");
+<?php session_save_path("../sesiones");
 session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: ../caducaSes.php");
@@ -10,7 +10,7 @@ if($_SESSION['nrcuit'] == null)
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Importando Registros.</title>
 </head>
-<?
+<?php
 	include ("conexion.php");
 	
 	function formatoSexo($campo) {
@@ -67,8 +67,10 @@ if($_SESSION['nrcuit'] == null)
 	}
 	
 	$cuit=$_SESSION['nrcuit'];
-	$archivoHost="http://www.usimra.com.ar/ddjj/modulog/archivos/$cuit/$nombreArc";
-	$registros = file($archivoHost, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	//$archivoHost="http://www.usimra.com.ar/ddjj/modulog/archivos/$cuit/$nombreArc";
+	$archivo_name = $_GET['nombreArc'];
+	$destino="archivos/$cuit/$archivo_name";
+	$registros = file($destino, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	for($i = 0; $i < count($registros); $i++) {
 		$campos=explode("|", $registros[$i]);
 		
@@ -84,7 +86,7 @@ if($_SESSION['nrcuit'] == null)
 		
 		$sql = "INSERT INTO empleados VALUES ('".trim($campos[0])."','".trim($campos[1])."','".trim($campos[2])."','".trim($campos[3])."','".trim($campos[4])."','".trim($campos[5])."','".trim($campos[6])."','".trim($campos[7])."','".trim($campos[8])."','".trim($campos[9])."','".trim($campos[10])."','".trim($campos[11])."','".trim($campos[12])."','".trim($campos[13])."','".trim($campos[14])."','".trim($campos[15])."','".trim($campos[16])."')";
 
-		$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+		$result = mysql_query($sql,$db);
 		//print ("$sql<br/>\n");	
 	}	
 ?>
@@ -96,7 +98,7 @@ if($_SESSION['nrcuit'] == null)
   </tr>
   <tr>
     <td><div align="center">
-      <?
+      <?php
 		print ("<a href=menug.php>".VOLVER);
 	?>
     </div></td>

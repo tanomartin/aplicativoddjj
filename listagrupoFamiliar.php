@@ -31,7 +31,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <?php
 include("lib/conexion.php");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 
@@ -46,27 +46,25 @@ $row = mysql_fetch_array($result);
           <tr>
             <td width="168" valign="top"><font face="Verdana" size="1"><b><font color="#CF8B34"><?php include("menuLateral.php"); ?></p></td>
 <?php
+$nrcuil = $_GET['nrcuil'];
 $cuil01 = substr($nrcuil,0,2);
 $cuil02 = substr($nrcuil,2,8);
 $cuil03 = substr($nrcuil,10,1);
-$sql = "select * from empleados where nrcuil = '$nrcuil'
-and nrcuit = '$nrcuit'";
-$res = mysql_db_query("uv0472_aplicativo",$sql,$db);
-$nom=mysql_fetch_array($res);
+$sql = "select * from empleados where nrcuil = '$nrcuil' and nrcuit = '$nrcuit'";
+$res = mysql_query($sql,$db);
+$nom = mysql_fetch_array($res);
 ?>            
           <td width="516" valign="top"><p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong> 
               <?php echo $cuil01?>-<?php echo $cuil02?>-<?php echo $cuil03?>  <?php echo $nom['apelli'];?>, <?php echo $nom['nombre'];?></strong></font></p>
             <p>
               <?php
-$sql = "select * from familia where nrcuil = '$nrcuil'
-and nrcuit = '$nrcuit'
-order by nrcuil,codpar,fecnac";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$sql = "select * from familia where nrcuil = '$nrcuil' and nrcuit = '$nrcuit' order by nrcuil,codpar,fecnac";
+$result = mysql_query($sql,$db);
 $nfilas = mysql_num_rows($result);
 if ($nfilas < 1) {
 print ("<font face=Verdana size=2>Cantidad de Familiares Registrados: 0</font>");
 } else {
-Print ("<font face=Verdana size=2>Cantidad de Familiares Registrados: ".$nfilas."</font>");
+print ("<font face=Verdana size=2>Cantidad de Familiares Registrados: ".$nfilas."</font>");
 }
 
 print ("<br>");
@@ -101,7 +99,7 @@ $i++;
 print ("</table>");
 ?>
             </p>
-<p><font size="2" face="Arial, Helvetica, sans-serif"><strong><a href="cargaFamiliar.php?nrcuil=<? echo $nrcuil;?>">Agregar 
+<p><font size="2" face="Arial, Helvetica, sans-serif"><strong><a href="cargaFamiliar.php?nrcuil=<?php echo $nrcuil;?>">Agregar 
               Registro de Familiar</a></strong></font></td>
           </tr>
           <tr>

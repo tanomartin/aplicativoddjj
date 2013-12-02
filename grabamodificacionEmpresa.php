@@ -62,7 +62,7 @@ activi = '$activi',
 fecini = '$fecini'
 where nrcuit = '$nrcuit'
 ";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 ?>
 

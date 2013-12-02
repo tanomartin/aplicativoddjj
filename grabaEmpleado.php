@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 
-$datos = array_values($HTTP_POST_VARS);
+$datos = array_values($_POST);
 $nrcui01 = $datos [0];
 $nrcui02 = $datos [1];
 $nrcui03 = $datos [2];
@@ -47,7 +47,7 @@ if ($pepe == 0) {
 } else {
 	$sql = "INSERT INTO empleados (nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo)
 	VALUES ('$nrcuit','$nrcuil','$apelli','$nombre','$fecing','$tipdoc','$nrodoc','$ssexxo','$fecnac','$estciv','$direcc','$locale','$copole','$provin','$nacion','$catego','$activo')";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$result = mysql_query($sql,$db);
 	
 	$pagina = "muestraEmpleado.php?nrcuil=$nrcuil";
 	header ("location:$pagina");

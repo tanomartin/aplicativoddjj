@@ -11,12 +11,12 @@ $contraNueva = $datos[1];
 $repiteContra = $datos[2];
 
 $sqlContraActual = "select * from empresa where nrcuit = '$cuit' and claveacc = '$contraActual'";
-$resContraActual = mysql_db_query("uv0472_aplicativo",$sqlContraActual,$db);
+$resContraActual = mysql_query($sqlContraActual,$db);
 $resultado = mysql_num_rows($resContraActual);
 
 if ($resultado == 1) {
   	$sqlUpdateContra = "Update empresa set claveacc = '$contraNueva' where nrcuit = '$cuit'";
-	$resUpdateContra = mysql_db_query("uv0472_aplicativo",$sqlUpdateContra,$db);
+	$resUpdateContra = mysql_query($sqlUpdateContra,$db);
 	
 	$rowEmpresa = mysql_fetch_array($resContraActual);	
 	$asunto = "Cambio de Contraseña del sitio www.usimra.com.ar";

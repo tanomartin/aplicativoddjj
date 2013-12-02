@@ -3,8 +3,9 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 	
-$datos = array_values($HTTP_POST_VARS);
-
+$datos = array_values($_POST);
+$nrcuil = $_GET['nrcuil'];
+$id = $_GET['id'];
 
 $nombre = $datos [0];
 $nombre = strtoupper($nombre);
@@ -39,7 +40,7 @@ benefi = '$benefi'
 where
 id = '$id'
 ";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 $pagina="muestraFamiliar.php?id=$id&nrcuil=$nrcuil";
 header ("location:$pagina");

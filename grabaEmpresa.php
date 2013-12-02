@@ -26,8 +26,8 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 	<p align="center"><img border="0" src="img/top.jpg" width="700" height="120"></p>
     <table align=center border=0 cellpadding="5"> 
 
-<?
-$datos = array_values($HTTP_POST_VARS);
+<?php
+$datos = array_values($_POST);
 
 $nrcuit = $datos [0];
 $nombre  = $datos [1];
@@ -49,7 +49,7 @@ include("lib/conexion.php");
 $sql = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,fecini,rramaa,claveacc)
 
 VALUES ('$nrcuit','$nombre','$domile','$locale','$provin','$copole','$telfon','$emails','$activi','$fecini','$rramaa','$claveacc')";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 
 

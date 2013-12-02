@@ -43,8 +43,9 @@ include("lib/conexion.php");
           <tr>
             <td width="168" valign="top"><p><font face="Verdana" size="1"><font color="#CF8B34"> <?php include("menuLateral.php"); ?> </p></td>
 <?php
+$nrcuil = $_GET['nrcuil'];
 $sql = "select * from empleados where nrcuit = '$nrcuit' and nrcuil = '$nrcuil'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row=mysql_fetch_array($result);
 
 $cui01 = substr($row['nrcuit'],0,2);
@@ -62,7 +63,7 @@ $cui02 = substr($row['nrcuit'],2,8);
 $cui03 = substr($row['nrcuit'],10,1);
 ?>
                 <td width="217"><b><font face="Verdana" size="1">CUIT</font></b></td>
-                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><? echo $cui01."-".$cui02."-".$cui03; ?></font></td>
+                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><?php echo $cui01."-".$cui02."-".$cui03; ?></font></td>
               </tr>
               <tr> 
                 <?php
@@ -74,15 +75,15 @@ $cuil03 = substr($row['nrcuil'],10,1);
 
 
                 <td width="217"><b><font face="Verdana" size="1">CUIL</font></b></td>
-                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><? echo $cuil01."-".$cuil02."-".$cuil03; ?><input type=hidden name=a2 size=20 value="<? echo $row['nrcuil'];?>"></font></td>
+                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><?php echo $cuil01."-".$cuil02."-".$cuil03; ?><input type=hidden name=a2 size=20 value="<?php echo $row['nrcuil'];?>"></font></td>
               </tr>
               <tr> 
                 <td width="217"><b><font face="Verdana" size="1">Nombre</font></b></td>
-                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><input type="text" name="T1" size="20" value="<? echo $row['nombre']; ?>" style="text-transform: uppercase"></font></td>
+                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><input type="text" name="T1" size="20" value="<?php echo $row['nombre']; ?>" style="text-transform: uppercase"></font></td>
               </tr>
               <tr> 
                 <td width="217"><b><font face="Verdana" size="1">Apellido</font></b></td>
-                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><input type="text" name="T2" size="20" value="<? echo $row['apelli']; ?>" style="text-transform: uppercase"></font></td>
+                <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><input type="text" name="T2" size="20" value="<?php echo $row['apelli']; ?>" style="text-transform: uppercase"></font></td>
               </tr>
               <tr> 
                 <?php
@@ -93,7 +94,7 @@ $fec03 = substr($row['fecing'],8,2);
                 <td width="217"><b><font face="Verdana" size="1">Fecha de Ingreso</font></b></td>
                 <td width="298"><font face="Arial, Helvetica, sans-serif" size="2">
 <select size=1 name=R9>
-          <option selected><? echo $fec03; ?></option>
+          <option selected><?php echo $fec03; ?></option>
           <option>01</option>
           <option>02</option>
           <option>03</option>
@@ -143,14 +144,14 @@ $fec03 = substr($row['fecing'],8,2);
           <option>11</option>
           <option>12</option>
         </select>
-/ <input type="text" name="T3" size="4" value="<? echo $fec01;?>"></font></td>
+/ <input type="text" name="T3" size="4" value="<?php echo $fec01;?>"></font></td>
               </tr>
               <tr> 
                 <td width="217"><b><font face="Verdana" size="1">Tipo y Número 
                   de Documento</font></b></td>
                 <td width="298"><font face="Arial, Helvetica, sans-serif" size="2">
 				<select size=1 name=D1>
-    <option selected value="<?php echo $row['tipdoc'];?>"><? echo $row['tipdoc'];?></option>
+    <option selected value="<?php echo $row['tipdoc'];?>"><?php echo $row['tipdoc'];?></option>
     <option value=DNI>DNI</option>
     <option value=LE>LE</option>
     <option value=LC>LC</option>
@@ -165,7 +166,7 @@ $fec03 = substr($row['fecing'],8,2);
               <tr> 
                 <td width="217"><b><font face="Verdana" size="1">Sexo</font></b></td>
                 <td width="298"><font face="Arial, Helvetica, sans-serif" size="2"><select size=1 name=D2>
-    <option selected value="<?php echo $row['ssexxo'];?>"><? echo $row['ssexxo'];?></option>
+    <option selected value="<?php echo $row['ssexxo'];?>"><?php echo $row['ssexxo'];?></option>
     <option value=MASCULINO>MASCULINO</option>
     <option value=FEMENINO>FEMENINO</option>
   </select></font></td>
@@ -298,9 +299,8 @@ $fecn03 = substr($row['fecnac'],8,2);
               <tr> 
       <?php
 $cat = $row['catego'];
-
 $sqll = "select * from categorias where codram = '$rconsu' and codcat = '$cat'";
-$res = mysql_db_query("uv0472_aplicativo",$sqll,$db);	  
+$res = mysql_query($sqll,$db);	  
 $pow=mysql_fetch_array($res);	  
 	  
 	  ?>
@@ -312,7 +312,7 @@ $pow=mysql_fetch_array($res);
 
 <?php
 $sqll = "select * from categorias where codram = '$rconsu'";
-$res = mysql_db_query("uv0472_aplicativo",$sqll,$db);
+$res = mysql_query($sqll,$db);
 
 while ($pow=mysql_fetch_array($res)) {
  ?>

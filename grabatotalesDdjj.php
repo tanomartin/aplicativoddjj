@@ -3,6 +3,9 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 include("lib/conexion.php");
+
+$ctrlh = $_GET['ctrlh'];
+$filas = $_GET['filas'];
 ?>
 <html>
 
@@ -26,7 +29,7 @@ include("lib/conexion.php");
 <?php
 print ("<form method=POST action=generacionBoleta.php?nrctrlh=".$ctrlh.">");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $nfilas = mysql_num_rows($result);
 
 
@@ -76,21 +79,16 @@ $cuitt03 = substr($row['nrcuit'],10,1);
 print ("              <p style=word-spacing: 0; margin-top: 0; margin-bottom: 0><font face=Verdana size=2>".$cuitt01."-".$cuitt02."-".$cuitt03."</font></td>");
 print ("          </tr>");
 print ("        </table>");
-
-			  
-//  print ("Número de CUIT: ".$nrcuit);
-//print ("<br>");
-// print ("Número de Registros: ".$filas);
 print ("<br>");
 print ("<br>");
 print ("<br>");
-$datos = array_values($HTTP_POST_VARS);
+$datos = array_values($_POST);
 
 $permes = $datos [0];
 $perano = $datos [1];
 
 $sqlPeriodoDescrip = "select * from periodos where anio = $perano and mes = $permes";
-$resPeriodoDescrip = mysql_db_query("uv0472_aplicativo",$sqlPeriodoDescrip,$db);
+$resPeriodoDescrip = mysql_query($sqlPeriodoDescrip,$db);
 $rowPeriodoDescrip = mysql_fetch_array($resPeriodoDescrip);
 
 $nfilas = ($filas*7) + 2;
@@ -222,7 +220,7 @@ $sql = "INSERT INTO ddjj (nrcuit,nrcuil,permes,perano,remune,apo060,apo100,apo15
 
 VALUES ('$nrcuit','$nrcuil9','$permes','$perano','$totrem','$tot060','$tot100','$tot150','$totapo','$filas','$recarg','$ctrlh','$observ')";
 
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 
 

@@ -1,7 +1,9 @@
-<? session_save_path("../sesiones");
+<?php session_save_path("../sesiones");
 session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: ../caducaSes.php");
+
+$nombreArc = $_GET['nombreArc'];
 ?>
 
 <html>
@@ -15,12 +17,12 @@ if($_SESSION['nrcuit'] == null)
 <p><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
 <p> 
 
-<?
+<?php
 	include ("conexion.php");
 	//Ejecucion de la sentencia SQL
 	$nrcuit=$_SESSION['nrcuit'];
 	$sql = "select * from empleados where nrcuit = '$nrcuit'";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$result = mysql_query($sql,$db);
 	$reg = mysql_num_rows($result);
 	if ($reg  < 1) {
 		print ("Cantidad de empleados Registrados: 0");
@@ -31,7 +33,7 @@ if($_SESSION['nrcuit'] == null)
 	print ("<br>");
 
 	$sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'SI'";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$result = mysql_query($sql,$db);
 	$activos = mysql_num_rows($result);
 	if ($activos < 1) {
 		print ("Cantidad de empleados Activos: 0");
@@ -41,9 +43,10 @@ if($_SESSION['nrcuit'] == null)
 
 	$perReg=substr($nombreArc,15,2);
 	$anoReg=substr($nombreArc,17,4);
-	
-	$archivoHost="archivos/$nrcuit/$nombreArc";
-	$registros = file($archivoHost, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+	$destino="archivos/$nrcuit/$nombreArc";
+	//$archivoHost="archivos/$nrcuit/$nombreArc";
+	$registros = file($destino, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	$nfilas = count($registros);
 	
 	print ("<br>");
@@ -58,18 +61,16 @@ if($_SESSION['nrcuit'] == null)
   </tr>
 </table>
 
-<form name="form1" method="post" action="ddjj.php?filas=<? echo $nfilas?>&nrcuit=<? echo $nrcuit?>">
+<form name="form1" method="post" action="ddjj.php?filas=<?php echo $nfilas?>&nrcuit=<?php echo $nrcuit?>">
 
   	<strong><font size="1" face="Verdana, Arial, Helvetica, sans-serif"> <font size="2">Periodo 
-	<? 
-	//paso el nombre del archivo para el back
+	<?php //paso el nombre del archivo para el back
 	print("<input type=hidden name=archivo value=".$nombreArc.">");
 	print(" $perReg");
 	print("<input type=hidden name=permes value=".$perReg.">")?> </font></font></strong>
 	<p>
   	<font size="2"  face="Verdana, Arial, Helvetica, sans-serif"><strong>Año 
-	<? 
-	print(" $anoReg");
+	<?php print(" $anoReg");
 	print("<input type=hidden name=perano value=".$anoReg.">")
 	
 	?></strong></font>
@@ -81,9 +82,7 @@ if($_SESSION['nrcuit'] == null)
    		<td width=15%><strong><font face=Verdana, Arial, Helvetica, sans-serif size=1>Fecha de Ingreso</font></strong></td>
    		<td width=30%><strong><font face=Verdana, Arial, Helvetica, sans-serif size=1>Remuneración</font></strong></td>
 	</tr>
-	<?	
-		
-		for($i = 0; $i < count($registros); $i++) {
+	<?php for($i = 0; $i < count($registros); $i++) {
 			$campos=explode("|", $registros[$i]);
 			$cuill01 = substr($campos[1],0,2);
 			$cuill02 = substr($campos[1],2,8);
@@ -93,7 +92,7 @@ if($_SESSION['nrcuit'] == null)
 			print ("<td width=15%><font face=Verdana size=1>".$cuill01."-".$cuill02."-".$cuill03."</font></td>");
 			
 			$sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'SI' and nrcuil = '$campos[1]'";
-			$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+			$result = mysql_query($sql,$db);
 			$row=mysql_fetch_array($result);
 			print ("<input type=hidden name=X".$i."size=20 value=\"".$row['apelli']." ".$row['nombre']."\">");
 			print ("<td width=40%><font face=Verdana size=1><b>".$row['apelli']." ".$row['nombre']."</b></font></td>");
@@ -122,9 +121,8 @@ if($_SESSION['nrcuit'] == null)
     	<td width=30%><strong><font face=Verdana, Arial, Helvetica, sans-serif size=1>Motivo</font></strong></td>
     </tr>
 
-    <?
-	$sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'NO'";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+    <?php $sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'NO'";
+	$result = mysql_query($sql,$db);
 	$mfilas = mysql_num_rows($result);
 	if ($mfilas < 1) {
 		print ("<font face=Verdana size=1>Cantidad de empleados Inactivos: 0</font>");

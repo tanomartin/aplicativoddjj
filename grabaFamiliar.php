@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 
-$datos = array_values($HTTP_POST_VARS);
+$datos = array_values($_POST);
 $nombre = $datos [0];
 $nombre = strtoupper($nombre);
 $apelli = $datos [1];
@@ -22,10 +22,11 @@ $tipdoc = $datos [10];
 $nrodoc = $datos [11];
 $benefi = $datos[12];
 
+$nrcuil = $_GET['nrcuil'];
 include("lib/conexion.php");
 $sql = "INSERT INTO familia (nrcuit,nrcuil,apelli,nombre,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi)
 VALUES ('$nrcuit','$nrcuil','$apelli','$nombre','$codpar','$ssexxo','$fecnac','$fecing','$tipdoc','$nrodoc','$benefi')";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $id = mysql_insert_id();
 
 $pagina="muestraFamiliar.php?id=$id&nrcuil=$nrcuil";

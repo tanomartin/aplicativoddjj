@@ -3,6 +3,7 @@ session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: caducaSes.php");
 include("lib/conexion.php");
+$nrctrlold = $_GET['nrctrlold'];
 ?>
 <html>
 <head>
@@ -39,7 +40,7 @@ function cargarPeriodos(anio) {
 	document.forms.form1.periodos.options.add(o);
 	<?php	
 		$sql3 = "select * from periodos order by mes ASC";
-		$result3 = mysql_db_query("uv0472_aplicativo",$sql3,$db);
+		$result3 = mysql_query($sql3,$db);
 		while ($row3 = mysql_fetch_array($result3)) { ?>
 			if (anio == <?php echo $row3["anio"]; ?>) {
 					o = document.createElement("OPTION");
@@ -58,7 +59,7 @@ function CargarMonto(periodo, total) {
 	var veri = 0;
 	<?php 
 		$sql = "select * from extraordinarios";
-		$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+		$result = mysql_query($sql,$db);
 		while ($row = mysql_fetch_array($result)) { ?>
 			if (document.getElementById('anio').value == <?php echo $row["anio"]; ?> && periodo == <?php echo $row["mes"]; ?> && <?php echo $row["tipo"]; ?> == 0) {
 				for (i=1; i<=total; i++) {
@@ -68,12 +69,12 @@ function CargarMonto(periodo, total) {
 				veri = 1;
 			}
   <?php } ?>
-  	if (veri == 0) {
+  /*	if (veri == 0) {
 		for (i=1; i<=total; i++) {
 			document.getElementById('T'+i).value =  "0.00";
 			document.getElementById('T'+i).removeAttribute('readOnly'); 
 		}
-	}
+	}*/
   		
 }
 </script>
@@ -88,7 +89,7 @@ function CargarMonto(periodo, total) {
 
 <?php
 $sql = "select * from empleados where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $nfilas = mysql_num_rows($result);
 
 if ($nfilas < 1) {
@@ -100,13 +101,13 @@ if ($nfilas < 1) {
 print ("<br>");
 
 $sql = "select * from ppjj where nrcuit = '$nrcuit' and nrctrl = '$nrctrlold'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $nfilas = mysql_num_rows($result);
 while ($row=mysql_fetch_array($result)) {
 	//$cant = 0:
 	$culcito = $row["nrcuil"];
 	$sql2 = "select * from empleados where nrcuit = '$nrcuit' and nrcuil = '$culcito'";
-	$ress = mysql_db_query("uv0472_aplicativo",$sql2,$db);
+	$ress = mysql_query($sql2,$db);
 	$cantidad = mysql_num_rows($ress);
 	if ($cantidad < 1) {
     	echo 'UNO O MAS REGISTROS HAN SIDO ELIMINADOS CON ANTERIORIDAD';
@@ -121,7 +122,7 @@ while ($row=mysql_fetch_array($result)) {
 
 if ($huevo != 1) {
 	$sql = "select * from ppjj where nrcuit = '$nrcuit' and nrctrl = '$nrctrlold'";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$result = mysql_query($sql,$db);
 	$nfilas = mysql_num_rows($result);
 ?>
 
@@ -135,7 +136,7 @@ if ($huevo != 1) {
 </table>
 
 <p>
-<form name="form1" method="post" action="grabadetallesDdjj.php?filas=<? echo $nfilas?>&nrcuit=<? echo $nrcuit?>" onSubmit="return valida_envia();">
+<form name="form1" method="post" action="grabadetallesDdjj.php?filas=<?php echo $nfilas?>&nrcuit=<?php echo $nrcuit?>" onSubmit="return valida_envia();">
   <table width="466" border="0">
     <tr>
       <td width="145" height="51"><strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Año</font>
@@ -144,7 +145,7 @@ if ($huevo != 1) {
 			  	<option value="-1" selected>----</option>
 	  		<?php 
 	  			$sqlAnios = "select * from anios order by anio DESC limit 11";
-				$resAnios = mysql_db_query("uv0472_aplicativo",$sqlAnios,$db);
+				$resAnios = mysql_query($sqlAnios,$db);
 				while ($rowAnios=mysql_fetch_array($resAnios)) {
 					print("<option value=".$rowAnios['anio'].">".$rowAnios['anio']."</option>");
 				}
@@ -182,7 +183,7 @@ while ($row=mysql_fetch_array($result)) {
 	$cuill03 = substr($row['nrcuil'],10,1);
 	print ("<td width=15%><font face=Verdana size=1>".$cuill01."-".$cuill02."-".$cuill03."</font></td>");
 	$sql = "select * from empleados where nrcuit = '$nrcuit' and nrcuil = '$culcito'";
-	$res = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$res = mysql_query($sql,$db);
 	$graciela=mysql_fetch_array($res);
 	$totnom = sprintf("%s %s", $graciela["apelli"],$graciela["nombre"]);
 	print ("<input type=hidden name=X".$i."size=20 value=\"".$totnom."\">");

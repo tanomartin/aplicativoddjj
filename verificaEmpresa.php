@@ -1,13 +1,11 @@
 <?php session_save_path("sesiones");
 session_start();
-//$datos = array_values($HTTP_POST_VARS);
 $datos = array_values($_POST);
 $nrcuit = $datos [0];
 $claveacc = $datos [1];
 include("lib/conexion.php");
 
 $sql = "select * from empresa where nrcuit = '$nrcuit' and claveacc = '$claveacc'";
-//$result = mysql_query("uv0472_aplicativo",$sql,$db);
 $result = mysql_query($sql,$db);
 $cant = mysql_num_rows($result);
 if ($cant > 0) {

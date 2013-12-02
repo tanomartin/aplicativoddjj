@@ -31,7 +31,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <?php
 include("lib/conexion.php");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 
@@ -52,8 +52,9 @@ $row = mysql_fetch_array($result);
             <table width="100%" border="0">
               <tr> 
 <?php
+$nrcuil = $_GET['nrcuil'];
 $sql = "select * from empleados where nrcuit = '$nrcuit' and nrcuil = '$nrcuil'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row=mysql_fetch_array($result);
 
 $cuil01 = substr($row['nrcuil'],0,2);

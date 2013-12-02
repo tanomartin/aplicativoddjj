@@ -30,19 +30,20 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 
 <?php
 include("lib/conexion.php");
+$nrcuil = $_GET['nrcuil'];
 $sql = "delete from empleados
 where nrcuit = '$nrcuit' and
 nrcuil = '$nrcuil'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 
 $sql = "delete from familia
 where nrcuit = '$nrcuit' and
 nrcuil = '$nrcuil'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 

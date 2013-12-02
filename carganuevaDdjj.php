@@ -40,7 +40,7 @@ function cargarPeriodos(anio) {
 	document.forms.form1.periodos.options.add(o);
 	<?php	
 		$sql3 = "select * from periodos order by mes ASC";
-		$result3 = mysql_db_query("uv0472_aplicativo",$sql3,$db);
+		$result3 = mysql_query($sql3,$db);
 		while ($row3 = mysql_fetch_array($result3)) { ?>
 			if (anio == <?php echo $row3["anio"]; ?>) {
 					o = document.createElement("OPTION");
@@ -59,7 +59,7 @@ function CargarMonto(periodo, total) {
 	var veri = 0;
 	<?php 
 		$sql = "select * from extraordinarios";
-		$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+		$result = mysql_query($sql,$db);
 		while ($row = mysql_fetch_array($result)) { ?>
 			if (document.getElementById('anio').value == <?php echo $row["anio"]; ?> && periodo == <?php echo $row["mes"]; ?> && <?php echo $row["tipo"]; ?> == 0) {
 				for (i=1; i<=total; i++) {
@@ -87,7 +87,7 @@ function CargarMonto(periodo, total) {
   <p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"></p>
 <?php
 $sql = "select * from empleados where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $nfilas = mysql_num_rows($result);
 if ($nfilas < 1) {
 	print ("Cantidad de empleados Registrados:  <strong>0</strong>");
@@ -98,7 +98,7 @@ if ($nfilas < 1) {
 print ("<br>");
 
 $sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'SI'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $nfilas = mysql_num_rows($result);
 if ($nfilas < 1) {
 	print ("Cantidad de empleados Activos: <strong>0</strong>");
@@ -115,7 +115,7 @@ if ($nfilas < 1) {
   </tr>
 </table>
 
-<form name="form1" method="post" action="grabadetallesDdjj.php?filas=<? echo $nfilas?>&nrcuit=<? echo $nrcuit?>" onSubmit="return valida_envia();">
+<form name="form1" method="post" action="grabadetallesDdjj.php?filas=<?php echo $nfilas?>&nrcuit=<?php echo $nrcuit?>" onSubmit="return valida_envia();">
   <table width="1095" border="0">
     <tr>
       <td width="103" height="51"><strong><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Año</font>
@@ -124,7 +124,7 @@ if ($nfilas < 1) {
 			  	<option value="-1" selected>----</option>
 	  		<?php 
 	  			$sqlAnios = "select * from anios order by anio DESC limit 11";
-				$resAnios = mysql_db_query("uv0472_aplicativo",$sqlAnios,$db);
+				$resAnios = mysql_query($sqlAnios,$db);
 				while ($rowAnios=mysql_fetch_array($resAnios)) {
 					print("<option value=".$rowAnios['anio'].">".$rowAnios['anio']."</option>");
 				}
@@ -183,9 +183,8 @@ if ($nfilas < 1) {
     <td width=30%><strong><font face=Verdana, Arial, Helvetica, sans-serif size=1>Motivo</font></strong></td>
   </tr>
    <?php
-	//NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	$sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'NO'";
-	$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+	$result = mysql_query($sql,$db);
 	$mfilas = mysql_num_rows($result);
 	if ($mfilas < 1) {
 		print ("<font face=Verdana size=2>Cantidad de empleados Inactivos: <strong>0</strgon></font>");

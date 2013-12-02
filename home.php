@@ -44,7 +44,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
             <p><font size="2"><b><font color="#FF0000">Novedad: </font>Para la liquidación de los períodos no Remunerativos
 			deberá fijarse en la lista desplegable de selección de mes del año correspondiente 
 			el índice que refiere al No Remunerativo Respectivo</b></p></font>   
-            <p><a href="manual_aplicativo_ddjj.pdf" onclick="window.open(this.href,'Acuerdos','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false">Descargar Instructivo</a></p>
+            <p><a href="manual_aplicativo_ddjj.pdf" onClick="window.open(this.href,'Acuerdos','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false">Descargar Instructivo</a></p>
               <p></td>
           </tr>
           <tr>

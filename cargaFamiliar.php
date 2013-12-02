@@ -31,7 +31,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <?php
 include("lib/conexion.php");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 
@@ -47,12 +47,12 @@ $row = mysql_fetch_array($result);
             <td width="168" valign="top"><p><font face="Verdana" size="1"><b><font color="#CF8B34"><?php include("menuLateral.php"); ?></font></b></font></p></td>
             
 <?php
+$nrcuil = $_GET['nrcuil'];
 $cuil01 = substr($nrcuil,0,2);
 $cuil02 = substr($nrcuil,2,8);
 $cuil03 = substr($nrcuil,10,1);
-$sql = "select * from empleados where nrcuil = '$nrcuil'
-and nrcuit = '$nrcuit'";
-$res = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$sql = "select * from empleados where nrcuil = '$nrcuil' and nrcuit = '$nrcuit'";
+$res = mysql_query($sql,$db);
 $nom=mysql_fetch_array($res);
 ?>            
           <td width="516" valign="top"><p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong> 

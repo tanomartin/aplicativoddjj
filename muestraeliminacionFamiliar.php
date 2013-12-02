@@ -31,7 +31,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <?php
 include("lib/conexion.php");
 $sql = "select * from empresa where nrcuit = '$nrcuit'";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+$result = mysql_query($sql,$db);
 $row = mysql_fetch_array($result);
 ?>
 
@@ -47,47 +47,47 @@ $row = mysql_fetch_array($result);
             <td width="168" valign="top"><p><font face="Verdana" size="1"><b><font color="#CF8B34"><?php include("menuLateral.php"); ?></font></b></font></p></td>
             
 <?php
+$nrcuil = $_GET['nrcuil'];
 $cuil01 = substr($nrcuil,0,2);
 $cuil02 = substr($nrcuil,2,8);
 $cuil03 = substr($nrcuil,10,1);
-$sql = "select * from empleados where nrcuil = '$nrcuil'
-and nrcuit = '$nrcuit'";
-$res = mysql_db_query("uv0472_aplicativo",$sql,$db);
-$nom=mysql_fetch_array($res);
+$sql = "select * from empleados where nrcuil = '$nrcuil' and nrcuit = '$nrcuit'";
+$res = mysql_query($sql,$db);
+$nom = mysql_fetch_array($res);
 ?>            
           <td width="516" valign="top"><p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong> 
-              <? echo $cuil01?>-<? echo $cuil02?>-<? echo $cuil03?>  <? echo $nom['apelli'];?>, <? echo $nom['nombre'];?></strong></font></p>
+              <?php echo $cuil01?>-<?php echo $cuil02?>-<?php echo $cuil03?>  <?php echo $nom['apelli'];?>, <?php echo $nom['nombre'];?></strong></font></p>
             <p align="center"><font color="#800000" size="2" face="Arial, Helvetica, sans-serif"><strong>&iquest;REALMENTE 
               DESEA BORRAR EL REGISTRO DEL SIGUIENTE FAMILIAR?</strong></font></p>
             <p> 
               <?php
-$sql = "select * from familia where id = '$id'
-order by nrcuil,codpar,fecnac";
-$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
-$row=mysql_fetch_array($result);
-?>
+			    $id = $_GET['id'];
+				$sql = "select * from familia where id = '$id' order by nrcuil,codpar,fecnac";
+				$result = mysql_query($sql,$db);
+				$row=mysql_fetch_array($result);
+			?>
             </p>
             <table width="100%" border="0">
               <tr> 
                 <td width="37%"><strong><font size="2" face="Arial, Helvetica, sans-serif">Apellido:</font></strong></td>
                 <td width="63%"><font size="2" face="Arial, Helvetica, sans-serif"> 
-                  <? echo $row['apelli'];?>
+                  <?php echo $row['apelli'];?>
                   </font></td>
               </tr>
               <tr> 
                 <td><strong><font size="2" face="Arial, Helvetica, sans-serif">Nombre:</font></strong></td>
-                <td><font size="2" face="Arial, Helvetica, sans-serif"><? echo $row['nombre'];?></font></td>
+                <td><font size="2" face="Arial, Helvetica, sans-serif"><?php echo $row['nombre'];?></font></td>
               </tr>
               <tr> 
                 <td><strong><font size="2" face="Arial, Helvetica, sans-serif">Parentesco:</font></strong></td>
                 <td> <font size="2" face="Arial, Helvetica, sans-serif"> 
-<? echo $row['codpar'];?>
+<?php echo $row['codpar'];?>
                   </font></td>
               </tr>
               <tr> 
                 <td><strong><font size="2" face="Arial, Helvetica, sans-serif">Sexo:</font></strong></td>
                 <td> <font size="2" face="Arial, Helvetica, sans-serif"> 
-<? echo $row['ssexxo'];?>
+<?php echo $row['ssexxo'];?>
                   </font></td>
               </tr>
               <tr> 
@@ -99,7 +99,7 @@ $fecn01 = substr($row['fecnac'],0,4);
 $fecn02 = substr($row['fecnac'],5,2);
 $fecn03 = substr($row['fecnac'],8,2);
 ?>
-<? echo $fecn03;?> / <? echo $fecn02;?> / <? echo $fecn01;?>
+<?php echo $fecn03;?> / <?php echo $fecn02;?> / <?php echo $fecn01;?>
 </font>	
                   </font></td>
               </tr>
@@ -112,7 +112,7 @@ $fec01 = substr($row['fecing'],0,4);
 $fec02 = substr($row['fecing'],5,2);
 $fec03 = substr($row['fecing'],8,2);
   ?>
- <? echo $fec03;?> / <? echo $fec02;?> / <? echo $fec01;?> 
+ <?php echo $fec03;?> / <?php echo $fec02;?> / <?php echo $fec01;?> 
 </font>	
                   </font></td>
               </tr>
@@ -120,17 +120,17 @@ $fec03 = substr($row['fecing'],8,2);
                 <td><strong><font size="2" face="Arial, Helvetica, sans-serif">Tipo 
                   y Nro. de Documento:</font></strong></td>
                 <td> <font size="2" face="Arial, Helvetica, sans-serif"> 
-<? echo $row['tipdoc'];?> <? echo $row['nrodoc']?>
+<?php echo $row['tipdoc'];?> <?php echo $row['nrodoc']?>
                   </font></td>
               </tr>
               <tr> 
                 <td><strong><font size="2" face="Arial, Helvetica, sans-serif">Beneficiario:</font></strong></td>
                 <td> <font size="2" face="Arial, Helvetica, sans-serif"> 
-<? echo $row['benefi']; ?>
+<?php echo $row['benefi']; ?>
                   </font></td>
               </tr>
             </table>
-            <p><font size="2" face="Arial, Helvetica, sans-serif"><strong><a href="eliminacionFamiliar.php?id=<? echo $id;?>&nrcuil=<? echo $row['nrcuil'];?>"><font color="#800000">Borrar 
+            <p><font size="2" face="Arial, Helvetica, sans-serif"><strong><a href="eliminacionFamiliar.php?id=<?php echo $id;?>&nrcuil=<?php echo $row['nrcuil'];?>"><font color="#800000">Borrar 
               Familiar</font></a></strong></font>
 <p></td>
           </tr>

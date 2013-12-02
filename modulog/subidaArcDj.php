@@ -1,4 +1,4 @@
-<? session_save_path("../sesiones");
+<?php session_save_path("../sesiones");
 session_start();
 if($_SESSION['nrcuit'] == null)
 	header ("Location: ../caducaSes.php");
@@ -11,7 +11,7 @@ if($_SESSION['nrcuit'] == null)
 <title>Resultado DDJJ</title>
 </head>
 
-<?
+<?php
 include ("conexion.php");
 
 function controlarNombreArc($nombre,$type,$db) {
@@ -26,9 +26,9 @@ function controlarNombreArc($nombre,$type,$db) {
 		$ncuit=substr($nombre,3,11);
 		//print ("CUIT: $ncuit <br/>\n");
 		if (strcmp($inicio,"DJ-")) {
-			if (ereg($ext,$type)) {
+			if (strpos($type, $ext) !== false) {
 				$sql = "select * from empresa where nrcuit = $ncuit";
-				$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+				$result = mysql_query($sql,$db);
 				$cant = mysql_num_rows($result);
 				//controlo que exista la empresa y que el cuit concuerde con la sesion
 				if (($cant == 1) && ($ncuit == $_SESSION['nrcuit'])){
@@ -104,7 +104,7 @@ function verificarCampos($nombreArc,$registro,$db) {
 	$cuilReg=$campos[1];
 	if (strlen($cuilReg)==11) {
 		$sql = "select * from empleados where nrcuit = $cuitReg and nrcuil = $cuilReg";
-		$result = mysql_db_query("uv0472_aplicativo",$sql,$db);
+		$result = mysql_query($sql,$db);
 		$cant = mysql_num_rows($result);
 		if ($cant != 1) {
 			//print ("Error cuil del registro numero: $numReg <br/>\n");
@@ -125,7 +125,7 @@ function verificarCampos($nombreArc,$registro,$db) {
 	$anoReg=$campos[3];
 	
 	$sqlMesAnio = "select * from periodos where anio = $anoReg and mes = $mesReg";
-	$resMesAnio = mysql_db_query("uv0472_aplicativo",$sqlMesAnio,$db);
+	$resMesAnio = mysql_query($sqlMesAnio,$db);
 	$canMNesAnio = mysql_num_rows($resMesAnio);
 	if ($canMNesAnio != 1) {
 		$errMes = 1;
@@ -154,16 +154,18 @@ function verificarCampos($nombreArc,$registro,$db) {
 //*************************************************************//
 //aca empiezo con todas las llamadas a todos los controles ****//
 //*************************************************************//
+$archivo = $_FILES['archivo'];	
+$archivo_name = $archivo['name'];
+$archivo_type = $archivo['type'];
 $nomArcOK=controlarNombreArc($archivo_name,$archivo_type,$db);
 //print("CONTROL NOMBRE=$nomArcOK<br/>\n");
 $contRegMalos = 0;
 if ($nomArcOK==0) {
 	$ncuit=substr($archivo_name,3,11);
 	$destino="archivos/$ncuit/$archivo_name";
-	copy($archivo,$destino);
-	
-	$archivoHost="archivos/$ncuit/$archivo_name";
-	$registros = file($archivoHost, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	copy($archivo['tmp_name'],$destino);
+	//$archivoHost="http://www.usimra.com.ar/ddjj/modulog/archivos/$ncuit/$archivo_name";
+	$registros = file($destino, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	
 	//empiezo a leer los registros....
 	for($i = 0; $i < count($registros); $i++) {
@@ -190,18 +192,17 @@ if ($nomArcOK==0) {
   </tr>
   <tr align="center" valign="top">
     <td width="160" height="23"><div align="left"><strong>Cantidad de Registros: </strong></div></td>
-    <td width="524"><div align="left"><? print(count($registros)); ?></div></td>
+    <td width="524"><div align="left"><?php print(count($registros)); ?></div></td>
   </tr>
   <tr align="center" valign="top">
     <td height="23"><div align="left"><strong>Registros Erroneos </strong></div></td>
-    <td><div align="left"><? print($contRegMalos); ?></div></td>
+    <td><div align="left"><?php print($contRegMalos); ?></div></td>
   </tr>
   <tr align="center" valign="top">
     <td height="23"><div align="left"><strong>Listado de Errores </strong></div></td>
     <td>
       <div align="left">
-     <? 
-	 	$hayErrores=0;
+     <?php $hayErrores=0;
 		for($i = 0; $i < count($arrayErrores); $i++) {
 			if (($arrayErrores[$i] > 19) && ($arrayErrores[$i] < 30)){
 				print("Error en nombre de archivo -- Error Número: $arrayErrores[$i].<br/>\n");
@@ -221,8 +222,7 @@ if ($nomArcOK==0) {
   </tr>
   <tr align="center" valign="top">
     <td height="27" colspan="2">
-	<? 
-		if (($contRegMalos!=0) || ($nomArcOK!=0)) {
+	<?php if (($contRegMalos!=0) || ($nomArcOK!=0)) {
 			print ("<a href=menug.php>".VOLVER);
 		}
 		else {

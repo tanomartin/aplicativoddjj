@@ -8,7 +8,7 @@
 <p>
 <?php
 $sqlLateral = "select * from habilita where nrcuit = '$nrcuit'";
-$resLateral = mysql_db_query("uv0472_aplicativo",$sqlLateral,$db);
+$resLateral = mysql_query($sqlLateral,$db);
 $rowLateral = mysql_fetch_array($resLateral);
 if ($rowLateral['autori'] == "S") {
 	print ("<font face=Verdana size=1><b><font color=#CF8B34><a href=modulog/menug.php>"."Módulo Grandes Empresas"."</font></b></font>");
