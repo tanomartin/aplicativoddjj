@@ -1,9 +1,9 @@
 <?php session_save_path("sesiones");
 session_start();
 $datos = array_values($_POST);
+include("lib/conexion.php");
 $nrcuit = $datos [0];
 $claveacc = $datos [1];
-include("lib/conexion.php");
 
 $sql = "select * from empresa where nrcuit = '$nrcuit' and claveacc = '$claveacc'";
 $result = mysql_query($sql,$db);
@@ -19,7 +19,7 @@ if ($cant > 0) {
 } else {
 	session_unset();
 	session_destroy();
-	header ('location:login.php?err=1');
+	//header ('location:login.php?err=1');
 }
 ?>
 

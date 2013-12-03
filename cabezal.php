@@ -5,7 +5,7 @@ $row = mysql_fetch_array($result);
 
 $rconsu = $row['rramaa'];
 
-$sqldesrama = "select * from ramas where codram = '$rconsu'";
+$sqldesrama = "select * from rama where codram = '$rconsu'";
 $rdesrama = mysql_query($sqldesrama,$db);
 $resultado = mysql_fetch_array($rdesrama);
 
@@ -70,6 +70,6 @@ $cui03 = substr($row['nrcuit'],10,1);
             <td>
               <p style="word-spacing: 0; margin-top: 0; margin-bottom: 0"><font face="Verdana" size="2"> <?php echo $cui01."-".$cui02."-".$cui03 ?></font></td>
             <td><font face="Verdana" size="2"><b>Rama:</b></font></td>
-            <td width="38%"><font face="Verdana" size="2"><?php echo $resultado['descri']?></font></td>
+            <td width="38%"><font face="Verdana" size="2"><?php echo $resultado['descripcion']?></font></td>
           </tr>
 </table>
