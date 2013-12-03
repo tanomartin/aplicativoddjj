@@ -40,7 +40,7 @@ for($i=0; $i < sizeof($ddjjcondocu); $i++) {
 	$instrum = $ddjjcondocu[$i]['instrumento'];
 	$nrocontrol = $ddjjcondocu[$i]['control'];
 	if (strcmp($instrum,'T') == 0) {
-		$consRef = "SELECT referencia FROM vinculadocu WHERE nrctrl = $nrocontrol";
+		$consRef = "SELECT referencia FROM vinculadocu WHERE nrctrl = $nrocontrol and nrcuit = $nrcuit";
 		$respRef = $mysqli -> query($consRef);
 		$refData = $respRef -> fetch_assoc();
 		$ddjjcondocu[$i]['instrumento'] = $instrum."-".$refData['referencia'];

@@ -42,7 +42,7 @@ for($i=0; $i < sizeof($ddjjvalidas); $i++) {
 	$instrum = $ddjjvalidas[$i]['instrumento'];
 	$nrocontrol = $ddjjvalidas[$i]['control'];
 	if (strcmp($instrum,'T') == 0) {
-		$consRef = "SELECT referencia FROM vinculadocu WHERE nrctrl = $nrocontrol";
+		$consRef = "SELECT referencia FROM vinculadocu WHERE nrctrl = $nrocontrol and nrcuit = $nrcuit";
 		$respRef = $mysqli -> query($consRef);
 		$refData = $respRef -> fetch_assoc();
 		$ddjjvalidas[$i]['instrumento'] = $instrum."-".$refData['referencia'];
