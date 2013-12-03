@@ -19,7 +19,7 @@ if ($cant > 0) {
 } else {
 	session_unset();
 	session_destroy();
-	//header ('location:login.php?err=1');
+	header ('location:login.php?err=1');
 }
 ?>
 

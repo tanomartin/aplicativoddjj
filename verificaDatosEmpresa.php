@@ -30,6 +30,7 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 <div align="center">
   <table align="center" border=0 cellpadding="5">
     <?php
+include("lib/conexion.php");
 $datos = array_values($_POST);
 $cuit01 = $datos [0];
 $cuit02 = $datos [1];
@@ -64,7 +65,6 @@ if ($pepe == 0){
 	print("<p align='center' style='word-spacing: 0; margin-top: 0; margin-bottom: 0'><strong><font color='#FF0000' size='2' face='Arial, Helvetica, sans-serif'>NÚMERO DE CUIT INVÁLIDO</font></strong></p>");
 }
 else {
-	include("lib/conexion.php");
 	//Ejecucion de la sentencia SQL
 
 	$sql = "select * from empresa where nrcuit = $nrcuit";

@@ -24,8 +24,8 @@ $benefi = $datos[12];
 
 $nrcuil = $_GET['nrcuil'];
 include("lib/conexion.php");
-$sql = "INSERT INTO familia (nrcuit,nrcuil,apelli,nombre,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi)
-VALUES ('$nrcuit','$nrcuil','$apelli','$nombre','$codpar','$ssexxo','$fecnac','$fecing','$tipdoc','$nrodoc','$benefi')";
+$sql = "INSERT INTO familia (nrcuit,nrcuil,apelli,nombre,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi,bajada)
+VALUES ('$nrcuit','$nrcuil','$apelli','$nombre','$codpar','$ssexxo','$fecnac','$fecing','$tipdoc','$nrodoc','$benefi',DEFAULT)";
 $result = mysql_query($sql,$db);
 $id = mysql_insert_id();
 

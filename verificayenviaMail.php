@@ -1,10 +1,8 @@
 <?php
+include ("lib/conexion.php");
 $datos = array_values($_POST);
-
 $mail = $datos [0];
 $nrcuit = $datos [1];
-
-include ("lib/conexion.php");
 
 $sql = "select * from empresa where nrcuit = '$nrcuit' and emails = '$mail'";
 $result = mysql_query($sql,$db);

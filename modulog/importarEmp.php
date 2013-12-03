@@ -84,7 +84,7 @@ if($_SESSION['nrcuit'] == null)
 		$campos[15]=formatoNum(substr($campos[15],3,3));
 		$campos[16]=formatoEstado($campos[16]);
 		
-		$sql = "INSERT INTO empleados VALUES ('".trim($campos[0])."','".trim($campos[1])."','".trim($campos[2])."','".trim($campos[3])."','".trim($campos[4])."','".trim($campos[5])."','".trim($campos[6])."','".trim($campos[7])."','".trim($campos[8])."','".trim($campos[9])."','".trim($campos[10])."','".trim($campos[11])."','".trim($campos[12])."','".trim($campos[13])."','".trim($campos[14])."','".trim($campos[15])."','".trim($campos[16])."')";
+		$sql = "INSERT INTO empleados VALUES ('".trim($campos[0])."','".trim($campos[1])."','".trim($campos[2])."','".trim($campos[3])."','".trim($campos[4])."','".trim($campos[5])."','".trim($campos[6])."','".trim($campos[7])."','".trim($campos[8])."','".trim($campos[9])."','".trim($campos[10])."','".trim($campos[11])."','".trim($campos[12])."','".trim($campos[13])."','".trim($campos[14])."','".trim($campos[15])."','".trim($campos[16])."',DEFAULT)";
 
 		$result = mysql_query($sql,$db);
 		//print ("$sql<br/>\n");	

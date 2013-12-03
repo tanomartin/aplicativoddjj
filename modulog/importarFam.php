@@ -73,7 +73,7 @@ if($_SESSION['nrcuit'] == null)
 		$campos[9]=(int)$campos[9];
 		$campos[10]=formatoEstado($campos[10]);
 		
-		$sql = "INSERT INTO familia (nrcuit,nrcuil,apelli,nombre,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi) VALUES ('".trim($campos[0])."','".trim($campos[1])."','".trim($campos[2])."','".trim($campos[3])."','".trim($campos[4])."','".trim($campos[5])."','".trim($campos[6])."','".trim($campos[7])."','".trim($campos[8])."','".trim($campos[9])."','".trim($campos[10])."')";
+		$sql = "INSERT INTO familia (nrcuit,nrcuil,apelli,nombre,codpar,ssexxo,fecnac,fecing,tipdoc,nrodoc,benefi,bajada) VALUES ('".trim($campos[0])."','".trim($campos[1])."','".trim($campos[2])."','".trim($campos[3])."','".trim($campos[4])."','".trim($campos[5])."','".trim($campos[6])."','".trim($campos[7])."','".trim($campos[8])."','".trim($campos[9])."','".trim($campos[10])."',DEFAULT)";
 
 		$result = mysql_query($sql,$db);
 		//print ("$sql<br/>\n");

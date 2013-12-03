@@ -45,8 +45,8 @@ if ($pepe == 0) {
 	$pagina = "altaEmpleado.php?err=1";
 	header ("location:$pagina");
 } else {
-	$sql = "INSERT INTO empleados (nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo)
-	VALUES ('$nrcuit','$nrcuil','$apelli','$nombre','$fecing','$tipdoc','$nrodoc','$ssexxo','$fecnac','$estciv','$direcc','$locale','$copole','$provin','$nacion','$catego','$activo')";
+	$sql = "INSERT INTO empleados (nrcuit,nrcuil,apelli,nombre,fecing,tipdoc,nrodoc,ssexxo,fecnac,estciv,direcc,locale,copole,provin,nacion,catego,activo,bajada)
+	VALUES ('$nrcuit','$nrcuil','$apelli','$nombre','$fecing','$tipdoc','$nrodoc','$ssexxo','$fecnac','$estciv','$direcc','$locale','$copole','$provin','$nacion','$catego','$activo',DEFAULT)";
 	$result = mysql_query($sql,$db);
 	
 	$pagina = "muestraEmpleado.php?nrcuil=$nrcuil";

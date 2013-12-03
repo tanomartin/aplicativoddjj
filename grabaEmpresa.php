@@ -27,8 +27,9 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
     <table align=center border=0 cellpadding="5"> 
 
 <?php
+//Conexion con la base
+include("lib/conexion.php");
 $datos = array_values($_POST);
-
 $nrcuit = $datos [0];
 $nombre  = $datos [1];
 $domile = $datos [2];
@@ -42,13 +43,11 @@ $fecini = $datos [9];
 $rramaa = $datos [10];
 $claveacc = $datos [11];
 
-//Conexion con la base
-include("lib/conexion.php");
+
 
 //Ejecucion de la sentencia SQL
-$sql = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,fecini,rramaa,claveacc)
-
-VALUES ('$nrcuit','$nombre','$domile','$locale','$provin','$copole','$telfon','$emails','$activi','$fecini','$rramaa','$claveacc')";
+$sql = "INSERT INTO empresa (nrcuit,nombre,domile,locali,provin,copole,telfon,emails,activi,fecini,rramaa,claveacc,bajada)
+VALUES ('$nrcuit','$nombre','$domile','$locale','$provin','$copole','$telfon','$emails','$activi','$fecini','$rramaa','$claveacc',DEFAULT)";
 $result = mysql_query($sql,$db);
 
 
