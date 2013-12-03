@@ -218,7 +218,7 @@ if ($mfilas < 10000) { //control rustico... por si las mosacas
 		$motivo = $datos[$nfilas+$u+1];
 		$sql2 = "INSERT INTO inactivos (nrcuit,nrcuil,permes,perano,motivo,nrctrl)
 		VALUES ('$nrcuit','$incuil','$permes','$perano','$motivo','$ctrlh')";
-		$resu = mysql_db_query("uv0472_aplicativo",$sql2,$db);
+		$resu = mysql_query($sql2,$db);
 		$o = $o+1;
 		$u = $u+2;
 	}

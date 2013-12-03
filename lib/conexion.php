@@ -1,9 +1,9 @@
 <?php
 $host = "localhost";
-$user = "uv0472";
-$pass = "trozo299tabea";
+$user = "ospimrem_charly";
+$pass = "arce4651";
 $db = mysql_connect($host,$user,$pass);
-mysql_select_db('uv0472_aplicativo');
+mysql_select_db('ospimrem_aplicativo');
 $nrcuit = $_SESSION['nrcuit'];
 
 ?>
