@@ -88,23 +88,23 @@ $nombreArc = $_GET['nombreArc'];
 			$cuill02 = substr($campos[1],2,8);
 			$cuill03 = substr($campos[1],10,1);
 			
-			print ("<input type=hidden name=Z".$i."size=20 value=".$campos[1].">");
+			print ("<input type=hidden name='Z".$i."' size=20 value=".$campos[1].">");
 			print ("<td width=15%><font face=Verdana size=1>".$cuill01."-".$cuill02."-".$cuill03."</font></td>");
 			
 			$sql = "select * from empleados where nrcuit = '$nrcuit' and activo = 'SI' and nrcuil = '$campos[1]'";
 			$result = mysql_query($sql,$db);
 			$row=mysql_fetch_array($result);
-			print ("<input type=hidden name=X".$i."size=20 value=\"".$row['apelli']." ".$row['nombre']."\">");
+			print ("<input type=hidden name='X".$i."' size=20 value=\"".$row['apelli']." ".$row['nombre']."\">");
 			print ("<td width=40%><font face=Verdana size=1><b>".$row['apelli']." ".$row['nombre']."</b></font></td>");
 			
 			$fec01 = substr($row["fecing"],0,4);
 			$fec02 = substr($row["fecing"],5,2);
 			$fec03 = substr($row["fecing"],8,2);
 			
-			print ("<input type=hidden name=Y".$i."size=20 value=".$row["fecing"].">");			
+			print ("<input type=hidden name='Y".$i."' size=20 value=".$row["fecing"].">");			
 			print ("<td width=15%><font face=Verdana size=1>".$fec03."/".$fec02."/".$fec01."</font></td>");
 			
-			print ("<input type=hidden name=W".$i."size=20 value=".$campos[4].">");		
+			print ("<input type=hidden name='W".$i."' size=20 value=".$campos[4].">");		
 			print ("<td width=30%><font face=Verdana size=1>".(real)$campos[4]."</font></td>");
 			print ("</tr>");
 		}
@@ -130,12 +130,12 @@ $nombreArc = $_GET['nombreArc'];
 		Print ("<font face=Verdana size=1>Cantidad de empleados Inactivos: ".$mfilas."</font>");
 	}
 
-	print ("<input type=hidden name=P1size=20 value=".$mfilas.">");	  
+	print ("<input type=hidden name=P1 size=20 value=".$mfilas.">");	  
 	$i = 1;
 	while ($row=mysql_fetch_array($result)) {
 		print ("<tr>");
 		
-		print ("<input type=hidden name=A".$i."size=20 value=".$row["nrcuil"].">");
+		print ("<input type=hidden name='A".$i."' size=20 value=".$row["nrcuil"].">");
 		$cuil[$i-1] = $row["nrcuil"];
 		$cuill01 = substr($row['nrcuil'],0,2);
 		$cuill02 = substr($row['nrcuil'],2,8);
@@ -143,13 +143,13 @@ $nombreArc = $_GET['nombreArc'];
 		print ("<td width=15%><font face=Verdana size=1>".$cuill01."-".$cuill02."-".$cuill03."</font></td>");
 		$totnom = sprintf("%s %s", $row["apelli"],$row["nombre"]);
 		
-		print ("<input type=hidden name=B".$i."size=20 value=\"".$totnom."\">");
+		print ("<input type=hidden name='B".$i."' size=20 value=\"".$totnom."\">");
 		print ("<td width=35%><font face=Verdana size=1><b>".$totnom."</b></font></td>");
 		$fec01 = substr($row["fecing"],0,4);
 		$fec02 = substr($row["fecing"],5,2);
 		$fec03 = substr($row["fecing"],8,2);
 		
-		print ("<input type=hidden name=C".$i."size=20 value=".$row["fecing"].">");
+		print ("<input type=hidden name='C".$i."' size=20 value=".$row["fecing"].">");
 		print ("<td width=25%><font face=Verdana size=1>".$fec03."/".$fec02."/".$fec01."</font></td>");
 		print ("<td width=25%><font face=Verdana size=1><input type=text name=D".$i."size=20 ></font></td>");
 		print ("</tr>");
