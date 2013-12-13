@@ -24,6 +24,10 @@ SCROLLBAR-ARROW-COLOR: #CD8C34;
 SCROLLBAR-TRACK-COLOR: #CD8C34; 
 SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
 }
+.Estilo1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+}
 </STYLE>
 <head>
 <title>.: U.S.I.M.R.A. :.</title>
@@ -41,10 +45,16 @@ SCROLLBAR-DARKSHADOW-COLOR: #CD8C34
             <p><font size="2">La herramienta en l&iacute;nea de U.S.I.M.R.A. para 
               la generaci&oacute;n de Declaraciones Juradas y Boletas de Pago 
               de las Resoluciones de Seguro de Vida y Sepelio.</font></p>
-            <p><font size="2"><b><font color="#FF0000">Novedad: </font>Para la liquidación de los períodos no Remunerativos
-			deberá fijarse en la lista desplegable de selección de mes del año correspondiente 
-			el índice que refiere al No Remunerativo Respectivo</b></p></font>   
-            <p><a href="manual_aplicativo_ddjj.pdf" onClick="window.open(this.href,'Acuerdos','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false">Descargar Instructivo</a></p>
+           <?php
+		   		$nrcuit = $row['nrcuit'];
+		   		$sqlAviso = "select * from ddjjperdidas where nrcuit = '$nrcuit'";
+				$resAviso = mysql_query($sqlAviso,$db);
+				$canAviso = mysql_num_rows($resAviso);
+				if ($canAviso > 0) { ?>
+		    		<p><b><font  size="3" color="#FF0000">&iexcl;&iexcl;&iexcl;AVISO IMPORTANTE!!!</font></b></p>
+					<p class="Estilo1"><font  size="2">ACA HAY QUE PONER EL MENSAJE</font></p>
+		 <?php } ?>
+		 <p><a href="manual_aplicativo_ddjj.pdf" onClick="window.open(this.href,'Acuerdos','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false">Descargar Instructivo</a></p>
               <p></td>
           </tr>
           <tr>
