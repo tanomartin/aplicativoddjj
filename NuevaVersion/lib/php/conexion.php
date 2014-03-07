@@ -2,9 +2,9 @@
 session_start();
 // Constantes para conexión con la base de datos
 define("host", 'localhost');
-define("user", 'ospimrem_charly');
-define("pass", 'arce4651');
-define("base", 'ospimrem_newaplicativo');
+define("user", 'XXXXX');
+define("pass", 'XXXXX');
+define("base", 'XXXXX');
 
 // Bandera de status de conexion
 $errorDbConexion = false;
