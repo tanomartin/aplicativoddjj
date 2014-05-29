@@ -24,7 +24,11 @@ $resultado = mysql_fetch_array($rdesrama);
 			} else {
 				print("<div align='right'><a href='logout.php'>SALIR</a></div>");
 			}
-		   	print("<div align='right'><a href='cambioContrasenia.php'>Cambiar Contraseña</a></div>");
+			if( strpos( $PagActual, $compara ) != false ) {   
+				print("<div align='right'><a href='../cambioContrasenia.php'>Cambiar Contraseña</a></div>");
+			} else {
+				print("<div align='right'><a href='cambioContrasenia.php'>Cambiar Contraseña</a></div>");
+			}
 		  ?>
 		  
 		  
