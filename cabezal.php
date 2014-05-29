@@ -21,12 +21,9 @@ $resultado = mysql_fetch_array($rdesrama);
 			$compara = "menug.php";
 		  	if( strpos( $PagActual, $compara ) != false ) {   
 				print("<div align='right'><a href='../logout.php'>SALIR</a></div>");
-			} else {
-				print("<div align='right'><a href='logout.php'>SALIR</a></div>");
-			}
-			if( strpos( $PagActual, $compara ) != false ) {   
 				print("<div align='right'><a href='../cambioContrasenia.php'>Cambiar Contraseña</a></div>");
 			} else {
+				print("<div align='right'><a href='logout.php'>SALIR</a></div>");
 				print("<div align='right'><a href='cambioContrasenia.php'>Cambiar Contraseña</a></div>");
 			}
 		  ?>
