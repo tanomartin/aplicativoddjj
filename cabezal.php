@@ -5,7 +5,7 @@ $row = mysql_fetch_array($result);
 
 $rconsu = $row['rramaa'];
 
-$sqldesrama = "select * from rama where codram = '$rconsu'";
+$sqldesrama = "select * from rama where id = '$rconsu'";
 $rdesrama = mysql_query($sqldesrama,$db);
 $resultado = mysql_fetch_array($rdesrama);
 
