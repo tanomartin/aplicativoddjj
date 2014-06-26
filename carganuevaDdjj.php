@@ -137,7 +137,7 @@ if ($nfilas < 1) {
         <option value= "-1" selected>----</option>
       </select>
       </font></strong></td>
-	  <td width=681><strong><font size="-1" face="Arial, Helvetica, sans-serif">Vale aclarar que para el<font color="#000099"> pago de los no remunerativos </font>a  partir del mes de Abril, para la columna en donde se informa la remuneraci&oacute;n  para cada CUIL deber&aacute; consignarse la remuneraci&oacute;n b&aacute;sica correspondiente al per&iacute;odo <font color="#000099">Abril 2013</font></font></strong></td>
+	  <td width=681><strong><font size="-1" face="Arial, Helvetica, sans-serif">Vale aclarar que para el<font color="#000099"> pago de los no remunerativos </font>a  partir del mes de Junio de 2014, para la columna en donde se informa la remuneraci&oacute;n  para cada CUIL deber&aacute; consignarse como remuneraci&oacute;n b&aacute;sica el resultado del calculo de <font color="#000099">Cantidad de Horas Trabajadas por el Valor Hora Total al 31 de Mayo de 2014</font></font></strong></td>
     </tr>
   </table>
   <table border=1 width=100% bordercolorlight=#D08C35 bordercolordark=#D08C35 bordercolor=#CD8C34 cellpadding=2 cellspacing=0>
