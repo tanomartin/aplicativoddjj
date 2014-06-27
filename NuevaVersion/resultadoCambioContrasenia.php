@@ -29,14 +29,14 @@
 						$setactualiza->close();
 
 						// Envio email a sistemas para dejar huella del cambio de clave
-						//$asunto = "Cambio de Contraseña del sitio www.usimra.com.ar";
-						//$mensaje = $userData['nombre'].": " . "\r\n";
-						//$mensaje .= "La empresa con CUIT ".$nrcuit." cambio su contraseña.";
-						//$cabeceras .= "MIME-Version: 1.0" . "\r\n";
-						//$cabeceras .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
-						//$cabeceras .= "From: U.S.I.M.R.A. <no-replay@usimra.com.ar>" . "\r\n";
-						//$mail = "sistemas@usimra.com.ar";
-						//mail($mail, $asunto, $mensaje, $cabeceras);
+						$asunto = "Cambio de Contraseña del sitio www.usimra.com.ar";
+						$mensaje = $userData['nombre'].": " . "\r\n";
+						$mensaje .= "La empresa con CUIT ".$nrcuit." cambio su contraseña.";
+						$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+						$cabeceras .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+						$cabeceras .= "From: U.S.I.M.R.A. <no-replay@usimra.com.ar>" . "\r\n";
+						$mail = "sistemas@usimra.com.ar";
+						mail($mail, $asunto, $mensaje, $cabeceras);
 
 
 						$estadoResultado = "EXITO:";
