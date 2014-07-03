@@ -47,30 +47,30 @@ function enviaMail($data,$dbLink) {
 
 		// Verifico si encuentro datos
 		if($respuesta -> num_rows != 0){
-			//$userData = $respuesta -> fetch_assoc();
+			$userData = $respuesta -> fetch_assoc();
 
 			// Establezco el asunto
-			//$asunto = "Recordatorio de Contraseña del sitio www.usimra.com.ar";
+			$asunto = "Recordatorio de Contraseña del sitio www.usimra.com.ar";
 	
 			// Armo el mensaje
-			//$mensaje = $userData['nombre'].": " . "\r\n";
-			//$mensaje .= "La contraseña requerida del usuario ".$userData['nrcuit']." es ".$userData['claveacc']." .";
+			$mensaje = $userData['nombre'].": " . "\r\n";
+			$mensaje .= "La contraseña requerida del usuario ".$userData['nrcuit']." es ".$userData['claveacc']." .";
 	
 			// Para enviar correo HTML, la cabecera Content-type debe definirse
-			//$cabeceras .= "MIME-Version: 1.0" . "\r\n";
-			//$cabeceras .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+			$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+			$cabeceras .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
 	
 			// Cabeceras adicionales
-			//$cabeceras .= "From: U.S.I.M.R.A. <no-replay@usimra.com.ar>" . "\r\n";
-			//$cabeceras .= 'Bcc: sistemas@usimra.com.ar' . "\r\n";
-	
+			$cabeceras .= "From: U.S.I.M.R.A. <no-replay@usimra.com.ar>" . "\r\n";
+			$cabeceras .= 'Bcc: sistemas@usimra.com.ar' . "\r\n";
+
 			// Envio el mail
-			//if(mail($userData['emails'], $asunto, $mensaje, $cabeceras)) {
+			if(mail($userData['emails'], $asunto, $mensaje, $cabeceras)) {
 				// Devuelvo la respuesta en TRUE
-				//$response = true;
-			//}
+				$response = true;
+			}
 			// Simulo que envio bien el mail !!! NO OLVIDARSE DE SACARLO !!!!!!!!!
-			$response = true;
+			//$response = true;
 		}
 	}
 	return $response;
