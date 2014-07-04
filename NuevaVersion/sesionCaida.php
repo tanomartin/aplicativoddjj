@@ -4,8 +4,8 @@ session_start();
 // Vacio las variables de sesión
 if(!empty($_SESSION)){
 	$_SESSION = array();
-	session_destroy();
 }
+session_destroy();
 $root = '';
 
 // Incluyo el template engine
