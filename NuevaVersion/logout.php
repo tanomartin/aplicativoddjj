@@ -4,6 +4,7 @@ session_start();
 // Vacio las variables de sesión
 if(!empty($_SESSION)){
 	$_SESSION = array();
+	session_unset();
 	session_destroy();
 }
 

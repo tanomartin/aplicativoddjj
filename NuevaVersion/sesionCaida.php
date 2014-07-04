@@ -5,6 +5,7 @@ session_start();
 if(!empty($_SESSION)){
 	$_SESSION = array();
 }
+session_unset();
 session_destroy();
 $root = '';
 
