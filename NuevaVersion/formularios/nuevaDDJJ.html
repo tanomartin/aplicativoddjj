@@ -12,9 +12,9 @@
 	 <div class="hero-unit" style="font-size:14px">
 		<form id="nuevaDDJJ" name="nuevaDDJJ"  method="post" action="grabarnuevaDDJJ.php?activo={{empleadosActivos|length}}&baja={{empleadosBaja|length}}">
 			<legend> Seleccione Periodo a Declarar </legend>
-			<table width="1000" border="0">
+			<table border="0">
               <tr>
-                <td width="200"><label for="anio">A&ntilde;o</label>
+                <td><label for="anio">A&ntilde;o</label>
                   <span></span> 	
 				  <select id="anio" name="anio" class="{required:true}" onchange="ComponerLista(document.forms.nuevaDDJJ.anio[selectedIndex].value);">	
 					{% for anio in anios %}
@@ -22,15 +22,16 @@
 					{% endfor %}			
                   </select>               
 			   </td>
-                <td width="200"><label for="mes">Mes</label>
+                <td><label for="mes">Mes</label>
                   <span></span>
                   <select id="mes" name="mes" class="{required:true}" onchange="formReset(document.forms.nuevaDDJJ.mes[selectedIndex].value);">
                     <option value="">Seleccionar</option>
                   </select>
-				 </td>
-				 <td width="600"><span id="mensajeNoRem"></span></td>
+			    </td>
+				 <td width="10px"></td> 
+				 <td><span id="mensajeNoRem" style="text-align:justify; font-size:12px; font-style:italic"></span></td>
               </tr>
-            </table>
+          </table>
 			<legend> Remuneraci&oacute;n Empleados </legend>
 			<legend style="color:#339900">Activos ({{ empleadosActivos|length }})</legend>
 			{% if empleadosActivos|length > 0 %}
@@ -148,7 +149,7 @@
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
-		var minimoBoleta = 50;
+		var minimoBoleta = 100;
 			
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando DDJJ <br> Puede demorar unos minutos.</h1>" });
@@ -158,7 +159,7 @@
 		function formReset(periodo) {
 			var nombreRemu;
 			var spanRemu;
-			minimoBoleta = 50;
+			minimoBoleta = 100;
 			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
@@ -188,7 +189,7 @@
 			var nombrealic;
 			var clase = "";
 			var colum = 5;
-			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
+			
 			if (periodo <= 12) {
 				clase = "hide";
 				colum = 4;
@@ -202,7 +203,7 @@
 				document.getElementById(nombrealic).className = clase;
 			{% endfor %}
 			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").innerHTML = mensaje;
+			document.getElementById("mensajeNoRem").className = clase; 
 			
 			var numFila = parseInt({{ empleadosActivos|length }}) + 2;
 			var fila=document.getElementById("activos").rows[numFila].cells
@@ -223,6 +224,8 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
+						mensaje = "{{ extra.mensaje }}";
+						document.getElementById("mensajeNoRem").innerHTML = mensaje;
 						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
 							minimoBoleta = 0;

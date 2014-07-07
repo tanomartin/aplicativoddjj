@@ -12,9 +12,9 @@
 	 <div class="hero-unit" style="font-size:14px">
 		<form id="nuevaDDJJ" name="nuevaDDJJ" method="post" action="grabarnuevaDDJJ.php?activo={{activos|length}}&baja={{baja|length}}">
 			<legend> Seleccione Periodo a Declarar </legend>
-			<table width="1000" border="0">
+			<table border="0">
               <tr>
-                <td width="200"><label for="anio">A&ntilde;o</label>
+                <td><label for="anio">A&ntilde;o</label>
 				   <span></span> 	
 				  <select id="anio" name="anio" class="{required:true}" onchange="ComponerLista(document.forms.nuevaDDJJ.anio[selectedIndex].value);">	
 					{% for anio in anios %}
@@ -22,13 +22,13 @@
 					{% endfor %}			
                   </select> 
 			   </td>
-                <td width="200"><label for="mes">Mes</label>
+                <td><label for="mes">Mes</label>
                 	<span></span>
                   <select id="mes" name="mes" class="{required:true}" >
                     <option value="">Seleccionar</option>
                   </select>
 				 </td>
-				 <td width="600"><span id="mensajeNoRem"></span></td>
+				 <td><span id="mensajeNoRem"></span></td>
               </tr>
             </table>
 			
@@ -145,7 +145,7 @@
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script type="text/javascript" src="lib/js/jquery/jquery.blockUI.js"></script>
 	<script>
-		var minimoBoleta = 50;
+		var minimoBoleta = 100;
 
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando Nueva DDJJ <br> Puede demorar unos minutos.</h1>" });

@@ -12,15 +12,16 @@
 	 <div class="hero-unit" style="font-size:14px">
 		<form id="editarDDJJ" name="editarDDJJ" method="post" action="grabaredicionDDJJ.php?ddjjactivo={{ddjj|length}}&ddjjbaja={{ddjjinactivos|length}}&periodo={{total.permes}}">
 			<legend> Periodo a Declarar </legend>
-			<table width="1000" border="0">
+			<table border="0">
               <tr>
-                <td width="200"><label for="anio">A&ntilde;o</label>
+                <td><label for="anio">A&ntilde;o</label>
 				  <input type="text" id="anio" name="anio" value="{{ total.perano }}" readonly/>
 			   </td>
-                <td width="200"><label for="mes">Mes</label>
+                <td><label for="mes">Mes</label>
                 	<input type="text" id="mes" name="mes" value="{{ total.descripcion }}" readonly/>
 			    </td>
-				 <td width="600"><span id="mensajeNoRem"></span></td>
+				 <td width="10px"></td> 
+				<td><span id="mensajeNoRem" style="text-align:justify; font-size:12px; font-style:italic"></span></td>
               </tr>
             </table>
 			
@@ -147,7 +148,7 @@
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
-		var minimoBoleta = 50;
+		var minimoBoleta = 100;
 		
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Modificando DDJJ <br> Puede demorar unos minutos.</h1>" });
@@ -156,7 +157,7 @@
 		
 		function formFull(periodo) {
 			formatoFormulario(periodo);
-			minimoBoleta = 50;
+			minimoBoleta = 100;
 			if (periodo > 12) {
 				cargarExtraordinario(periodo);
 			} else {
@@ -183,6 +184,8 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
+						mensaje = "{{ extra.mensaje }}";
+						document.getElementById("mensajeNoRem").innerHTML = mensaje;
 						minimoBoleta = minimoBoleta * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
 							minimoBoleta = 0;
@@ -223,7 +226,6 @@
 			var nombrealic;
 			var clase = "";
 			var colum = 5;
-			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
 			if (periodo <= 12) {
 				clase = "hide";
 				colum = 4;
@@ -238,7 +240,7 @@
 			{% endfor %}
 			
 			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").innerHTML = mensaje;
+			document.getElementById("mensajeNoRem").className = clase; 
 			
 			var numFila = parseInt({{ ddjj|length }}) + 2;
 			var fila=document.getElementById("activos").rows[numFila].cells

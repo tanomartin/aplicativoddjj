@@ -61,10 +61,10 @@
 	$consultaExtra = "SELECT * FROM extraordinarios";
 	if ($sentencia = $mysqli->prepare($consultaExtra)) {
     	$sentencia->execute();
-    	$sentencia->bind_result($anio, $mes, $relacion, $tipo, $valor, $retiene060, $retiene100, $retiene150);
+    	$sentencia->bind_result($anio, $mes, $relacion, $tipo, $valor, $retiene060, $retiene100, $retiene150, $mensaje);
 		$i = 0;
 		while ($sentencia->fetch()) {
-			$extraordinarios[$i] = array('anio' => $anio, 'mes' => $mes, 'tipo' => $tipo, 'valor' => $valor, 'retiene060' => $retiene060, 'retiene100' => $retiene100, 'retiene150' => $retiene150);
+			$extraordinarios[$i] = array('anio' => $anio, 'mes' => $mes, 'tipo' => $tipo, 'valor' => $valor, 'retiene060' => $retiene060, 'retiene100' => $retiene100, 'retiene150' => $retiene150, 'mensaje' => $mensaje);
 			$i = $i + 1;
     	}
 	}
