@@ -25,5 +25,20 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
 //var_dump($noticias);
 // Cargo la plantilla
 
-$twig->display('login.html', array("noticias" => $noticias, "login" => $_SESSION['userLogin']));
+$navegador = getBrowser();
+if(strcmp($navegador['name'],"Internet Explorer") == 0 || strcmp($navegador['name'],"Mozilla Firefox") == 0 || strcmp($navegador['name'],"Google Chrome") == 0 || strcmp($navegador['name'],"Apple Safari") == 0) {
+	if (strcmp($navegador['name'],"Internet Explorer") == 0) {
+		$version = (float)$navegador['version'];
+		if($version < 9) {
+			$twig->display('navegadorError.html');
+		} else {
+			$twig->display('login.html', array("noticias" => $noticias, "login" => $_SESSION['userLogin']));
+		}
+	} else {
+		$twig->display('login.html', array("noticias" => $noticias, "login" => $_SESSION['userLogin']));
+	}
+} else {
+	$twig->display('navegadorError.html');
+}
+
 ?>
