@@ -1,6 +1,4 @@
-<?php session_save_path("sesiones");
-session_start();
-
+<?php 
 include('lib/php/conexion.php');
 
 function userLogin($data,$dbLink) {

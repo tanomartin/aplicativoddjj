@@ -1,6 +1,4 @@
-<?php session_save_path("sesiones");
-session_start();
-
+<?php 
 function getBrowser() { 
     $u_agent = $_SERVER['HTTP_USER_AGENT']; 
     $bname = 'Unknown';

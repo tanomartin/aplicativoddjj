@@ -1,6 +1,4 @@
-<?php session_save_path("sesiones");
-session_start();
-
+<?php 
 $consulta = sprintf("SELECT * FROM empresa WHERE nrcuit='%s' AND claveacc='%s' LIMIT 1", trim($data['usuario-cuit']),trim($data['usuario-clave']));
 $consuMge = sprintf("SELECT * FROM habilita WHERE nrcuit='%s' LIMIT 1", trim($data['usuario-cuit']));
 
