@@ -179,7 +179,8 @@ if(isset($_POST) && !empty($_POST)) {
 
 if (strcmp($instrumento,'B') == 0) {
 	$twig->display('boletaDeposito.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra, "archBar" => $archivosbarra));
-} else {
+} 
+if (strcmp($instrumento,'T') == 0) {
 	$pdf = new FPDF('P','mm',array(120,170));
 	$pdf->AddPage();
 	$pdf->SetFont('Arial','',10);
