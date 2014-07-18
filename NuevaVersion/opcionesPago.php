@@ -9,8 +9,9 @@ include('includes/templateEngine.inc.php');
 
 $nrcuit = $_SESSION['userCuit'];
 
+$ddjjsindocu = array();
 //*******************************************************************//
-//********************* SIN DOCU **************************************//
+//********************* SIN DOCU ************************************//
 //*******************************************************************//
 $consultaDDJJ = "SELECT ddjj.nrctrl, periodos.descripcion, ddjj.perano, ddjj.totapo, ddjj.recarg FROM ddjj, periodos where ddjj.nrcuit = $nrcuit and ddjj.nrcuil = '99999999999' and ddjj.permes = periodos.mes and ddjj.perano = periodos.anio ORDER BY ddjj.nrctrl DESC";
 if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
