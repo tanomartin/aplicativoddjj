@@ -9,8 +9,12 @@ include('includes/templateEngine.inc.php');
 
 $nrcuit = $_SESSION['userCuit'];
 
+$ddjjsindocu = array();
+$ddjjcondocu = array();
+$ddjjvalidas = array();
+
 //*******************************************************************//
-//********************* SIN DOCU **************************************//
+//********************* SIN DOCU ************************************//
 //*******************************************************************//
 $consultaDDJJ = "SELECT ddjj.nrctrl, periodos.descripcion, ddjj.perano, ddjj.totapo, ddjj.recarg FROM ddjj, periodos where ddjj.nrcuit = $nrcuit and ddjj.nrcuil = '99999999999' and periodos.mes = ddjj.permes and periodos.anio = ddjj.perano order by ddjj.nrctrl DESC limit 6";
 if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
@@ -28,7 +32,7 @@ if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
 
 
 //*******************************************************************//
-//********************* CON DOCU **************************************//
+//********************* CON DOCU ************************************//
 //*******************************************************************//
 $consultaDDJJconDocu = "
 SELECT 
@@ -70,7 +74,7 @@ for($i=0; $i < sizeof($ddjjcondocu); $i++) {
 
 
 //*******************************************************************//
-//********************* VALIDAS **************************************//
+//********************* VALIDAS *************************************//
 //*******************************************************************//
 $consultaValidas = "
 SELECT 
