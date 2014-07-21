@@ -55,7 +55,7 @@ function enviaMail($data,$dbLink) {
 			$mensaje .= "La contraseña requerida del usuario ".$userData['nrcuit']." es ".$userData['claveacc']." .";
 	
 			// Para enviar correo HTML, la cabecera Content-type debe definirse
-			$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+			$cabeceras = "MIME-Version: 1.0" . "\r\n";
 			$cabeceras .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
 	
 			// Cabeceras adicionales

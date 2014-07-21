@@ -10,6 +10,7 @@
 	
 	$nrcuit = $_SESSION['userCuit'];
 	$consultaActivos = "SELECT nrcuil, apelli, nombre, tipdoc, nrodoc FROM empleados where nrcuit = $nrcuit and activo = 'SI' order by nrcuil";
+	$activos = array();
 	if ($sentencia = $mysqli->prepare($consultaActivos)) {
     	$sentencia->execute();
     	$sentencia->bind_result($nrcuil, $apellido, $nombre, $tipdoc, $nrdoc);
@@ -23,6 +24,7 @@
 	}
 
 	$consultaBaja = "SELECT nrcuil, apelli, nombre, tipdoc, nrodoc FROM empleados where nrcuit = $nrcuit and activo = 'NO' order by nrcuil";
+	$baja = array();
 	if ($sentencia = $mysqli->prepare($consultaBaja)) {
     	$sentencia->execute();
     	$sentencia->bind_result($nrcuil, $apellido, $nombre, $tipdoc, $nrdoc);
