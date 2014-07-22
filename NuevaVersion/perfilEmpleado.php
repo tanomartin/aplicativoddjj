@@ -39,6 +39,7 @@
 	
 	$consultaFamilia = "SELECT id, nrcuil, nombre, apelli, codpar, ssexxo, fecnac, fecing, tipdoc, nrodoc, benefi FROM familia where nrcuit = $cuit and nrcuil = $cuil";
 	//echo $consultaFamilia;
+	$familiares = array();
 	if ($sentencia = $mysqli->prepare($consultaFamilia)) {
     	$sentencia->execute();
     	$sentencia->bind_result($id, $nrcuil, $nombre, $apellido, $parente, $sexo, $fecnac, $fecing, $tipdoc, $nrdoc, $benefi);
