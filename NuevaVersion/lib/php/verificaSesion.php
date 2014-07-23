@@ -2,7 +2,7 @@
 ini_set('session.use_only_cookies', 1);
 ini_set('session.cookie_httponly', 1);
 
-if(empty($_SESSION) || $_SESSION['userLogin'] == false){
+if(empty($_SESSION) || $_SESSION['userLogin'] == false || !isset($_SESSION["userNombre"]) || !isset($_SESSION["maxtimeSession"]) || !isset($_SESSION["ultimoAcceso"]) || !isset($_SESSION['userCuit'])){
 	header("Location:sesionCaida.php");
 }
 
