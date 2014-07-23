@@ -2,7 +2,8 @@
 function getBrowser() { 
     $u_agent = $_SERVER['HTTP_USER_AGENT']; 
     $bname = 'Unknown';
-    $platform = 'Unknown';
+    $ub = 'Unknown';
+	$platform = 'Unknown';
     $version= "";
 
     //First get the platform?
