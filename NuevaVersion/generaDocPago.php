@@ -12,7 +12,7 @@ include('includes/templateEngine.inc.php');
 
 $cuit = $_SESSION['userCuit'];
 $referencia = date("ymdHis");
-if(isset($_POST) && !empty($_POST)) {
+if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST['nrctrl'])) {
 	$instrumento = $_POST['tipoPago'];
 	$ddjjs = $_POST['nrctrl'];
 	for($i=0; $i<count($ddjjs); $i++) {
@@ -166,48 +166,52 @@ if(isset($_POST) && !empty($_POST)) {
 			$archivosbarra[$i] =  $codigobarra[$i].".jpg";
 		}
 	}
+	
+	//var_dump($empresa);
+	//var_dump($ddjjcdocu);
+	//var_dump($totapa);
+	//var_dump($numeroLetras);
+	//var_dump($vinculadocu);
+	//var_dump($nota);
+	//var_dump($codigobarra);
+	//var_dump($archivosbarra);
+	
+	if (strcmp($instrumento,'B') == 0) {
+		$twig->display('boletaDeposito.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra, "archBar" => $archivosbarra));
+	} 
+	if (strcmp($instrumento,'T') == 0) {
+		$pdf = new FPDF('P','mm',array(120,170));
+		$pdf->AddPage();
+		$pdf->SetFont('Arial','',10);
+		$pdf->Cell(90,8,'Ticket para Generar Transferencia Bancaria (1)',0,1,'C');
+		$pdf->Image('img/membreteticket.png',null,null,90,15);
+		$pdf->Cell(90,8,'Datos Destino Transferencia','LTR',1,'C');
+		$pdf->Cell(90,8,'Cuenta			: Cta. Cte. en $ 0090000493','LR',1,'L');
+		$pdf->Cell(90,8,'C.B.U.			: 0110009920000900004937','LR',1,'L');
+		$pdf->Cell(90,8,'Banco			: De La Nacion Argentina','LR',1,'L');
+		$pdf->Cell(90,8,'Titular		: USIMRA y FAIMA','LR',1,'L');
+		$pdf->Cell(90,8,'C.U.I.T.		: 30530705117','LR',1,'L');
+		$pdf->Cell(90,8,'(2) Referencia	: '.$referencia,'LR',1,'L');
+		$pdf->Cell(90,8,'Importe		: '.$totapa,'LR',1,'L');
+		$pdf->Cell(90,8,'E-mail			: transferencias@usimra.com.ar','LBR',1,'L');
+		$pdf->SetFont('Arial','',6);
+		$pdf->Cell(90,3,'(1) - Si utiliza su Home Banking para emitir la transferencia, es posible que la primera vez','LR',1,'L');
+		$pdf->Cell(90,3,'       deba efectuarla a traves de cajero automatico para vincular las cuentas.','LBR',1,'L');
+		$pdf->Cell(90,3,'(2) - Es importantisimo corroborar y NO omitir informar este dato. Posibilita identificar con','LR',1,'L');
+		$pdf->Cell(90,3,'       precision las DDJJ objetos de la transferencia.','LBR',1,'L');
+		$pdf->SetFont('Arial','B',8);
+		$pdf->Cell(90,8,'',0,1,'L');
+		$pdf->Cell(90,4,'Este documento NO es comprobante de pago. Solo tiene caracter',0,1,'L');
+		$pdf->Cell(90,4,'informativo a los efectos de emitir correctamente la transferencia',0,1,'L');
+		$pdf->Cell(90,4,'bancaria.',0,1,'L');
+		$nombrearchivo = "TicketsEmitidos/TicketTransferencia".$cuit.$referencia.".pdf";
+		$pdf->Output($nombrearchivo,'F');
+		//$pdf->Output();
+		$twig->display('ticketTransferencia.html',array("userName" => $_SESSION['userNombre'], "archivoPDF" => $nombrearchivo));
+	}
+} else {
+	$twig->display('accesoDirecto.html',array("userName" => $_SESSION['userNombre']));
 }
 
-//var_dump($empresa);
-//var_dump($ddjjcdocu);
-//var_dump($totapa);
-//var_dump($numeroLetras);
-//var_dump($vinculadocu);
-//var_dump($nota);
-//var_dump($codigobarra);
-//var_dump($archivosbarra);
 
-if (strcmp($instrumento,'B') == 0) {
-	$twig->display('boletaDeposito.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra, "archBar" => $archivosbarra));
-} 
-if (strcmp($instrumento,'T') == 0) {
-	$pdf = new FPDF('P','mm',array(120,170));
-	$pdf->AddPage();
-	$pdf->SetFont('Arial','',10);
-	$pdf->Cell(90,8,'Ticket para Generar Transferencia Bancaria (1)',0,1,'C');
-	$pdf->Image('img/membreteticket.png',null,null,90,15);
-	$pdf->Cell(90,8,'Datos Destino Transferencia','LTR',1,'C');
-	$pdf->Cell(90,8,'Cuenta			: Cta. Cte. en $ 0090000493','LR',1,'L');
-	$pdf->Cell(90,8,'C.B.U.			: 0110009920000900004937','LR',1,'L');
-	$pdf->Cell(90,8,'Banco			: De La Nacion Argentina','LR',1,'L');
-	$pdf->Cell(90,8,'Titular		: USIMRA y FAIMA','LR',1,'L');
-	$pdf->Cell(90,8,'C.U.I.T.		: 30530705117','LR',1,'L');
-	$pdf->Cell(90,8,'(2) Referencia	: '.$referencia,'LR',1,'L');
-	$pdf->Cell(90,8,'Importe		: '.$totapa,'LR',1,'L');
-	$pdf->Cell(90,8,'E-mail			: transferencias@usimra.com.ar','LBR',1,'L');
-	$pdf->SetFont('Arial','',6);
-	$pdf->Cell(90,3,'(1) - Si utiliza su Home Banking para emitir la transferencia, es posible que la primera vez','LR',1,'L');
-	$pdf->Cell(90,3,'       deba efectuarla a traves de cajero automatico para vincular las cuentas.','LBR',1,'L');
-	$pdf->Cell(90,3,'(2) - Es importantisimo corroborar y NO omitir informar este dato. Posibilita identificar con','LR',1,'L');
-	$pdf->Cell(90,3,'       precision las DDJJ objetos de la transferencia.','LBR',1,'L');
-	$pdf->SetFont('Arial','B',8);
-	$pdf->Cell(90,8,'',0,1,'L');
-	$pdf->Cell(90,4,'Este documento NO es comprobante de pago. Solo tiene caracter',0,1,'L');
-	$pdf->Cell(90,4,'informativo a los efectos de emitir correctamente la transferencia',0,1,'L');
-	$pdf->Cell(90,4,'bancaria.',0,1,'L');
-	$nombrearchivo = "TicketsEmitidos/TicketTransferencia".$cuit.$referencia.".pdf";
-	$pdf->Output($nombrearchivo,'F');
-	//$pdf->Output();
-	$twig->display('ticketTransferencia.html',array("userName" => $_SESSION['userNombre'], "archivoPDF" => $nombrearchivo));
-}
 ?>
