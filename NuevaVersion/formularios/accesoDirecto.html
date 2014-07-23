@@ -1,0 +1,15 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+		<section class="container" style="margin-top:50px">
+			<div class="hero-unit">
+				<h1>Operaci&oacute;n Incorrecta </h1>
+				<p>Usted intent&oacute; realizar una operaci&oacute;n accediendo a una direcci&oacute;n de manera indebida desde su navegador </p>
+				<p>Por favor realice la operaci&oacute;n deseada siguiendo los pasos correctos del aplicativo. </p>
+			</div>
+		</section>
+{% endblock %}
