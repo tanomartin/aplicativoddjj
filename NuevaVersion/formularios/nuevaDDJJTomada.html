@@ -145,7 +145,12 @@
 	<script type="text/javascript" src="lib/js/funcionControl.js"></script>
 	<script type="text/javascript" src="lib/js/jquery/jquery.blockUI.js"></script>
 	<script>
-		var minimoBoleta = 100;
+		var minimoBoleta = 0;
+		if ("{{minimoAutorizado}}" == 1) {
+			minimoBoleta = 40;
+		} else {
+			minimoBoleta = 100;
+		}
 
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando Nueva DDJJ <br> Puede demorar unos minutos.</h1>" });

@@ -149,7 +149,12 @@
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
-		var minimoBoleta = 100;
+		var minimoBoleta = 0;
+		if ("{{minimoAutorizado}}" == 1) {
+			minimoBoleta = 40;
+		} else {
+			minimoBoleta = 100;
+		}
 			
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Grabando DDJJ <br> Puede demorar unos minutos.</h1>" });
@@ -159,7 +164,11 @@
 		function formReset(periodo) {
 			var nombreRemu;
 			var spanRemu;
-			minimoBoleta = 100;
+			if ("{{minimoAutorizado}}" == 1) {
+				minimoBoleta = 40;
+			} else {
+				minimoBoleta = 100;
+			}
 			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";

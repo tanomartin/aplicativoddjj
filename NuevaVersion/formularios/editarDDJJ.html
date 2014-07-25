@@ -148,8 +148,13 @@
 		var retiene060 = 1;
 		var retiene100 = 1;
 		var retiene150 = 1;
-		var minimoBoleta = 100;
-		
+		var minimoBoleta = 0;
+		if ("{{minimoAutorizado}}" == 1) {
+			minimoBoleta = 40;
+		} else {
+			minimoBoleta = 100;
+		}
+
 		function MsgWait() {
 			$.blockUI({ message: "<h1>Modificando DDJJ <br> Puede demorar unos minutos.</h1>" });
 			return true;
@@ -157,7 +162,11 @@
 		
 		function formFull(periodo) {
 			formatoFormulario(periodo);
-			minimoBoleta = 100;
+			if ("{{minimoAutorizado}}" == 1) {
+				minimoBoleta = 40;
+			} else {
+				minimoBoleta = 100;
+			}
 			if (periodo > 12) {
 				cargarExtraordinario(periodo);
 			} else {
