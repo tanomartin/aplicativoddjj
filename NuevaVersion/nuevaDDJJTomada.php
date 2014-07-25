@@ -135,6 +135,13 @@
 		}
 	}
 	
+	$miniAutori = array();
+	$consultaMinimo = "SELECT count(*) as autorizado FROM empresassinminimo where nrcuit = $nrcuit and autori = 1";
+	$respMinimo = $mysqli -> query($consultaMinimo);
+	$miniAutori = $respMinimo -> fetch_assoc();
+	if ($miniAutori['autorizado']  == 0) $minimo = 0;
+	if ($miniAutori['autorizado']  == 1) $minimo = 1;
+	
 	//print("ACTIVOS<br>");
 	//var_dump($activos);
 	//print("BAJA<br>");
@@ -145,6 +152,6 @@
 	//var_dump($ddjjTotalData);
 	
 	// Cargo la plantilla
-	$twig->display('nuevaDDJJTomada.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "activos" => $activos, "baja" => $baja, "anios"=> $anios, 'meses' => $meses, 'permes' => $ddjjTotalData['permes'], 'perano' => $ddjjTotalData['perano']));
+	$twig->display('nuevaDDJJTomada.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "activos" => $activos, "baja" => $baja, "anios"=> $anios, 'meses' => $meses, 'permes' => $ddjjTotalData['permes'], 'perano' => $ddjjTotalData['perano'], 'minimoAutorizado' => $minimo));
 
 ?>

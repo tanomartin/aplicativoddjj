@@ -10,7 +10,7 @@
 	
 	$nrcuit = $_SESSION['userCuit'];
 	$nrcont = $_GET['control'];
-	
+		
 	$consultaDDJJTotal = "SELECT 
 	ddjj.nrcuil,
 	ddjj.permes,
@@ -31,9 +31,9 @@
 	ddjj.perano = periodos.anio and
 	ddjj.permes = periodos.mes";
 	//print($consultaDDJJTotal);print("<br>");
+	$ddjjTotalData = array();
 	$respuesta = $mysqli -> query($consultaDDJJTotal);
 	$ddjjTotalData = $respuesta -> fetch_assoc();
-	
 	
 	$consultaDDJJ = "SELECT 
 	ddjj.nrcuil,empleados.nombre,empleados.apelli,empleados.tipdoc,empleados.nrodoc,ddjj.remune,ddjj.apo060,ddjj.apo100,ddjj.apo150,ddjj.totapo,ddjj.recarg,ddjj.observ 
@@ -47,6 +47,7 @@
 	ORDER BY ddjj.nrcuil";
 	//print($consultaDDJJ);print("<br>");
 	
+	$ddjj = array();
 	if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
     	$sentencia->execute();
     	$sentencia->bind_result($nrcuil, $nombre, $apelli, $tipdoc, $nrodoc, $remune, $apo060, $apo100, $apo150, $totapo, $recarg, $observ);
@@ -69,6 +70,7 @@
 	inactivos.nrcuit = empleados.nrcuit 
 	ORDER BY inactivos.nrcuil";
 	
+	$ddjjinactivos = array();
 	if ($sentencia = $mysqli->prepare($consultaDDJJInactivos)) {
     	$sentencia->execute();
     	$sentencia->bind_result($nrcuil, $nombre, $apelli, $tipdoc, $nrodoc, $permes, $perano, $motivo);
@@ -91,12 +93,20 @@
 			$i = $i + 1;
     	}
 	}
+	
+	$miniAutori = array();
+	$consultaMinimo = "SELECT count(*) as autorizado FROM empresassinminimo where nrcuit = $nrcuit and autori = 1";
+	$respMinimo = $mysqli -> query($consultaMinimo);
+	$miniAutori = $respMinimo -> fetch_assoc();
+	if ($miniAutori['autorizado']  == 0) $minimo = 0;
+	if ($miniAutori['autorizado']  == 1) $minimo = 1;
+	
 	//var_dump($ddjjTotalData);
 	//var_dump($ddjj);
 	//var_dump($ddjjinactivos);
 	//var_dump($extraordinarios);
 	
 	// Cargo la plantilla
-	$twig->display('editarDDJJ.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "ddjj" => $ddjj, "ddjjinactivos" => $ddjjinactivos, "total" => $ddjjTotalData, 'extraordinario' => $extraordinarios));
+	$twig->display('editarDDJJ.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "ddjj" => $ddjj, "ddjjinactivos" => $ddjjinactivos, "total" => $ddjjTotalData, 'extraordinario' => $extraordinarios, 'minimoAutorizado' => $minimo));
 
 ?>
