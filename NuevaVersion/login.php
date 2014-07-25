@@ -32,10 +32,10 @@ if(strcmp($navegador['name'],"Internet Explorer") == 0 || strcmp($navegador['nam
 		if($version < 9) {
 			$twig->display('navegadorError.html');
 		} else {
-			$twig->display('login.html', array("noticias" => $noticias, "login" => $_SESSION['userLogin']));
+			$twig->display('login.html', array("noticias" => $noticias, "login" => false));
 		}
 	} else {
-		$twig->display('login.html', array("noticias" => $noticias, "login" => $_SESSION['userLogin']));
+		$twig->display('login.html', array("noticias" => $noticias, "login" => false));
 	}
 } else {
 	$twig->display('navegadorError.html');
