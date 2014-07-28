@@ -96,10 +96,12 @@
 	
 	$miniAutori = array();
 	$consultaMinimo = "SELECT count(*) as autorizado FROM empresassinminimo where nrcuit = $nrcuit and autori = 1";
-	$respMinimo = $mysqli -> query($consultaMinimo);
-	$miniAutori = $respMinimo -> fetch_assoc();
-	if ($miniAutori['autorizado']  == 0) $minimo = 0;
-	if ($miniAutori['autorizado']  == 1) $minimo = 1;
+	if ($sentencia = $mysqli->prepare($consultaMinimo)) {   
+		$respMinimo = $mysqli -> query($consultaMinimo);
+		$miniAutori = $respMinimo -> fetch_assoc();
+		if ($miniAutori['autorizado']  == 0) $minimo = 0;
+		if ($miniAutori['autorizado']  == 1) $minimo = 1;
+	}
 	
 	//var_dump($ddjjTotalData);
 	//var_dump($ddjj);
