@@ -20,5 +20,6 @@ if(empty($_SESSION) || $_SESSION['userLogin'] == false || !isset($_SESSION["user
 }
 if ($redirec) {
 	header("Location:sesionCaida.php");
+	exit(0);
 }
 ?>
