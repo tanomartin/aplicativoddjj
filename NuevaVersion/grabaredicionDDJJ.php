@@ -10,7 +10,7 @@ $nrcuit = $_SESSION['userCuit'];
 //echo $nrcuit;//echo "<br>";
 
 $datos = array_values($_POST);
-if (sizeof($datos) > 0) {
+if (sizeof($datos) > 0 && isset($_GET['periodo']) && isset($_GET['ddjjactivo']) && isset($_GET['ddjjbaja'])) {
 	//var_dump($datos);
 	$perano = $datos[0];
 	//echo $perano;//echo "<br>";
