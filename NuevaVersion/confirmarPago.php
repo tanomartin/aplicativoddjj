@@ -23,6 +23,7 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago'])) {
 		$sentencia->execute();
 		$sentencia->bind_result($control, $mes, $perano, $totapo, $recargo);
 		$i = 0;
+		$totapa = 0;
 		while ($sentencia->fetch()) {
 			for($j=0; $j<count($ddjjs); $j++) {
 				$ddjj=$ddjjs[$j];

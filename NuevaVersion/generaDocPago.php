@@ -95,6 +95,7 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 		$consucondocu->execute();
 		$consucondocu->bind_result($controlcd, $mescd, $descrimescd, $peranocd, $nfilascd, $remunecd, $recargcd, $apo060cd, $apo100cd, $apo150cd, $totapocd);
 		$i = 0;
+		$totapa = 0;
 		while ($consucondocu->fetch()) {
 			for($j=0; $j<count($ddjjs); $j++) {
 				$ddjj=$ddjjs[$j];
