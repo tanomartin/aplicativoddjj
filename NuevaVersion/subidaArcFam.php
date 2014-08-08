@@ -232,7 +232,7 @@ function verificarCampos($nombreArc,$registro,$mysqli,$numReg) {
 //*************************************************************//
 $nomArcOK=controlarNombreArc($archivo_name,$archivo_type,$mysqli);
 //print("CONTROL NOMBRE=$nomArcOK<br/><br/>");
-
+$errores = array();
 $contRegMalos = 0;
 if ($nomArcOK==0) {
 	$ncuit=substr($archivo_name,4,11);

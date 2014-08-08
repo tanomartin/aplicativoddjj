@@ -160,6 +160,7 @@ function verificarCampos($nombreArc,$registro,$mysqli) {
 //*************************************************************//
 //aca empiezo con todas las llamadas a todos los controles ****//
 //*************************************************************//
+$errores = array();
 $nomArcOK=controlarNombreArc($archivo_name,$archivo_type,$mysqli);
 //print("CONTROL NOMBRE=$nomArcOK<br/>\n");
 $contRegMalos = 0;

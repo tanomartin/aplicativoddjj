@@ -9,7 +9,8 @@ session_start();
 	include('includes/templateEngine.inc.php');
 
 	
-	
+	$activos = array();
+	$baja = array();
 	$nrcuit=$_SESSION['userCuit'];
 	$nombreArc=$_GET['nombre'];
 	$permes=substr($nombreArc,15,2);
