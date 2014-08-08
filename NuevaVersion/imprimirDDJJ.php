@@ -10,6 +10,7 @@ include('lib/php/funciones.php');
 
 $nrcuit = $_SESSION['userCuit'];
 if (isset($_GET['control']) && isset($_GET['tipo'])) {
+	$detalle = array();
 	$control = $_GET['control'];
 	$tipo = $_GET['tipo'];
 	$consultaEmpresa = "select 
