@@ -34,7 +34,11 @@
 						  <td>{{ ddjjsdocu.perano }}</td>
 						  <td>{{ ddjjsdocu.permes }}</td>
 						  <td>{{ ddjjsdocu.totapo }}</td>
-						  <td><a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a><a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjsdocu.control}},'sindocu')" ></i></a> <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> </td>
+						  <td>
+						  <a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a><a style="cursor: pointer;"></a> 
+						  <a href="imprimirDDJJ.php?control={{ddjjsdocu.control}}&tipo=sindocu" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a> 
+						  <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> 
+						  </td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
@@ -53,7 +57,7 @@
 					  <th>A&ntilde;o</th>
 					  <th>Mes</th>
 					  <th>Total </th>
-					  <th>Instr. Pago  <a href="docs/instrumento_especificaciones.pdf" onClick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Info" class="icon-info-sign icon-black"></i></a> </th>
+					  <th>Instr. Pago  <a href="docs/instrumento_especificaciones.pdf" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Info" class="icon-info-sign icon-black"></i></a> </th>
 					  <th>Acciones</th>
 					</tr>
 				  </thead>
@@ -64,7 +68,7 @@
 						  <td>{{ ddjjcdocu.permes }}</td>
 						  <td>{{ ddjjcdocu.totapo }}</td>
 						  <td>{{ ddjjcdocu.instrumento }}</td>
-						  <td><a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjcdocu.control}},'condocu')"></i></a></td>
+						  <td><a href="imprimirDDJJ.php?control={{ddjjcdocu.control}}&tipo=condocu" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
@@ -102,7 +106,7 @@
 					  		{% if ddjjvalidas.mescod <= 12 %}
 					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> 
 							{% endif %}
-							<a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjvalidas.control}},'valida')"></i></a>
+								<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}&tipo=valida" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a>
 					 </td>
 					</tr>
 				{% endfor %}
@@ -116,20 +120,4 @@
       </div>
     </section>
 </section>
-
-{% endblock %}
-
-{% block javaScripts %}
-
-<script type="text/javascript">
-
-function verDDJJ(control, tipo){
-	urlDdjj = "imprimirDDJJ.php?control="+control+"&tipo="+tipo;
-	window.showModalDialog(urlDdjj,"",'dialogHeight:600px;dialogWidth:850px;center:Yes;help:No;resizable:Yes;status:No;');
-	//window.open(urlDdjj,"",'dialogHeight:600px;dialogWidth:800px;center:Yes;help:No;resizable: Yes;status:No;');
-	//window.location.href = urlDdjj;
-}
-
-</script>	
-
 {% endblock %}
