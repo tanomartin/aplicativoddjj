@@ -87,6 +87,9 @@
 					<td><span></span><input type="text" id="recargo" value="0.00" name="recargo" placeholder="Importe"  class="{number:true, min: 0} span1" onchange="recalcularTotal();"/></td>
 				</tr>
 				<tr>
+					<td colspan="9"><div style="text-align:right" id="errorTotal" class="inner"></div><td>
+				</tr>
+				<tr>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -95,8 +98,8 @@
 					<td></td>
 					<td id="totalgeneral" class="hide"></td>
 					<td valign="bottom"><div align="right"><strong>Total</strong></div></td>
-					<td><span id="errorTotal"></span><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
-				</tr>
+					<td><input type="text" id="totalGeneral" name="totalGeneral" style="text-align:right" class="span1" readonly/></td>
+				</tr>				
 			   </tbody>	
 	  		</table>
 			{% else %}
@@ -169,6 +172,9 @@
 			} else {
 				minimoBoleta = 100;
 			}
+			retiene060 = 1;
+			retiene100 = 1;
+			retiene150 = 1;
 			//Vacio las remu y el span de error y recaolculo los poscentajes con 0 para vaciar los porcentajes.
 			{% for activos in empleadosActivos %}
 				var cuil = "{{activos.nrcuil}}";
@@ -240,7 +246,7 @@
 							minimoBoleta = 0;
 							cargarFijo(valorextra);
 						}
-					}
+					} 
 				{% endfor %}
 			}
 		}
@@ -383,20 +389,25 @@
 		}
 		
 		$.validator.addMethod("superaminimo", superaMinimoBoleta);
+		$.validator.addMethod("validaporcentajes", validarPorcentajes);
 		$(function(){
 			$('#nuevaDDJJ').validate({
 				rules: {
-            		totalGeneral: { superaminimo: true, required: true},
+            		totalGeneral: { superaminimo: true, validaporcentajes: true, required: true},
         		},
 				messages: {
-            		totalGeneral: 'El total no supera el minimo estipulado para este periodo',
+            		totalGeneral: 'El total no supera el minimo estipulado para este periodo o hay un error en los porcentajes calculados. Revise las remuneraciones y sus respectivos aportes',
         		},
-				submitHandler: function(){
+				submitHandler: function(){		
 					MsgWait();
 					form.submit();  
 				},
 				errorPlacement: function(error, element){
-					error.appendTo(element.prev("span").append());
+					if (element.attr("id") == "totalGeneral") {
+     					error.appendTo(".inner");
+   					} else {
+     					error.appendTo(element.prev("span").append());
+    				}
 				}
 			});
 		});
@@ -427,5 +438,33 @@
 			formReset(0);
 		}
 		
+		function validarPorcentajes() {
+			var remu = 0;
+			var apo06 = 0;
+			var apo10 = 0;
+			var apo15 = 0;
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				remu = document.getElementById(nombreRemu).value;
+				nombrePor6 = "por6"+cuil;
+				apo06 = document.getElementById(nombrePor6).value;
+				nombrePor1 = "por1"+cuil;
+				apo10 = document.getElementById(nombrePor1).value;
+				nombrePor15 = "por15"+cuil;
+				apo15 = document.getElementById(nombrePor15).value;
+				if (remu != 0 && apo06 == 0 && retiene060 == 1) {
+					return false;
+				}
+				if (remu != 0 && apo10 == 0 && retiene100 == 1) {
+					return false;
+				}
+				if (remu != 0 && apo15 == 0 && retiene150 == 1) {
+					return false;
+				}
+			{% endfor %}
+			return true;
+		}
+		 
 	</script>
 {% endblock %}	
