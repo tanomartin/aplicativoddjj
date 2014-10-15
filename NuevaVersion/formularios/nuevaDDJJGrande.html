@@ -20,7 +20,8 @@
                 <td width="200"><label for="mes">Mes</label>
                   <input type="text" id="mesdes" name="mesdes" value="{{ mesdesc }}" readonly/>	    
 			    </td>
-				 <td width="600"><span id="mensajeNoRem"></span></td>
+				 <td width="10px"></td> 
+				 <td><span id="mensajeNoRem" style="text-align:justify; font-size:12px; font-style:italic"></span></td>
               </tr>
             </table>
 			<legend> Remuneraci&oacute;n Empleados </legend>
@@ -174,7 +175,7 @@
 			var nombrealic;
 			var clase = "";
 			var colum = 5;
-			var mensaje = "HAY QUE HBLAR PARA VER QUE PONEMOS";
+			
 			if (periodo <= 12) {
 				clase = "hide";
 				colum = 4;
@@ -187,7 +188,7 @@
 				document.getElementById(nombrealic).className = clase;
 			{% endfor %}
 			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").innerHTML = mensaje;
+			document.getElementById("mensajeNoRem").className = clase;
 			
 			var numFila = parseInt({{ empleadosActivos|length }}) + 2;
 			var fila=document.getElementById("activos").rows[numFila].cells
@@ -206,11 +207,14 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
+						mensaje = "{{ extra.mensaje }}";
+						document.getElementById("mensajeNoRem").innerHTML = mensaje;
 						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
 							minimoBoleta = 0;
 							cargarFijo(valorextra);
-						} else {
+						}
+						if (tipoextra == 1) {
 							cargarRemuDeAlicuota();
 						}
 					}
