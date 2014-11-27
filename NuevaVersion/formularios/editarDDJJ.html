@@ -202,12 +202,33 @@
 						if (tipoextra == 0) {
 							minimoBoleta = 0;
 							cargarFijo(valorextra);
-						} else {
+						} 
+						if (tipoextra == 1) {
 							cargarRemuDeAlicuota();
+						}
+						if (tipoextra == 2) {
+							minimoBoleta = 0;
+							cargarContribucion(valorextra);
 						}
 					}
 				{% endfor %}
 			}
+		}
+		
+		function cargarContribucion(valorextra) {
+			{% for dj in ddjj %}
+				var cuil = "{{dj.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				valorextra = parseFloat(valorextra).toFixed(2);
+				document.getElementById(nombreRemu).value = valorextra;
+				document.getElementById(nombreRemu).readOnly = true;
+				CalcularPorcentajes(valorextra,cuil);
+				nombreRemu = "totemp"+cuil;
+				document.getElementById(nombreRemu).value = valorextra;
+				recalcularSubTotales();
+				recalcularTotal();
+				formatoFormulario(0);
+			{% endfor %}
 		}
 		
 		function cargarRemuDeAlicuota() {
@@ -252,7 +273,9 @@
 			{% endfor %}
 			
 			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").className = clase; 
+			if (periodo != 0) {
+				document.getElementById("mensajeNoRem").className = clase; 
+			}
 			
 			var numFila = parseInt({{ ddjj|length }}) + 2;
 			var fila=document.getElementById("activos").rows[numFila].cells
@@ -281,7 +304,7 @@
 			if (retiene100 == 1) {
 				por1 = (remu * 0.01).toFixed(2);
 			} else  {
-				por1 = 0.0
+				por1 = 0.0;
 			}
 			if (retiene150 == 1) {
 				por15 = (remu * 0.015).toFixed(2);

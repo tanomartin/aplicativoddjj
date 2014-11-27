@@ -51,7 +51,12 @@
 	{% if  totales.mes < 13 %}	
 		REMUNERACION
 	{% else  %}
-		ALICUOTA
+		{% if  (totales.tipo == 0) or (totales.tipo == 1) %}	
+			ALICUOTA
+		{% endif %}
+		{% if  totales.tipo == 2 %}	
+			CONTRIBUCION
+		{% endif %}
 	{% endif %}
 	</td>
     <td width="58">Art. 32 0,6%</td>

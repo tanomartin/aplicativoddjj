@@ -176,7 +176,7 @@
 			var clase = "";
 			var colum = 5;
 			
-			if (periodo <= 12) {
+			if (periodo <= 12 || tipoextra == 2) {
 				clase = "hide";
 				colum = 4;
 				mensaje = "";
@@ -188,7 +188,9 @@
 				document.getElementById(nombrealic).className = clase;
 			{% endfor %}
 			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").className = clase;
+			if (tipoextra == 0) {
+				document.getElementById("mensajeNoRem").className = clase;
+			}
 			
 			var numFila = parseInt({{ empleadosActivos|length }}) + 2;
 			var fila=document.getElementById("activos").rows[numFila].cells
@@ -217,9 +219,24 @@
 						if (tipoextra == 1) {
 							cargarRemuDeAlicuota();
 						}
+						if (tipoextra == 2) {
+							minimoBoleta = 0;
+							cargarContribucion(valorextra);
+						}
 					}
 				{% endfor %}
 			}
+		}
+		
+		function cargarContribucion(valorextra) {
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				valorextra = parseFloat(valorextra).toFixed(2);
+				document.getElementById(nombreRemu).value = valorextra;
+				document.getElementById(nombreRemu).readOnly = true;
+				formatoFormulario();
+			{% endfor %}
 		}
 		
 		function cargarRemuDeAlicuota() {
@@ -242,7 +259,7 @@
 				document.getElementById(nombreRemu).value = valorextra;
 				CalcularPorcentajes(valorextra,cuil);
 				document.getElementById(nombreRemu).readOnly = true;
-				formatoFormulario(0);
+				formatoFormulario();
 			{% endfor %}
 		}
 	
@@ -275,6 +292,9 @@
 			}
 			
 			var totemp = (parseFloat(por6) + parseFloat(por1) + parseFloat(por15)).toFixed(2);
+			if (tipoextra == 2) {
+				totemp = remu;
+			}
 			var nombrePor6 = "por6"+cuil;
 			var nombrePor1 = "por1"+cuil;
 			var nombrePor15 = "por15"+cuil;

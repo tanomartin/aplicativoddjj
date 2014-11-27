@@ -59,7 +59,17 @@ if (isset($_GET['control']) && isset($_GET['tipo'])) {
 						ddjj.permes = periodos.mes";
 		$respuesta = $mysqli -> query($totales);
 		$totalrow = $respuesta -> fetch_assoc();
-		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
+		
+		if ($totalrow['mes'] > 12) {
+			$sqlTipo = "select tipo from extraordinarios where anio = ".$totalrow['anio']." and mes = ".$totalrow['mes'];
+			$resTipo = $mysqli -> query($sqlTipo);
+			$rowTipo = $resTipo -> fetch_assoc();
+			$tipo = $rowTipo['tipo'];
+		} else {
+			$tipo = -1;
+		}
+		
+		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'tipo' => $tipo, 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
 	}
 	
 	if($tipo == "condocu") {
@@ -87,6 +97,16 @@ if (isset($_GET['control']) && isset($_GET['tipo'])) {
 						ddjjcondocu.permes = periodos.mes";
 		$respuesta = $mysqli -> query($totales);
 		$totalrow = $respuesta -> fetch_assoc();
+		
+		if ($totalrow['mes'] > 12) {
+			$sqlTipo = "select tipo from extraordinarios where anio = ".$totalrow['anio']." and mes = ".$totalrow['mes'];
+			$resTipo = $mysqli -> query($sqlTipo);
+			$rowTipo = $resTipo -> fetch_assoc();
+			$tipo = $rowTipo['tipo'];
+		} else {
+			$tipo = -1;
+		}
+		
 		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
 	}
 	
@@ -115,6 +135,16 @@ if (isset($_GET['control']) && isset($_GET['tipo'])) {
 						validas.permes = periodos.mes";
 		$respuesta = $mysqli -> query($totales);
 		$totalrow = $respuesta -> fetch_assoc();
+		
+		if ($totalrow['mes'] > 12) {
+			$sqlTipo = "select tipo from extraordinarios where anio = ".$totalrow['anio']." and mes = ".$totalrow['mes'];
+			$resTipo = $mysqli -> query($sqlTipo);
+			$rowTipo = $resTipo -> fetch_assoc();
+			$tipo = $rowTipo['tipo'];
+		} else {
+			$tipo = -1;
+		}
+		
 		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
 	}
 	

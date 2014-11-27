@@ -218,7 +218,9 @@
 				document.getElementById(nombrealic).className = clase;
 			{% endfor %}
 			document.getElementById("tdtotalic").className = clase;
-			document.getElementById("mensajeNoRem").className = clase; 
+			if (periodo != 0) {
+				document.getElementById("mensajeNoRem").className = clase; 
+			}
 			
 			var numFila = parseInt({{ empleadosActivos|length }}) + 2;
 			var fila=document.getElementById("activos").rows[numFila].cells
@@ -246,9 +248,26 @@
 							minimoBoleta = 0;
 							cargarFijo(valorextra);
 						}
+						if (tipoextra == 2) {
+							minimoBoleta = 0;
+							cargarContribucion(valorextra);
+						}
 					} 
 				{% endfor %}
 			}
+		}
+		
+		function cargarContribucion(valorextra) {
+			{% for activos in empleadosActivos %}
+				var cuil = "{{activos.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				valorextra = parseFloat(valorextra).toFixed(2);
+				document.getElementById(nombreRemu).value = valorextra;
+				document.getElementById(nombreRemu).readOnly = true;
+				nombreRemu = "totemp"+cuil;
+				document.getElementById(nombreRemu).value = valorextra;
+				formatoFormulario(0);
+			{% endfor %}
 		}
 		
 		function cargarFijo(valorextra) {
