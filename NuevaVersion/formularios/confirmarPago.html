@@ -47,7 +47,7 @@
 					</table>
 				</div>
 				<div class="span4 well well-small">
-				{% if tipoPago == "B" %}
+				{% if tipoPago == "B" or tipoPago == "E"%}
 					<h4>Pago Con Boleta de Dep&oacute;sito</h4>
 				{% else %}
 					<h4>Pago V&iacute;a Transferencia Bancaria</h4>
@@ -57,7 +57,7 @@
 				</div>
 			</section>
 			<legend></legend>
-			{% if tipoPago == "B" %}
+			{% if tipoPago == "B" or tipoPago == "E"%}
 				<p><button id="generaPago" name="generaPago" type="submit" class="btn btn-primary"><i class="icon-barcode icon-2x"></i> Generar Boleta de Dep&oacute;sito</button>
 			{% else %}
 				<p><button id="generaPago" name="generaPago" type="submit" class="btn btn-primary"><i class="icon-credit-card icon-2x"></i> Generar Ticket de Transferencia</button>

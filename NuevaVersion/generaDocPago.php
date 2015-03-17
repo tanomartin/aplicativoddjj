@@ -14,6 +14,11 @@ $cuit = $_SESSION['userCuit'];
 $referencia = date("ymdHis");
 if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST['nrctrl'])) {
 	$instrumento = $_POST['tipoPago'];
+	
+	if (strcmp($_POST['tipoPago'],'E') == 0) {
+		$instrumento = 'B';
+	}
+	
 	$ddjjs = $_POST['nrctrl'];
 	for($i=0; $i<count($ddjjs); $i++) {
 		$ddjj=$ddjjs[$i];
@@ -103,7 +108,7 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 					$totapocd = $totapocd + $recargcd;
 					$totapa = $totapa + $totapocd;
 					$totapocd = number_format($totapocd,2,',','.');
-					$ddjjcdocu[$i] = array('control' => $controlcd, 'permes' => $mescd, 'descrimes' => $descrimescd, 'perano' => $peranocd, 'nfilas' => $nfilascd, 'remune' => number_format($remunecd,2,',','.'), 'recarg' => number_format($recargcd,2,',','.'), 'apo060' => number_format($apo060cd,2,',','.'), 'apo100' => number_format($apo100cd,2,',','.'), 'apo150' => number_format($apo150cd,2,',','.'), 'totapo' => $totapocd);
+					$ddjjcdocu[$i] = array('control' => $controlcd, 'permes' => $mescd, 'descrimes' => $descrimescd = str_replace("Cuota","",$descrimescd), 'perano' => $peranocd, 'nfilas' => $nfilascd, 'remune' => number_format($remunecd,2,',','.'), 'recarg' => number_format($recargcd,2,',','.'), 'apo060' => number_format($apo060cd,2,',','.'), 'apo100' => number_format($apo100cd,2,',','.'), 'apo150' => number_format($apo150cd,2,',','.'), 'totapo' => $totapocd);
 					$i = $i + 1;
 				}
 			}
@@ -112,7 +117,7 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 		$totapa = number_format($totapa,2,',','.');
 	}
 	
-	if (strcmp($instrumento,'T') == 0) {
+	if (strcmp($_POST['tipoPago'],'T') == 0) {
 		$sqlConsuVincula = "SELECT referencia, nrctrl FROM vinculadocu WHERE nrcuit = '$cuit'";
 		if ($consuvincula = $mysqli->prepare($sqlConsuVincula)) {
 			$consuvincula->execute();
@@ -130,7 +135,7 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 		}
 	}
 	
-	if (strcmp($instrumento,'B') == 0) {
+	if (strcmp($_POST['tipoPago'],'B') == 0) {
 		$nota[0] = ("1 - Original: Para el DEPOSITANTE");
 		$nota[1] = ("2 - Duplicado: Para el BANCO como comprobante de Caja");
 		//$nota[2] = ("3 - Triplicado: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -168,6 +173,46 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 		}
 	}
 	
+	if (strcmp($_POST['tipoPago'],'E') == 0) {
+		$nota[0] = 1;
+		$nota[1] = 2;
+		//$nota[2] = 3;
+		
+		for($j=0; $j<count($ddjjs); $j++) {
+			$nrctrlh=$ddjjs[$j];
+		}
+		//$importe = str_pad($totapa, 11, '0', STR_PAD_LEFT);
+		$importe = str_replace(",","",$totapa);
+		$importe = str_replace(".","",$importe);
+		$importe = str_pad($importe, 9, '0', STR_PAD_LEFT);
+
+		$nconvenio = 5866;
+		$ncuasifinal = $nconvenio.$cuit.$nrctrlh.$importe;
+		$npart3total = 0;
+		$npart1total = 0;
+		for ($i=0; $i < 38; $i++) {
+			$npor3 = substr($ncuasifinal,$i,1);
+			$npor33 = $npor3 * 3;
+			$npart3total = $npart3total + $npor33;
+			$i = $i + 1;
+			$npor1 = substr($ncuasifinal,$i,1);
+			$npart1total = $npart1total + $npor1;
+		}
+		$npartot = $npart1total + $npart3total;
+		$largonpar = strlen($npartot);
+		$ndigito = $largonpar -1;
+		$nverifi01 = substr($npartot,$ndigito,1);
+		
+		if ($nverifi01 == 0) {
+			$dverifi = 0;
+		} else {
+			$dverifi = 10 - $nverifi01;
+		}
+		
+		$codigobarra = $ncuasifinal.$dverifi;
+	}
+	//var_dump($totapa);
+	//var_dump($importe);
 	//var_dump($empresa);
 	//var_dump($ddjjcdocu);
 	//var_dump($totapa);
@@ -177,8 +222,11 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 	//var_dump($codigobarra);
 	//var_dump($archivosbarra);
 	
-	if (strcmp($instrumento,'B') == 0) {
+	if (strcmp($_POST['tipoPago'],'B') == 0) {
 		$twig->display('boletaDeposito.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra, "archBar" => $archivosbarra));
+	} 
+	if (strcmp($_POST['tipoPago'],'E') == 0) {
+		$twig->display('boletaDepositoExtra.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra));
 	} 
 	if (strcmp($instrumento,'T') == 0) {
 		$pdf = new FPDF('P','mm',array(120,170));

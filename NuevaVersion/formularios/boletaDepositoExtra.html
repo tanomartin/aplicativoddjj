@@ -1,0 +1,115 @@
+<style type="text/css" media="print">
+<!--
+.nover {display:none}
+-->
+
+</style>
+
+
+{% block contenidos %}
+<div id="generaBoletaExtra" title="Boleta de Deposito" align="center">
+		<div style="width:650px; font-size: 14px; font-family:Verdana, Arial, Helvetica, sans-serif;">
+		{% for ddjjCDocumento in ddjjCDocu %}
+			{% for cantidadBoletas in canBoleta %}
+				<div align="center" style="border:2px solid #000000; font-family:Arial Narrow">
+					Cta. Cte. <b>N&ordm; 90031217 </b> (U.S.I.M.R.A.) BANCO NACION - SUCURSAL CABALLITO
+				</div>
+				<div align="center" style="padding-bottom:10px; padding-top:10px">
+					NOTA DE CREDITO para la Cuenta de Uni&oacute;n de Sindicatos de la Industria Maderera de la Rep&uacute;blica Argentina (U.S.I.M.R.A.) - Contribuci&oacute;n Extraordinaria                     </div>
+				<div align="center" style="width:400px; border:2px solid #000000; font-size: 12px; font-family:Arial Narrow">
+					BANCO DE LA NACION ARGENTINA - Sucursal Caballito - Rivadavia 5199 - C.A.B.A.
+				</div>
+				<br>
+				<table border="0" width="650" style="text-align:left; font-size:10px">
+					<tr>
+						<td width="100">Empleador:</td>
+						<td width="300">{{ datosEmpresa.nombre }}</td>
+						<td width="100">CUIT:</td>
+						<td width="150">{{ datosEmpresa.nrcuit }}</td>
+					</tr>
+					<tr>
+						<td width="100">Domicilio:</td>
+						<td width="300">{{ datosEmpresa.domicilio }}</td>
+						<td width="100">Localidad:</td>
+						<td width="150">{{ datosEmpresa.localidad }}</td>
+					</tr>
+				</table>
+				<table width="650" border="2" bordercolor="#000000" style="border-collapse:inherit; text-align:center; line-height:normal; font-size:12px; font-family:'Arial Narrow'">
+					<tr>
+						<td colspan="4">Contribuci&oacute;n Extraordinaia </td>
+						<td width="160" rowspan="2">Cantidad de Personal</td>
+						<td width="160" rowspan="2">Contribuci&oacute;n por Persona</td>
+						<td width="162" rowspan="2">Total del Dep&oacute;sito</td>
+					</tr>
+					<tr>
+						<td colspan="2">Cuota</td>
+						<td colspan="2">A&ntilde;o</td>
+				    </tr>
+					<tr>
+						<td colspan="2">{{ ddjjCDocumento.descrimes }}</td>
+						<td colspan="2">{{ ddjjCDocumento.perano }}</td>
+						<td width="160">{{ ddjjCDocumento.nfilas }}</td>
+						<td width="160">50,00</td>
+						<td width="162"><b>{{ ddjjCDocumento.totapo }}</b></td>
+					</tr>
+					<tr>
+						<td width="89"><b>Efectivo</b></td>
+						<td width="12">&nbsp;</td>
+						<td width="54"><b>Cheque</b></td>
+						<td width="13">&nbsp;</td>
+						<td width="156"><div align="left"><strong>Nro.</strong></div></td>
+					    <td width="322" colspan="2"><div align="left"><strong>Banco</strong></div></td>
+					</tr>
+					<tr>
+						<td width="104" colspan="2" style="text-align:right"><b>Son Pesos:</b></td>
+						<td width="546" align="left" colspan="7">&nbsp;{{ impLetras }}.-</td>
+					</tr>
+		  </table>
+				
+				<br><br>
+				
+				<div class="contentBarcode">
+					<div class="barCode">
+						<div id="barcode{{cantidadBoletas}}"></div>
+					</div>
+				</div>
+				
+				<br><br>
+				
+
+				<div align="left" style="font-family:Arial Narrow">
+						{% if cantidadBoletas == 1 %}
+							1 - Original: Para el DEPOSITANTE
+						{% else  %}
+							2 - Duplicado: Para el BANCO como comprobante de Caja
+						{% endif %}
+						<br>
+						<img border="0" src="img/tijera.jpg" width="30" height="17">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+				</div>
+				<br>
+			{% endfor %}
+		{% endfor %}
+		</div>
+		<table border="0" width="650">
+          <tr>
+            <td width="325"><div align="left">
+              <input id="cerrar" name="cerrar" type="button" class="nover" onClick="window.location.href='opcionesDDJJ.php'" value="Cerrar" />
+            </div></td>
+            <td width="325"><div align="right">
+              <input id="imprimir" name="imprimir" type="button" class="nover" onClick="window.print();" value="Imprimir" />
+            </div></td>
+          </tr>
+        </table>
+</div>
+{% endblock %}
+{% block javaScripts %}
+<script type="text/javascript" src="lib/js/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="lib/js/jquery-barcode-2.0.3/jquery-barcode.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	{% for cantidadBoletas in canBoleta %}
+		$('#barcode{{cantidadBoletas}}').barcode("{{codBar}}","code128",{barWidth:1, barHeight:40, output: "css"});
+	{% endfor %}
+})
+</script>
+{% endblock %}

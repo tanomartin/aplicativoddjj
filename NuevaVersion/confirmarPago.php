@@ -18,10 +18,23 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago'])) {
 	if($_POST['tipoPago']=="T") {
 		$ddjjs = $_POST['checkPago'];
 	}
-	$sqlConsuDDJJ = "SELECT ddjj.nrctrl, periodos.descripcion, ddjj.perano, ddjj.totapo, ddjj.recarg FROM ddjj, periodos where ddjj.nrcuit = '$nrcuit' and ddjj.nrcuil = '99999999999' and ddjj.permes = periodos.mes and ddjj.perano = periodos.anio ORDER BY ddjj.nrctrl DESC";
+	$tipopago = $_POST['tipoPago'];
+
+	$consultaExtra = "SELECT anio, mes, tipo FROM extraordinarios";
+	if ($sentencia = $mysqli->prepare($consultaExtra)) {
+    	$sentencia->execute();
+    	$sentencia->bind_result($anio, $mes, $tipo);
+		$i = 0;
+		while ($sentencia->fetch()) {
+			$extraordinarios[$i] = array('anio' => $anio, 'mes' => $mes, 'tipo' => $tipo);
+			$i = $i + 1;
+    	}
+	}
+
+	$sqlConsuDDJJ = "SELECT ddjj.nrctrl, ddjj.permes, periodos.descripcion, ddjj.perano, ddjj.totapo, ddjj.recarg FROM ddjj, periodos WHERE ddjj.nrcuit = '$nrcuit' and ddjj.nrcuil = '99999999999' and ddjj.permes = periodos.mes and ddjj.perano = periodos.anio ORDER BY ddjj.nrctrl DESC";
 	if ($sentencia = $mysqli->prepare($sqlConsuDDJJ)) {
 		$sentencia->execute();
-		$sentencia->bind_result($control, $mes, $perano, $totapo, $recargo);
+		$sentencia->bind_result($control, $mesextra, $mes, $perano, $totapo, $recargo);
 		$i = 0;
 		$totapa = 0;
 		while ($sentencia->fetch()) {
@@ -31,6 +44,22 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago'])) {
 					$totapo = $totapo + $recargo;
 					$totapa = $totapa + $totapo;
 					$totapo = number_format($totapo,2,',','.');
+					$mesbusca = $mesextra;
+					$anobusca = $perano;
+
+					foreach($extraordinarios as $extra) {
+						if($extra['anio'] == $anobusca && $extra['mes'] == $mesbusca) {
+							$tipoperi = $extra['tipo'];
+							if($tipopago=="B") {
+								if($tipoperi == 2) {
+									$tipopago="E";
+								} else {
+									$tipopago="B";
+								}
+							}
+						}
+					} 
+
 					$ddjjsindocu[$i] = array('control' => $control, 'permes' => $mes, 'perano' => $perano, 'totapo' => $totapo);
 					$i = $i + 1;
 				}
@@ -40,7 +69,8 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago'])) {
 	}
 	//var_dump($ddjjsindocu);
 	//var_dump($totapa);
-	$twig->display('confirmarPago.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $_POST['tipoPago'], "ddjjsindocu" => $ddjjsindocu, "totApagar" => $totapa));
+	//var_dump($tipopago);
+	$twig->display('confirmarPago.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $tipopago, "ddjjsindocu" => $ddjjsindocu, "totApagar" => $totapa));
 } else {
 	$twig->display('accesoDirecto.html',array("userName" => $_SESSION['userNombre']));
 }
