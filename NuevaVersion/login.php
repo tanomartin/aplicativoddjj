@@ -30,8 +30,8 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
 $browser = new BrowserDetection();
 $navegador = $browser->getBrowser();
 $version = $browser->getVersion();
- /*strcmp($navegador,"Firefox") == 0 ||*//*|| strcmp($navegador,"Safari") == 0)*/
-if(strcmp($navegador,"Internet Explorer") == 0 || strcmp($navegador,"Chrome") == 0)  {
+ /*strcmp($navegador,"Firefox") == 0 ||*/
+if(strcmp($navegador,"Internet Explorer") == 0 || strcmp($navegador,"Chrome") == 0 || strcmp($navegador,"Safari") == 0 )  {
 	if (strcmp($navegador,"Internet Explorer") == 0) {
 		if($version < 9) {
 			$twig->display('navegadorError.html');
