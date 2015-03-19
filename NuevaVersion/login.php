@@ -9,6 +9,8 @@ $root = '';
 include('includes/templateEngine.inc.php');
 include('lib/php/conexion.php');
 include('lib/php/funciones.php');
+require_once('lib/php/BrowserDetection.php');
+
 $today = date("Y-n-j");
 $consultaNoticias = "SELECT * FROM noticias where fechavencimiento > '$today' or fechavencimiento is null order by prioritaria DESC, fechaalta LIMIT 3";
 //print($consultaNoticias."<br>");
@@ -25,10 +27,12 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
 //var_dump($noticias);
 // Cargo la plantilla
 
-$navegador = getBrowser();
-if(strcmp($navegador['name'],"Internet Explorer") == 0 || strcmp($navegador['name'],"Mozilla Firefox") == 0 || strcmp($navegador['name'],"Google Chrome") == 0 || strcmp($navegador['name'],"Apple Safari") == 0) {
-	if (strcmp($navegador['name'],"Internet Explorer") == 0) {
-		$version = (float)$navegador['version'];
+$browser = new BrowserDetection();
+$navegador = $browser->getBrowser();
+$version = $browser->getVersion();
+ /*strcmp($navegador,"Firefox") == 0 ||*//*|| strcmp($navegador,"Safari") == 0)*/
+if(strcmp($navegador,"Internet Explorer") == 0 || strcmp($navegador,"Chrome") == 0)  {
+	if (strcmp($navegador,"Internet Explorer") == 0) {
 		if($version < 9) {
 			$twig->display('navegadorError.html');
 		} else {
