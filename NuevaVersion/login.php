@@ -33,7 +33,7 @@ $version = $browser->getVersion();
  /*strcmp($navegador,"Firefox") == 0 ||*/
 if(strcmp($navegador,"Internet Explorer") == 0 || strcmp($navegador,"Chrome") == 0 || strcmp($navegador,"Safari") == 0 )  {
 	if (strcmp($navegador,"Internet Explorer") == 0) {
-		if($version < 9) {
+		if($version < 10) {
 			$twig->display('navegadorError.html');
 		} else {
 			$twig->display('login.html', array("noticias" => $noticias, "login" => false));
