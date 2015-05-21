@@ -45,14 +45,16 @@ if (sizeof($datos) > 0) {
 	provin = ?,
 	nacion = ?,
 	catego = ?,
-	activo = ?
+	activo = ?,
+	bajada = ?
 	where nrcuit = ? and nrcuil = ?";
 	
 	//echo $sqlActualizaPerfil;
 	
 	try {
 		if ($stmt = $mysqli->prepare($sqlActualizaPerfil)) {
-			$stmt->bind_param('sssssssssssssssss', $apellido, $nombre, $fecini, $tipdoc, $numdoc, $sexo, $fecnac, $estado, $direccion, $locale, $codpos, $provin, $nacion, $catego, $activo, $nrcuit, $nrcuil);
+			$bajada = 0;
+			$stmt->bind_param('sssssssssssssssiss', $apellido, $nombre, $fecini, $tipdoc, $numdoc, $sexo, $fecnac, $estado, $direccion, $locale, $codpos, $provin, $nacion, $catego, $activo, $bajada, $nrcuit, $nrcuil);
 			$stmt->execute();
 			$stmt->close();
 			$pagina = "perfilEmpleado.php?cuil=$nrcuil";
