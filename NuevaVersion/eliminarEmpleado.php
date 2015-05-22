@@ -14,7 +14,7 @@ if (isset($_GET['cuil'])) {
 	$sqlInsertFamilia = "INSERT into familiadebaja SELECT * from familia where nrcuil = ?";
 	$sqlUpdateBajadaFamilia = "UPDATE familiadebaja SET bajada = ? where nrcuil = ?";
 	
-	$sqlInsertEmpleado = "INSERT into empleadosdebaja SELECT * from empleados where nrcuit = ? and nrcuil = ?";
+	$sqlInsertEmpleado = "INSERT into empleadosdebaja SELECT 'DEFAULT', e.* from empleados e where nrcuit = ? and nrcuil = ?";
 	$sqlUpdateBajadaEmpleado = "UPDATE empleadosdebaja SET bajada = ? where nrcuit = ? and nrcuil = ?";
 	
 	$sqlDeleteEmpleado = "DELETE from empleados where nrcuit = ? and nrcuil = ?";
