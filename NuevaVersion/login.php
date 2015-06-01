@@ -28,8 +28,8 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
 // Cargo la plantilla
 
 //BAJA DE SISTEMA PARA TRABAJO
-$twig->display('estamosTrabajando.html');
-exit(0);
+//$twig->display('estamosTrabajando.html');
+//exit(0);
 //**************************//
 
 $browser = new BrowserDetection();
