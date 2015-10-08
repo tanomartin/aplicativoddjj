@@ -64,12 +64,12 @@ if (isset($_GET['control']) && isset($_GET['tipo'])) {
 			$sqlTipo = "select tipo from extraordinarios where anio = ".$totalrow['anio']." and mes = ".$totalrow['mes'];
 			$resTipo = $mysqli -> query($sqlTipo);
 			$rowTipo = $resTipo -> fetch_assoc();
-			$tipo = $rowTipo['tipo'];
+			$tipoApor = $rowTipo['tipo'];
 		} else {
-			$tipo = -1;
+			$tipoApor = -1;
 		}
 		
-		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'tipo' => $tipo, 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
+		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'tipo' => $tipoApor, 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
 	}
 	
 	if($tipo == "condocu") {
@@ -102,12 +102,12 @@ if (isset($_GET['control']) && isset($_GET['tipo'])) {
 			$sqlTipo = "select tipo from extraordinarios where anio = ".$totalrow['anio']." and mes = ".$totalrow['mes'];
 			$resTipo = $mysqli -> query($sqlTipo);
 			$rowTipo = $resTipo -> fetch_assoc();
-			$tipo = $rowTipo['tipo'];
+			$tipoApor = $rowTipo['tipo'];
 		} else {
-			$tipo = -1;
+			$tipoApor = -1;
 		}
 		
-		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
+		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'tipo' => $tipoApor, 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
 	}
 	
 	if($tipo == "valida") {
@@ -140,12 +140,12 @@ if (isset($_GET['control']) && isset($_GET['tipo'])) {
 			$sqlTipo = "select tipo from extraordinarios where anio = ".$totalrow['anio']." and mes = ".$totalrow['mes'];
 			$resTipo = $mysqli -> query($sqlTipo);
 			$rowTipo = $resTipo -> fetch_assoc();
-			$tipo = $rowTipo['tipo'];
+			$tipoApor = $rowTipo['tipo'];
 		} else {
-			$tipo = -1;
+			$tipoApor = -1;
 		}
 		
-		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
+		$totalData = array('mes' => $totalrow['mes'], 'descripcion' => $totalrow['descripcion'], 'anio' => $totalrow['anio'], 'tipo' => $tipoApor, 'remune' => number_format($totRemu,2,',','.'), 'apo060' => $totalrow['apo060'], 'apo100' => $totalrow['apo100'], 'apo150' => $totalrow['apo150'], 'totapo' => $totalrow['totapo'], 'recarg' => $totalrow['recarg'], 'totdep' => $totalrow['totdep']);
 	}
 	
 	for($i=0; $i < sizeof($detalle); $i++){
