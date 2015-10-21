@@ -34,10 +34,11 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 		}
 
 		for($j=0; $j<count($ddjjsdocu); $j++) {
-			$sqlPasaDDJJ = "INSERT INTO ddjjcondocu(id,nrcuit,nrcuil,permes,perano,remune,apo060,apo100,apo150,totapo,recarg,nfilas,instrumento,nrctrl,observ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			$sqlPasaDDJJ = "INSERT INTO ddjjcondocu(id,nrcuit,nrcuil,permes,perano,remune,apo060,apo100,apo150,totapo,recarg,nfilas,instrumento,nrctrl,observ,bajada) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			try {
 				if ($pasaddjj = $mysqli->prepare($sqlPasaDDJJ)) {
-					$pasaddjj->bind_param('issiiddddddisss', $ddjjsdocu[$j]['idsd'], $ddjjsdocu[$j]['nrcuitsd'], $ddjjsdocu[$j]['nrcuilsd'], $ddjjsdocu[$j]['permessd'], $ddjjsdocu[$j]['peranosd'], $ddjjsdocu[$j]['remunesd'], $ddjjsdocu[$j]['apo060sd'], $ddjjsdocu[$j]['apo100sd'], $ddjjsdocu[$j]['apo150sd'], $ddjjsdocu[$j]['totaposd'], $ddjjsdocu[$j]['recargsd'], $ddjjsdocu[$j]['nfilassd'], $instrumento, $ddjjsdocu[$j]['controldjsd'], $ddjjsdocu[$j]['observsd']);
+					$bajada = 0;
+					$pasaddjj->bind_param('issiiddddddisssi', $ddjjsdocu[$j]['idsd'], $ddjjsdocu[$j]['nrcuitsd'], $ddjjsdocu[$j]['nrcuilsd'], $ddjjsdocu[$j]['permessd'], $ddjjsdocu[$j]['peranosd'], $ddjjsdocu[$j]['remunesd'], $ddjjsdocu[$j]['apo060sd'], $ddjjsdocu[$j]['apo100sd'], $ddjjsdocu[$j]['apo150sd'], $ddjjsdocu[$j]['totaposd'], $ddjjsdocu[$j]['recargsd'], $ddjjsdocu[$j]['nfilassd'], $instrumento, $ddjjsdocu[$j]['controldjsd'], $ddjjsdocu[$j]['observsd'], $bajada);
 					$pasaddjj->execute();
 					$pasaddjj->close();
 				} else {
