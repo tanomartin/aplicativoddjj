@@ -29,7 +29,11 @@
 						  <td>{{ ddjjsdocu.perano }}</td>
 						  <td>{{ ddjjsdocu.permes }}</td>
 						  <td>{{ ddjjsdocu.totapo }}</td>
-						  <td><a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a> <a style="cursor: pointer;"><i title="Imprimir DDJJ" class="icon-print icon-black" onclick="verDDJJ({{ddjjsdocu.control}},'sindocu')" ></i></a> <a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> </td>
+						  <td>
+						  	<a href="editarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Editar" class="icon-pencil icon-black"></i></a> 
+						  	<a href="imprimirDDJJ.php?control={{ddjjsdocu.control}}&tipo=sindocu" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a> 
+						  	<a href="eliminarDDJJ.php?control={{ddjjsdocu.control}}"><i title="Eliminar" class="icon-trash"></i></a> 
+						  </td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
