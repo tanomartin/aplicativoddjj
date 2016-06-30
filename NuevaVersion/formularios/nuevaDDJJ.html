@@ -241,7 +241,7 @@
 						retiene060 = "{{ extra.retiene060 }}";
 						retiene100 = "{{ extra.retiene100 }}";
 						retiene150 = "{{ extra.retiene150 }}";
-						mensaje = "{{ extra.mensaje }}";
+						mensaje = "{{ extra.mensaje | raw }}";
 						document.getElementById("mensajeNoRem").innerHTML = mensaje;
 						minimoBoleta = minimoBoleta.toFixed(2) * parseFloat(valorextra).toFixed(3);
 						if (tipoextra == 0) {
