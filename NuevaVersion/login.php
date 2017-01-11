@@ -11,6 +11,7 @@ include('lib/php/conexion.php');
 include('lib/php/funciones.php');
 require_once('lib/php/BrowserDetection.php');
 
+$noticias = array();
 $today = date("Y-n-j");
 $consultaNoticias = "SELECT * FROM noticias where fechavencimiento > '$today' or fechavencimiento is null order by prioritaria DESC, fechaalta LIMIT 3";
 //print($consultaNoticias."<br>");

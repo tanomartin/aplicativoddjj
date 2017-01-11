@@ -17,6 +17,7 @@
                 <td><label for="anio">A&ntilde;o</label>
 				   <span></span> 	
 				  <select id="anio" name="anio" class="{required:true}" onchange="ComponerLista(document.forms.nuevaDDJJ.anio[selectedIndex].value);">	
+					<option value="">Seleccionar</option>
 					{% for anio in anios %}
 						<option value="{{ anio.codigo }}">{{ anio.anio }}</option>
 					{% endfor %}			

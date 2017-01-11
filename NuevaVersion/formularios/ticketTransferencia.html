@@ -7,14 +7,39 @@
 {% block contenidos %}
 <section style="margin-top:50px">
 	<div class="hero-unit">
-		<h1>Ticket de Transferencia Bancaria</h1>
+		<h1>Ticket Link Pagos</h1>
 	</div>
 	<section class="row-fluid">   
-		<div align="center" class="well well-small">
-			<fieldset id="botonera" style="text-align:center;">
-				<p><a class="btn btn-primary" href="{{archivoPDF}}" onClick="window.open(this.href,'Ticket','resizable=NO, Scrollbars=NO', width=500,height=710, top=300, left=150); return false">Imprimir / Descargar</a></p>
-			</fieldset>
-			<p><embed src="{{archivoPDF}}#toolbar=0&navpanes=0&scrollbar=0" width="500" height="710"></embed></p>
+		<div align="center">
+			<table border="1">
+				<tr><td colspan="2"><img width="650px" src="img/membreteticket.png"/></td></tr>
+				<tr><td colspan="2" style="text-align: center"><img width="60px" src="img/linkpagos.png"/></td></tr>
+				<tr>
+					<th>ENTE</th>
+					<td>U.S.I.M.R.A.</td> 
+				</tr>
+				<tr>
+					<th>CODIGO LINK PAGOS</th>
+					<td>{{ cuit }}</td> 
+				</tr>
+				<tr>
+					<th>CONCEPTO</th>
+					<td>CUOTA</td> 
+				</tr>
+				<tr>
+					<th>Importe a abonar</th>
+					<td>{{ importe }}</td> 
+				</tr>
+				<tr>
+					<th>(1) NUMERO DE LIQUIDACION</th>
+					<td style="color: red"><b>{{ referencia }}</b></td> 
+				</tr>
+				<tr height="50px">
+					<td colspan="2"><b>(1)</b> - Es indispensable corrobarar y NO omitir informar este dato. Posibilita identificar las DDJJ objetos del Pago</td> 
+				</tr>
+			</table>
+			<h4>Este documento NO es comprobante de pago. Solo tiene caracter informativo a los efectos de emitir correctamente pago</h4>
+			<p style="margin-top: 10px;"><a style="text-align: center" class="btn btn-primary" onClick="window.print()" >Imprimir</a></p>
 		</div>
 	</section>
 </section>

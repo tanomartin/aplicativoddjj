@@ -50,8 +50,9 @@
             <h2>Instructivos</h2>
             <p>Aquí encontrará el instructivo de uso general que lo guiará paso a paso en las funciones operativas del aplicativo, en lenguaje coloquial y sin tecnicismos. </p>
             <p><a class="btn btn-primary" href="docs/manual_aplicativo_ddjj.pdf" onClick="window.open(this.href,'Instructivo','resizable=YES, Scrollbars=YES', width=800,height=600, top=100, left=100); return false"><i class="icon-book icon-large"></i> Aplicativo General &raquo;</a></p>
+			<hr>
 			<h2>Módulo Grandes Empresas</h2>
-			<div class="span5 well well-small">
+			<div class="span6 well well-small" style="margin-left: 0px">
 				<p>Aquí encontrará el instructivo de uso para el módulo de grandes empresas, una guía paso a paso para su uso, en lenguaje coloquial.</p>
 				<p><a class="btn btn-primary" href="docs/instrucGrandes.pdf" onClick="window.open(this.href,'Instructivo','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i class="icon-book icon-large"></i> Modulo Grandes Empresas</a></p>
           	</div>
@@ -62,13 +63,15 @@
           </div>
           <div class="span6 well well-small">
             <h2>Noticias</h2>
+            <hr>
+            	<h4> <font color="blue">Nueva Funcionalidad -</font> Ahora podes realizar tus pagos a través de <img width="40px" src="img/linkpagos.png"/></h4>
+            <hr>
             {% for noticia in noticias %}
 				<p>{{ noticia.fechaalta}} - {{ noticia.descripcioncorta}}
 				{% if noticia.descripcionlarga != "" %}
             		<a href="#"><i title="Leer mas" onClick="window.open('noticia.php?id={{noticia.id}}','Noticias','resizable=NO, Scrollbars=YES', width=800,height=600, top=150, left=100)" class="icon-info icon-large"></i> </a>
 				{% endif %}
 				</p>		
-				<p><legend></legend></p>
 			{% endfor %}
 			{% if login %}
 				<a class="btn btn-info" href="noticiasTodas.php"><i class="icon-info icon-large"></i> Ver Todas &raquo;</a>

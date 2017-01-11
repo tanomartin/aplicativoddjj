@@ -37,28 +37,20 @@
     	}
 	}
 	
-	$consultaAnio = "SELECT * FROM anios order by anio DESC";
-	if ($sentencia = $mysqli->prepare($consultaAnio)) {
-    	$sentencia->execute();
-    	$sentencia->bind_result($anio);
-		$anios[0] = array('codigo' => NULL, 'anio' => "Seleccionar");
-		$i = 1;
-		while ($sentencia->fetch()) {
-			$anios[$i] = array('codigo' => $anio, 'anio' => $anio);
-			$i = $i + 1;
-    	}
-	}
-	
-	$consultaMes = "SELECT * FROM periodos order by mes ASC";
+	$consultaMes = "SELECT * FROM periodos order by anio ASC";
 	if ($sentencia = $mysqli->prepare($consultaMes)) {
     	$sentencia->execute();
     	$sentencia->bind_result($anio, $mes, $descrip);
 		$i = 0;
 		while ($sentencia->fetch()) {
 			$meses[$i] = array('anio' => $anio, 'mes' => $mes, 'descrip' => $descrip);
+			$anios[$anio] = array('codigo' => $anio, 'anio' => $anio);
 			$i = $i + 1;
     	}
 	}
+	krsort($anios);
+	$cantidadAnios = 10;
+	$anios = array_slice($anios, 0, $cantidadAnios);
 	
 	$consultaExtra = "SELECT * FROM extraordinarios";
 	if ($sentencia = $mysqli->prepare($consultaExtra)) {

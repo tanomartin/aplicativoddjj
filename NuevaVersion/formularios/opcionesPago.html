@@ -17,12 +17,17 @@
 					<div class="well well-small">
 						<h2 align="center">Seleccionar Instrumento de Pago</h2>		
 						<fieldset id="botonera" style="text-align:center;">
-						<button class="btn btn-primary btn-info" type="button" id="botonBoleta">Boleta de Deposito</button>
-						<!--<button class="btn btn-primary btn-info" type="button" id="botonTransferencia">Transferencia Bancaria</button>-->
+							<button style="margin-right: 30px" class="btn btn-primary btn-info" type="button" id="botonBoleta">Boleta de Deposito</button>
+							<button class="btn btn-primary btn-info" type="button" id="botonTransferencia">Link Pagos</button>
 						</fieldset>
 					</div>
 				</section>
 				<form id="cuerpoDDJJ" name="cuerpoDDJJ" class="hide" method="post" action="confirmarPago.php">
+					<div style="text-align: center">
+						<h2 id="tituloBoleta">Boleta de Deposito</h2>
+						<h2 id="tituloLink">Link Pagos</h2>
+						<h4 id="bajadaLink">Puede seleccionar mas de un periodo a abonar mediante esta forma de pago</h4>
+					</div>
 					<table id="ddjjsindocu" class="table">
 					  <thead>
 						<tr>
@@ -38,19 +43,21 @@
 							  <td><div align="center">{{ ddjjsdocu.perano }}</div></td>
 							  <td><div align="center">{{ ddjjsdocu.permes }}</div></td>
 							  <td><div align="center">{{ ddjjsdocu.totapo }}</div></td>
-							  <td><div align="center">
-							    <input id="cP{{ddjjsdocu.control}}" name="checkPago[]" type="checkbox" value="{{ddjjsdocu.control}}"/>
-							    <input id="rP{{ddjjsdocu.control}}" name="radioPago[]" type="radio" value="{{ddjjsdocu.control}}"/>
-							    </div></td>
+							  <td>
+							  	<div align="center">
+							    	<input id="cP{{ddjjsdocu.control}}" name="checkPago[]" type="checkbox" value="{{ddjjsdocu.control}}"/>
+							    	<input id="rP{{ddjjsdocu.control}}" name="radioPago[]" type="radio" value="{{ddjjsdocu.control}}"/>
+							    </div>
+							  </td>
 							</tr>
 						{% endfor %}
 					   </tbody>	
 					</table>
-					<legend></legend>
-					<p><button id="confirmarPago" name="confirmarPago" type="submit" class="btn btn-primary">Confirmar Pago</button>
-					   <input id="tipoPago" name="tipoPago" type="text" value="" class="span1 hide"/>
-			      <div id="cartelError"class="alert alert-error hide"><strong>ERROR!  </strong><span id="txtMensaje"></span></div>
-					   </p>
+					<p align="center">
+						<button id="confirmarPago" name="confirmarPago" type="submit" class="btn btn-primary">Confirmar Pago</button>
+					    <input id="tipoPago" name="tipoPago" type="text" value="" class="span1 hide"/>
+			      		<div id="cartelError"class="alert alert-error hide"><strong>ERROR!  </strong><span id="txtMensaje"></span></div>
+				    </p>
 				</form>
 			{% else %}
 				<legend><h2 align="center">No hay Declaraciones Juradas pendientes de pago</h2></legend>
@@ -63,6 +70,9 @@
 <script type="text/javascript">
 	$(function(){
 		$('body').on('click','#botonBoleta',function() {
+			$('#tituloBoleta').removeClass('hide');
+			$('#tituloLink').addClass('hide');
+			$('#bajadaLink').addClass('hide');
 			$('#cuerpoDDJJ').removeClass('hide');
 			$('#cuerpoDDJJ')[0].reset();
 			$('#tipoPago').val("B");
@@ -74,6 +84,9 @@
 		});
 
 		$('body').on('click','#botonTransferencia',function() {
+			$('#tituloLink').removeClass('hide');
+			$('#bajadaLink').removeClass('hide');
+			$('#tituloBoleta').addClass('hide');
 			$('#cuerpoDDJJ').removeClass('hide');
 			$('#cuerpoDDJJ')[0].reset();
 			$('#tipoPago').val("T");
