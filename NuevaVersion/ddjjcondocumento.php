@@ -43,10 +43,10 @@ for($i=0; $i < sizeof($ddjjcondocu); $i++) {
 		$consRef = "SELECT referencia FROM vinculadocu WHERE nrctrl = $nrocontrol and nrcuit = $nrcuit";
 		$respRef = $mysqli -> query($consRef);
 		$refData = $respRef -> fetch_assoc();
-		$ddjjcondocu[$i]['instrumento'] = $instrum."-".$refData['referencia'];
+		$ddjjcondocu[$i]['nroinstrumento'] = $refData['referencia'];
 	}
 	if (strcmp($instrum,'B') == 0) {
-		$ddjjcondocu[$i]['instrumento'] = $instrum."-".$nrocontrol;
+		$ddjjcondocu[$i]['nroinstrumento'] = $nrocontrol;
 	}
 }
 

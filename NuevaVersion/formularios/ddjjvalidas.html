@@ -34,9 +34,9 @@
 					  <td>{{ ddjjvalidas.instrumento }}</td>
 					  <td>
 					  		{% if ddjjvalidas.mescod <= 12 %}
-					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black"></i></a> 
+					  			<a href="nuevaDDJJTomada.php?control={{ddjjvalidas.control}}"><i title="Tomar Informacion" class="icon-download-alt icon-black icon-2x"></i></a> 
 							{% endif %}
-								<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}&tipo=valida" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a>
+								<a href="imprimirDDJJ.php?control={{ddjjvalidas.control}}&tipo=valida" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black icon-2x"></i></a>
 					</tr>
 				{% endfor %}
 			   </tbody>	

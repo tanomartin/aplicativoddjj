@@ -30,8 +30,13 @@
 						  <td>{{ ddjjcdocu.perano }}</td>
 						  <td>{{ ddjjcdocu.permes }}</td>
 						  <td>{{ ddjjcdocu.totapo }}</td>
-						  <td>{{ ddjjcdocu.instrumento }}</td>
-						 <td><a href="imprimirDDJJ.php?control={{ddjjcdocu.control}}&tipo=condocu" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black"></i></a></td>
+						  <td>{{ ddjjcdocu.instrumento }}-{{ ddjjcdocu.nroinstrumento }}</td>
+						  <td>
+						 	<a href="imprimirDDJJ.php?control={{ddjjcdocu.control}}&tipo=condocu" onclick="window.open(this.href,'Info','resizable=YES, Scrollbars=YES', width=800,height=600, top=150, left=100); return false"><i title="Imprimir DDJJ" class="icon-print icon-black icon-2x"></i></a>
+						  	{% if ddjjcdocu.instrumento == 'T' %}		
+						  		<a href="mostrarTicket.php?ref={{ddjjcdocu.nroinstrumento}}"><i title="Ticket Link Pagos" class="icon-credit-card icon-black icon-2x"></i></a>
+						  	{% endif %}	
+						  </td>
 						</tr>
 					{% endfor %}
 				   </tbody>	
