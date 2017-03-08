@@ -8,7 +8,7 @@ include('includes/templateEngine.inc.php');
 
 $cuit = $_SESSION['userCuit'];
 $referencia = $_GET['ref'];
-$sqlConsuDDJJ = "SELECT sum(totapo)+sum(recarg) as importe FROM ddjjcondocu d, vinculadocu v WHERE v.referencia = '$referencia' and v.nrcuit = '$cuit' and v.nrctrl = d.nrctrl and d.nrcuil = '99999999999'";
+$sqlConsuDDJJ = "SELECT sum(totapo)+sum(recarg) as importe FROM ddjjcondocu d, vinculadocu v WHERE v.referencia = '$referencia' and v.nrcuit = '$cuit' and v.nrctrl = d.nrctrl and v.nrcuit = d.nrcuit and d.nrcuil = '99999999999'";
 if ($consuddjj = $mysqli->prepare($sqlConsuDDJJ)) {
 	$consuddjj->execute();
 	$consuddjj->bind_result($importeconsulta);
