@@ -60,45 +60,69 @@
 <div id="registroEmpresa" title="Registro de Nueva Empresa" class="hide">
 	<form id="formEmpresa" name="formEmpresa" class="form-inline">
 		<fieldset id="datosEmpresa">
-			<span></span>
-			<input type="text" id="cuit" name="cuit" required placeholder="C.U.I.T. sin guiones" class="span2" style="margin:10px"/>
-			<span></span>
-			<input type="text" id="nombre" name="nombre" required placeholder="Raz&oacute;n Social" class="{required:true, maxlength: 100, minlength: 4} span7" style="margin:10px"/>
-			<span></span>
-			<input type="text" id="domicilio" name="domicilio" required placeholder="Domicilio" class="{required:true, maxlength: 50, minlength: 4} span5" style="margin:10px"/>
-			<span></span>
-			<input type="text" id="localidad" name="localidad" required placeholder="Localidad" class="{required:true, maxlength: 50, minlength: 4} span4" style="margin:10px"/>
-			<span></span>
-			<select id="provincia" name="provincia" required class="{required:true} span4" style="margin:10px">	
-				<option title ="Seleccione un valor" value="">Provincia - Seleccione un valor</option>
-				{% for provincia in provincias %}
-					<option title ='{{ provincia.descripcion}}' value='{{ provincia.id}}'>{{ provincia.descripcion}}</option>
-				{% endfor %}
-			</select>
-			<span></span>
-			<input type="text" id="codpostal" name="codpostal" required placeholder="C&oacute;digo Postal" class="{required:true, maxlength: 8, minlength: 4} span2" style="margin:10px"/>
-			<span></span>
-			<input type="text" id="telefono" name="telefono" required placeholder="Tel&eacute;fono" class="{required:true, number: true, maxlength: 14, minlength: 6} span3" style="margin:10px"/>
-			<span></span>
-			<input type="text" id="email" name="email" required placeholder="Correo Electr&oacute;nico" class="{required:true, email:true, maxlength: 60} span5" style="margin:10px"/>
-			<span></span>
-			<select id="actividad" name="actividad" required class="{required:true} span4" style="margin:10px">	
-				<option title ="Seleccione un valor" value="">Actividad - Seleccione un valor</option>
-				{% for actividad in actividades %}
-					<option title ='{{ actividad.descripcion}}' value='{{ actividad.id}}'>{{ actividad.descripcion}}</option>
-				{% endfor %}
-			</select>
-			<span></span>
-			<select id="rama" name="rama" required class="{required:true} span8" style="margin:10px">	
-				<option title ="Seleccione un valor" value="">Rama - Seleccione un valor</option>
-				{% for rama in ramas %}
-					<option title ='{{ rama.descripcion}}' value='{{ rama.id}}'>{{ rama.descripcion}}</option>
-				{% endfor %}
-			</select>
-			<span></span>
-			<input type="text" id="inicio" name="inicio" placeholder="Inicio Actividad (DD/MM/AAAA)" class="span3" style="margin:10px"/>
-			<span></span>
-			<input type="text" id="clave" name="clave" required placeholder="Contrase&ntilde;a" class="{required:true, maxlength: 10, minlength: 8} span2" style="margin:10px"/>
+			<div>
+				<input type="text" id="cuit" name="cuit" required placeholder="C.U.I.T. sin guiones" class="span2" style="margin:10px"/>	
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="nombre" name="nombre" required placeholder="Raz&oacute;n Social" class="{required:true, maxlength: 100, minlength: 4} span7" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="domicilio" name="domicilio" required placeholder="Domicilio" class="{required:true, maxlength: 50, minlength: 4} span5" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>		
+				<input type="text" id="localidad" name="localidad" required placeholder="Localidad" class="{required:true, maxlength: 50, minlength: 4} span4" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>		
+				<select id="provincia" name="provincia" required class="{required:true} span4" style="margin:10px">	
+					<option title ="Seleccione un valor" value="">Provincia - Seleccione un valor</option>
+					{% for provincia in provincias %}
+						<option title ='{{ provincia.descripcion}}' value='{{ provincia.id}}'>{{ provincia.descripcion}}</option>
+					{% endfor %}
+				</select>
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="codpostal" name="codpostal" required placeholder="C&oacute;digo Postal" class="{required:true, maxlength: 8, minlength: 4} span2" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="telefono" name="telefono" required placeholder="Tel&eacute;fono" class="{required:true, number: true, maxlength: 14, minlength: 6} span3" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="email" name="email" required placeholder="Correo Electr&oacute;nico" class="{required:true, email:true, maxlength: 60} span5" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>
+				<select id="actividad" name="actividad" required class="{required:true} span4" style="margin:10px">	
+					<option title ="Seleccione un valor" value="">Actividad - Seleccione un valor</option>
+					{% for actividad in actividades %}
+						<option title ='{{ actividad.descripcion}}' value='{{ actividad.id}}'>{{ actividad.descripcion}}</option>
+					{% endfor %}
+				</select>
+				<span></span>
+			</div>
+			<div>
+				<select id="rama" name="rama" required class="{required:true} span8" style="margin:10px">	
+					<option title ="Seleccione un valor" value="">Rama - Seleccione un valor</option>
+					{% for rama in ramas %}
+						<option title ='{{ rama.descripcion}}' value='{{ rama.id}}'>{{ rama.descripcion}}</option>
+					{% endfor %}
+				</select>
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="inicio" name="inicio" placeholder="Inicio Actividad (DD/MM/AAAA)" class="span3" style="margin:10px"/>
+				<span></span>
+			</div>
+			<div>
+				<input type="text" id="clave" name="clave" required placeholder="Contrase&ntilde;a" class="{required:true, maxlength: 10, minlength: 8} span2" style="margin:10px"/>
+				<span></span>
+			</div>
 		</fieldset>
 		<fieldset id="animacionAjaxEmpresa" style="text-align:center;">
 			<img src="img/loader.gif" alt="" name="ajaxGifEmpresa" class="hide" id="ajaxGifEmpresa">
@@ -317,7 +341,7 @@
 					return false;
 				},
 				errorPlacement: function(error, element){
-					error.appendTo(element.prev("span").append());
+					error.appendTo(element.next("span").append());
 				}
 			});
 		});
