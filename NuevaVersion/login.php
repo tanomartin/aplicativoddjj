@@ -25,9 +25,43 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
    	}
 }
 
-//var_dump($noticias);
-// Cargo la plantilla
+$actividades = array();
+$consultaActividad = "SELECT * FROM actividad";
+if ($sentenciaActividad = $mysqli->prepare($consultaActividad)) {
+	$sentenciaActividad->execute();
+	$sentenciaActividad->bind_result($id, $descripcion);
+	$i = 0;
+	while ($sentenciaActividad->fetch()) {
+		$actividades[$i] = array('id' => $id, 'descripcion' => $descripcion);
+		$i++;
+	}
+}
 
+$provincias = array();
+$consultaProvincias = "SELECT * FROM provincia";
+if ($sentenciaProvincias = $mysqli->prepare($consultaProvincias)) {
+	$sentenciaProvincias->execute();
+	$sentenciaProvincias->bind_result($id, $descripcion);
+	$i = 0;
+	while ($sentenciaProvincias->fetch()) {
+		$provincias[$i] = array('id' => $id, 'descripcion' => $descripcion);
+		$i++;
+	}
+}
+
+$ramas = array();
+$consultaRamas = "SELECT * FROM rama";
+if ($sentenciaRamas = $mysqli->prepare($consultaRamas)) {
+	$sentenciaRamas->execute();
+	$sentenciaRamas->bind_result($id, $descripcion);
+	$i = 0;
+	while ($sentenciaRamas->fetch()) {
+		$ramas[$i] = array('id' => $id, 'descripcion' => $descripcion);
+		$i++;
+	}
+}
+
+// Cargo la plantilla
 //BAJA DE SISTEMA PARA TRABAJO
 //$twig->display('estamosTrabajando.html');
 //exit(0);
@@ -42,10 +76,10 @@ if(strcmp($navegador,"Internet Explorer") == 0 || strcmp($navegador,"Chrome") ==
 		if($version < 10) {
 			$twig->display('navegadorError.html');
 		} else {
-			$twig->display('login.html', array("noticias" => $noticias, "login" => false));
+			$twig->display('login.html', array("noticias" => $noticias, "login" => false, "actividades" => $actividades, "provincias" => $provincias, "ramas" => $ramas));
 		}
 	} else {
-		$twig->display('login.html', array("noticias" => $noticias, "login" => false));
+		$twig->display('login.html', array("noticias" => $noticias, "login" => false, "actividades" => $actividades, "provincias" => $provincias, "ramas" => $ramas));
 	}
 } else {
 	$twig->display('navegadorError.html');

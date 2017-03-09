@@ -70,6 +70,10 @@
 			<input type="text" id="localidad" name="localidad" required placeholder="Localidad" class="{required:true, maxlength: 50, minlength: 4} span4" style="margin:10px"/>
 			<span></span>
 			<select id="provincia" name="provincia" required class="{required:true} span4" style="margin:10px">	
+				<option title ="Seleccione un valor" value="">Provincia - Seleccione un valor</option>
+				{% for provincia in provincias %}
+					<option title ='{{ provincia.descripcion}}' value='{{ provincia.id}}'>{{ provincia.descripcion}}</option>
+				{% endfor %}
 			</select>
 			<span></span>
 			<input type="text" id="codpostal" name="codpostal" required placeholder="C&oacute;digo Postal" class="{required:true, maxlength: 8, minlength: 4} span2" style="margin:10px"/>
@@ -79,9 +83,17 @@
 			<input type="text" id="email" name="email" required placeholder="Correo Electr&oacute;nico" class="{required:true, email:true, maxlength: 60} span5" style="margin:10px"/>
 			<span></span>
 			<select id="actividad" name="actividad" required class="{required:true} span4" style="margin:10px">	
+				<option title ="Seleccione un valor" value="">Actividad - Seleccione un valor</option>
+				{% for actividad in actividades %}
+					<option title ='{{ actividad.descripcion}}' value='{{ actividad.id}}'>{{ actividad.descripcion}}</option>
+				{% endfor %}
 			</select>
 			<span></span>
 			<select id="rama" name="rama" required class="{required:true} span8" style="margin:10px">	
+				<option title ="Seleccione un valor" value="">Rama - Seleccione un valor</option>
+				{% for rama in ramas %}
+					<option title ='{{ rama.descripcion}}' value='{{ rama.id}}'>{{ rama.descripcion}}</option>
+				{% endfor %}
 			</select>
 			<span></span>
 			<input type="text" id="inicio" name="inicio" placeholder="Inicio Actividad (DD/MM/AAAA)" class="span3" style="margin:10px"/>
@@ -238,7 +250,7 @@
 				}
 			});
 
-			var provAjax = $.get("selectProvincias.php");
+		/*  var provAjax = $.get("selectProvincias.php");
 			provAjax.success(function(provincias){
 				$("#provincia").html(provincias);
 			});
@@ -251,7 +263,7 @@
 			var actiAjax = $.get("selectActividades.php");
 			actiAjax.success(function(actividades){
 				$("#actividad").html(actividades);
-			});
+			}); */
 
 
 			//Valido el formulario de registro de nueva empresa
