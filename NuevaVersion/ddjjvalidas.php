@@ -52,6 +52,6 @@ for($i=0; $i < sizeof($ddjjvalidas); $i++) {
 	}
 }
 
-$twig->display('ddjjvalidas.html',array("userName" => $_SESSION['userNombre'], "ddjjvalidas" => $ddjjvalidas));
+$twig->display('ddjjvalidas.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "ddjjvalidas" => $ddjjvalidas));
 
 ?>

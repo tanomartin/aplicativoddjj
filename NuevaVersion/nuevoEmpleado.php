@@ -48,6 +48,6 @@ session_start();
 	$tiposDocu = getTipoDocu();
 	
 	// Cargo la plantilla
-	$twig->display('nuevoEmpleado.html',array("userName" => $_SESSION['userNombre'], "provincias" => $provincias, "categorias" => $categorias, "estados" => $estadoCivil, "tiposDocu" => $tiposDocu));
+	$twig->display('nuevoEmpleado.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "provincias" => $provincias, "categorias" => $categorias, "estados" => $estadoCivil, "tiposDocu" => $tiposDocu));
 
 ?>

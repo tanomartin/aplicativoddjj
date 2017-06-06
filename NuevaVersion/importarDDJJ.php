@@ -82,6 +82,6 @@ session_start();
 	
 	//var_dump($activos);
 	//var_dump($baja);
-	$twig->display('nuevaDDJJGrande.html',array("userName" => $_SESSION['userNombre'], 'empleadosActivos' => $activos, 'empleadosBaja' => $baja, 'mesdesc' => $periodoData['descripcion'], 'permes' => $permes, 'perano' => $perano, 'extraordinario' => $extraordinarios));
+	$twig->display('nuevaDDJJGrande.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], 'empleadosActivos' => $activos, 'empleadosBaja' => $baja, 'mesdesc' => $periodoData['descripcion'], 'permes' => $permes, 'perano' => $perano, 'extraordinario' => $extraordinarios));
 	
 ?>

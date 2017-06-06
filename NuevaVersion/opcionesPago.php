@@ -26,5 +26,5 @@ if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
    	}
 }
 
-$twig->display('opcionesPago.html',array("userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu));
+$twig->display('opcionesPago.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu));
 ?>

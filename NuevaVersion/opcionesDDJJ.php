@@ -119,6 +119,6 @@ for($i=0; $i < sizeof($ddjjvalidas); $i++) {
 //var_dump($ddjjsindocu);
 //var_dump($ddjjvalidas);
 
-$twig->display('opcionesDDJJ.html',array("userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu, "ddjjcondocu" => $ddjjcondocu, "ddjjvalidas" => $ddjjvalidas));
+$twig->display('opcionesDDJJ.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu, "ddjjcondocu" => $ddjjcondocu, "ddjjvalidas" => $ddjjvalidas));
 
 ?>

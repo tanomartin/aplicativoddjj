@@ -109,6 +109,6 @@
 	//var_dump($extraordinarios);
 	
 	// Cargo la plantilla
-	$twig->display('editarDDJJ.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "ddjj" => $ddjj, "ddjjinactivos" => $ddjjinactivos, "total" => $ddjjTotalData, 'extraordinario' => $extraordinarios, 'minimoAutorizado' => $minimo));
+	$twig->display('editarDDJJ.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "ddjj" => $ddjj, "ddjjinactivos" => $ddjjinactivos, "total" => $ddjjTotalData, 'extraordinario' => $extraordinarios, 'minimoAutorizado' => $minimo));
 
 ?>

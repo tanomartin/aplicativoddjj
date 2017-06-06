@@ -55,7 +55,7 @@
 	//var_dump($familia);
 
 	// Cargo la plantilla
-	$twig->display('perfilEmpleado.html',array("userName" => $_SESSION['userNombre'], "empleado" => $empleado, "familiares" => $familiares ));
+	$twig->display('perfilEmpleado.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "empleado" => $empleado, "familiares" => $familiares ));
 
 
 ?>

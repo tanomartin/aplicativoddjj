@@ -67,5 +67,5 @@
 	}
 		
 	// Cargo la plantilla
-	$twig->display('resultadoCambioContrasenia.html',array("userName" => $_SESSION['userNombre'], "userRes" => $estadoResultado, "userMsg" => $mensajeResultado));
+	$twig->display('resultadoCambioContrasenia.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "userRes" => $estadoResultado, "userMsg" => $mensajeResultado));
 ?>

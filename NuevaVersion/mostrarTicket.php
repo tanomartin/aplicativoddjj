@@ -17,6 +17,6 @@ if ($consuddjj = $mysqli->prepare($sqlConsuDDJJ)) {
 	}
 }
 
-$twig->display('ticketTransferencia.html',array("userName" => $_SESSION['userNombre'], "cuit"=>$cuit, "referencia" => $referencia, "importe" => $importe));
+$twig->display('ticketTransferencia.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "cuit"=>$cuit, "referencia" => $referencia, "importe" => $importe));
 
 ?>

@@ -54,7 +54,7 @@ if (isset($_GET['cuil'])) {
 	//var_dump($familia);
 	
 	// Cargo la plantilla
-	$twig->display('confirmareliminacionEmpleado.html',array("userName" => $_SESSION['userNombre'], "empleado" => $empleado, "familiares" => $familiares ));
+	$twig->display('confirmareliminacionEmpleado.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "empleado" => $empleado, "familiares" => $familiares ));
 } else {
 	$twig->display('accesoDirecto.html',array("userName" => $_SESSION['userNombre']));
 }

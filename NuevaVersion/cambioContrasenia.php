@@ -9,5 +9,5 @@
 	
 		
 	// Cargo la plantilla
-	$twig->display('cambioContrasenia.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID']));
+	$twig->display('cambioContrasenia.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID']));
 ?>

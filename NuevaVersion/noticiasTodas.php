@@ -21,6 +21,6 @@ if ($sentencia = $mysqli->prepare($consultaNoticias)) {
    	}
 }
 
-$twig->display('noticiasTodas.html',array("userName" => $_SESSION['userNombre'], "noticias" => $noticias));
+$twig->display('noticiasTodas.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "noticias" => $noticias));
 
 ?>

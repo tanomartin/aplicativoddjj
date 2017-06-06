@@ -1,0 +1,26 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Asunto</h1>
+		<h3>{{notificacion.id}} - {{notificacion.asunto}}</h3>
+	</div>
+  <section class="row-fluid"></section>
+	<section class="row-fluid">
+		 <div class="well well-small">	
+		 	<h3>Mensaje</h3>		
+			<p>{{notificacion.mensaje}}</p>
+         </div>
+         <div class="well well-small">	
+		 	<h3>Responder</h3>		
+			<p><a href="mailto:ddjjpagos@usimra.com.ar">ddjjpagos@usimra.com.ar</a></p>
+         </div>
+	</section>
+</section>
+
+{% endblock %}

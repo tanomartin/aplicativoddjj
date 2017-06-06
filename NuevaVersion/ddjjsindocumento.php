@@ -28,6 +28,6 @@ if ($sentencia = $mysqli->prepare($consultaDDJJ)) {
 
 //var_dump($ddjjsindocu);
 
-$twig->display('ddjjsindocumento.html',array("userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu));
+$twig->display('ddjjsindocumento.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "ddjjsindocu" => $ddjjsindocu));
 
 ?>

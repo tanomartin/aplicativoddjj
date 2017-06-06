@@ -50,6 +50,6 @@ for($i=0; $i < sizeof($ddjjcondocu); $i++) {
 	}
 }
 
-$twig->display('ddjjcondocumento.html',array("userName" => $_SESSION['userNombre'], "ddjjcondocu" => $ddjjcondocu));
+$twig->display('ddjjcondocumento.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "ddjjcondocu" => $ddjjcondocu));
 
 ?>

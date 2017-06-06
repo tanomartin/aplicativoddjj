@@ -27,7 +27,7 @@
 	$empresa = (object) array('cuit' => $empresaData['nrcuit'], 'nombre' => $empresaData['nombre'], 'domicilio' => $empresaData['domile'], 'localidad' => $empresaData['locali'],'provincia' => $provinData['descripcion'], 'codpostal' => $empresaData['copole'],  'telefono' => $empresaData['telfon'], 'email' => $empresaData['emails'], 'actividad' => $empresaData['activi'], 'rama' => $ramaData['descripcion'], 'inicio' => invertirFecha($empresaData['fecini']));
 
 	// Cargo la plantilla
-	$twig->display('perfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa));
+	$twig->display('perfilEmpresa.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "empresa" => $empresa));
 
 
 ?>

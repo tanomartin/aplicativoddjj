@@ -226,10 +226,10 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago']) && isset($_POST[
 	//var_dump($archivosbarra);
 	
 	if (strcmp($_POST['tipoPago'],'B') == 0) {
-		$twig->display('boletaDeposito.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra, "archBar" => $archivosbarra));
+		$twig->display('boletaDeposito.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra, "archBar" => $archivosbarra));
 	} 
 	if (strcmp($_POST['tipoPago'],'E') == 0) {
-		$twig->display('boletaDepositoExtra.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra));
+		$twig->display('boletaDepositoExtra.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "tipoPago" => $instrumento, "datosEmpresa" => $empresa, "ddjjCDocu" => $ddjjcdocu, "totApagar" => $totapa, "impLetras" => $numeroLetras, "ddjjVincu" => $vinculadocu, "canBoleta" => $nota, "codBar" => $codigobarra));
 	} 
 	if (strcmp($instrumento,'T') == 0) {
 		header('Location: mostrarTicket.php?ref='.$referencia.'&imp='.$totapa);

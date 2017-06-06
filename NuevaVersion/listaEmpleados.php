@@ -38,6 +38,6 @@
 	}
 	
 	// Cargo la plantilla
-	$twig->display('listaEmpleados.html',array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "empleadosActivos" => $activos, "empleadosBaja" => $baja));
+	$twig->display('listaEmpleados.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "empleadosActivos" => $activos, "empleadosBaja" => $baja));
 
 ?>

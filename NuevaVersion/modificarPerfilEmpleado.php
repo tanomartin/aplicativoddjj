@@ -59,7 +59,7 @@ if (isset($_GET['cuil'])) {
 	$tiposDocu = getTipoDocu();
 		
 	// Cargo la plantilla
-	$twig->display('modificarPerfilEmpleado.html',array("userName" => $_SESSION['userNombre'], "empleado" => $empleado, "provincias" => $provincias, "categorias" => $categorias, "estados" => $estadoCivil, "tiposDocu" => $tiposDocu));
+	$twig->display('modificarPerfilEmpleado.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "empleado" => $empleado, "provincias" => $provincias, "categorias" => $categorias, "estados" => $estadoCivil, "tiposDocu" => $tiposDocu));
 } else {
 	$twig->display('accesoDirecto.html',array("userName" => $_SESSION['userNombre']));
 }

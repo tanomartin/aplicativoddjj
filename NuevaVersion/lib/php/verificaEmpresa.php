@@ -21,6 +21,11 @@ if($respuesta -> num_rows != 0){
 	$_SESSION['ultimoAcceso'] = date("Y-n-j H:i:s");
 	$_SESSION['maxtimeSession'] = 2400;
 	
+	$notifiNoLeidas = "SELECT count(*) as cantidad FROM notificaciones WHERE nrcuit = '".$userData['nrcuit']."' and leida = 0 and eliminada = 0";
+	$resNoLeidas = $dbLink -> query($notifiNoLeidas);
+	$noLeidas = $resNoLeidas -> fetch_assoc();
+	$_SESSION['noleidos'] = $noLeidas['cantidad'];
+	
 	if($respueMge -> num_rows != 0){
 		$mgeData = $respueMge -> fetch_assoc();
 		$_SESSION['userMge'] = (bool)$mgeData['autori'];

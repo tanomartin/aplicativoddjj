@@ -35,7 +35,7 @@ if (isset($_GET['id']) && isset($_GET['cuil']) && isset($_GET['codpar'])) {
 	$tiposDocu = getTipoDocu();
 		
 	// Cargo la plantilla
-	$twig->display('modificarFamiliar.html',array("userName" => $_SESSION['userNombre'], "familiar" => $familiar, "titular" => $titular, "parentescos" => $parentescos, "tiposDocu" => $tiposDocu));
+	$twig->display('modificarFamiliar.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "familiar" => $familiar, "titular" => $titular, "parentescos" => $parentescos, "tiposDocu" => $tiposDocu));
 } else {
 	$twig->display('accesoDirecto.html',array("userName" => $_SESSION['userNombre']));
 }

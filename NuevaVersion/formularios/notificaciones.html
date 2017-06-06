@@ -1,0 +1,51 @@
+{# Heredando la plantilla principal #}
+
+{% extends 'default.html' %}
+{% use 'navegacion.html' %}
+{% use 'loginUsuario.html' %}
+
+{% block contenidos %}
+<section style="margin-top:50px">
+	<div class="hero-unit">
+		<h1>Notificaciones</h1>
+	</div>
+  <section class="row-fluid"></section>
+	<section class="row-fluid">
+		 <div class="well well-small">
+			<h3>Listado de Notificaciones</h3>
+					{% if  notificaciones|length  != 0 %}
+						<table class="table">
+							<thead>
+								<th>Fecha</th>
+								<th>Asunto</th>
+								<th></th>
+							</thead>
+							<tbody>
+							{% for noti in notificaciones %}
+								<tr>
+									{% if noti.leida == 0 %}
+										<td><b>{{ noti.fechanotificacion}}</b></td>
+										<td><b>{{ noti.asunto}}</b></td> 
+										<td>
+											<a href="notificacion.php?id={{noti.id}}"><i title="Leer" class="icon-envelope icon-2x"></i></a>
+										</td>
+									{% else %}
+										<td>{{ noti.fechanotificacion}}</td>
+										<td>{{ noti.asunto}}</td> 
+										<td>
+											<a href="notificacion.php?id={{noti.id}}"><i title="Leer" class="icon-envelope-alt icon-2x"></i></a>
+											<a href="notificacionElminiar.php?id={{noti.id}}&leida={{noti.leida}}"><i title="Eliminar" class="icon-trash icon-2x"></i></a>
+										</td>
+									{% endif %}		
+								</tr>			
+							{% endfor %}
+					{% else %}
+						<h3>No hay notificaciones para su usuario</h3>
+					{% endif %}		
+				</tbody>
+			</table>	
+         </div>
+	</section>
+</section>
+
+{% endblock %}

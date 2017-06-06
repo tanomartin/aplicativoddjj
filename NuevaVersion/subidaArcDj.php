@@ -190,6 +190,6 @@ if ($nomArcOK==0) {
 
 //var_dump($errores);
 
-$twig->display('resultadoSubidaDj.html',array("userName" => $_SESSION['userNombre'], "errores" => $errores, "regtotales" => count($registros), "regmalos" => $contRegMalos, "nombreArchivo" => $archivo_name));
+$twig->display('resultadoSubidaDj.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "errores" => $errores, "regtotales" => count($registros), "regmalos" => $contRegMalos, "nombreArchivo" => $archivo_name));
 
 ?>

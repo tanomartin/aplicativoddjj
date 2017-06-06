@@ -28,7 +28,7 @@ if(!empty($_SESSION) && $_SESSION['userLogin'] == true){
 	
 	//var_dump($noticias);
 	// Cargo la plantilla
-	$twig->display('index.html', array("userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "noticias" => $noticias, "login" => $_SESSION['userLogin']));
+	$twig->display('index.html', array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "userID" => $_SESSION['userID'], "noticias" => $noticias, "login" => $_SESSION['userLogin']));
 } else {
 	header("Location:login.php");
 }

@@ -261,6 +261,6 @@ if ($nomArcOK==0) {
 //var_dump($errores);
 
 // Cargo la plantilla
-$twig->display('resultadoSubidaFam.html',array("userName" => $_SESSION['userNombre'], "errores" => $errores, "regtotales" => count($registros), "regmalos" => $contRegMalos));
+$twig->display('resultadoSubidaFam.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "errores" => $errores, "regtotales" => count($registros), "regmalos" => $contRegMalos));
 
 ?>

@@ -45,6 +45,6 @@ if ($sentencia = $mysqli->prepare($consulta)) {
 $empresa = (object) array('cuit' => $empresaData['nrcuit'], 'nombre' => $empresaData['nombre'], 'domicilio' => $empresaData['domile'], 'localidad' => $empresaData['locali'],'provincia' => $empresaData['provin'], 'codpostal' => $empresaData['copole'],  'telefono' => $empresaData['telfon'], 'email' => $empresaData['emails'], 'actividad' => $empresaData['activi'], 'rama' => $ramaData['descripcion'], 'inicio' => invertirFecha($empresaData['fecini']));
 
 // Cargo la plantilla
-$twig->display('modificarPerfilEmpresa.html',array("userName" => $_SESSION['userNombre'], "empresa" => $empresa, "provincias" => $provincias, "actividades" => $actividades));
+$twig->display('modificarPerfilEmpresa.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "empresa" => $empresa, "provincias" => $provincias, "actividades" => $actividades));
 
 ?>

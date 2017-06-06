@@ -7,6 +7,6 @@ $root = '';
 include('includes/templateEngine.inc.php');
 
 // Cargo la plantilla
-$twig->display('sinAutorizacion.html',array("userName" => $_SESSION['userNombre']));
+$twig->display('sinAutorizacion.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre']));
 
 ?>

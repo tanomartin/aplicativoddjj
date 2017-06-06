@@ -70,7 +70,7 @@ if(isset($_POST) && !empty($_POST) && isset($_POST['tipoPago'])) {
 	//var_dump($ddjjsindocu);
 	//var_dump($totapa);
 	//var_dump($tipopago);
-	$twig->display('confirmarPago.html',array("userName" => $_SESSION['userNombre'], "tipoPago" => $tipopago, "ddjjsindocu" => $ddjjsindocu, "totApagar" => $totapa));
+	$twig->display('confirmarPago.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "tipoPago" => $tipopago, "ddjjsindocu" => $ddjjsindocu, "totApagar" => $totapa));
 } else {
 	$twig->display('accesoDirecto.html',array("userName" => $_SESSION['userNombre']));
 }

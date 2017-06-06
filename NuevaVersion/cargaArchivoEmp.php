@@ -9,6 +9,6 @@ session_start();
 	include('includes/templateEngine.inc.php');
 	
 	// Cargo la plantilla
-	$twig->display('cargaArchivoEmp.html',array("userName" => $_SESSION['userNombre']));
+	$twig->display('cargaArchivoEmp.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre']));
 
 ?>
