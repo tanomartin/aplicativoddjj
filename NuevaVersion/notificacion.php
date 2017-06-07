@@ -10,8 +10,6 @@ include('includes/templateEngine.inc.php');
 
 $id = $_GET['id'];
 
-$sqlLeida = "UPDATE notificaciones SET leida = 1 WHERE id = ?";
-
 try {
 	$consultaNotificacion = "SELECT id, tiponotificacion, DATE_FORMAT(fechanotificacion,'%d-%m-%Y') as fechanotificacion, asunto, mensaje, leida FROM notificaciones WHERE id = $id";
 	
@@ -22,16 +20,16 @@ try {
 			$notificacion = array('id' => $id, 'tiponotificacion' => $tiponotificacion, 'fechanotificacion' => $fechanotificacion, 'asunto' => $asunto, 'mensaje' => $mensaje, 'leida' => $leida);
 			if ($leida == 0) {
 				$_SESSION['noleidos'] -= 1;
-			}
+				$fechalectura = date("Y-m-d H:i:s");
+				$sqlLeida = "UPDATE notificaciones SET leida = 1, fechalectura = '$fechalectura' WHERE id = ?";
+				if ($stmt = $mysqli->prepare($sqlLeida)) {
+					$stmt->bind_param('i', $id);
+					$stmt->execute();
+					$stmt->close();
+				}
+			} 
 		}
 	}
-	
-	if ($stmt = $mysqli->prepare($sqlLeida)) {
-		$stmt->bind_param('i', $id);
-		$stmt->execute();
-		$stmt->close();
-	}
-	
 	
 	$twig->display('notificacion.html',array("noleidos" => $_SESSION['noleidos'], "userName" => $_SESSION['userNombre'], "notificacion" => $notificacion));
 } catch(Exception $e){
