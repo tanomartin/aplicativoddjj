@@ -17,7 +17,7 @@
 						<table class="table">
 							<thead>
 								<th>Fecha</th>
-								<th>Asunto</th>
+								<th>Codigo - Asunto</th>
 								<th></th>
 							</thead>
 							<tbody>
@@ -31,7 +31,7 @@
 										</td>
 									{% else %}
 										<td>{{ noti.fechanotificacion}}</td>
-										<td>{{ noti.asunto}}</td> 
+										<td>{{ noti.id}} - {{ noti.asunto}}</td> 
 										<td>
 											<a href="notificacion.php?id={{noti.id}}"><i title="Leer" class="icon-envelope-alt icon-2x"></i></a>
 											<a href="notificacionElminiar.php?id={{noti.id}}&leida={{noti.leida}}"><i title="Eliminar" class="icon-trash icon-2x"></i></a>
