@@ -210,6 +210,9 @@
 							minimoBoleta = 0;
 							cargarContribucion(valorextra);
 						}
+						if (tipoextra == 3) {
+							cargarTipo3();
+						}
 					}
 				{% endfor %}
 			}
@@ -251,6 +254,17 @@
 				document.getElementById(nombreRemu).value = valorextra;
 				CalcularPorcentajes(valorextra,cuil);
 				document.getElementById(nombreRemu).readOnly = true;
+				formatoFormulario(0);
+			{% endfor %}
+		}
+		
+		function cargarTipo3(valor) {
+			{% for dj in ddjj %}
+				var cuil = "{{dj.nrcuil}}";
+				nombreRemu = "remu"+cuil;
+				remune = parseFloat({{dj.remune}}).toFixed(2);
+				document.getElementById(nombreRemu).value = remune;
+				CalcularPorcentajes(remune,cuil);
 				formatoFormulario(0);
 			{% endfor %}
 		}

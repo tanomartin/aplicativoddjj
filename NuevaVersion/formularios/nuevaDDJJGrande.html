@@ -176,7 +176,7 @@
 			var clase = "";
 			var colum = 5;
 			
-			if (periodo <= 12 || tipoextra == 2) {
+			if (periodo <= 12 || tipoextra == 2 || tipoextra == 3) {
 				clase = "hide";
 				colum = 4;
 				mensaje = "";
@@ -222,6 +222,10 @@
 						if (tipoextra == 2) {
 							minimoBoleta = 0;
 							cargarContribucion(valorextra);
+						}
+						if (tipoextra == 3) {
+							minimoBoleta = 0;
+							formatoFormulario();
 						}
 					}
 				{% endfor %}
