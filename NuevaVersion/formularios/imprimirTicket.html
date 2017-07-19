@@ -1,0 +1,35 @@
+<section style="margin-top:50px">
+	<section class="row-fluid">   
+		<div align="center">
+			<table border="1">
+				<tr><td colspan="2"><img width="650px" src="img/membreteticket.png"/></td></tr>
+				<tr><td colspan="2" style="text-align: center"><img width="60px" src="img/linkpagos.png"/></td></tr>
+				<tr>
+					<th>ENTE</th>
+					<td>U.S.I.M.R.A.</td> 
+				</tr>
+				<tr>
+					<th>CODIGO LINK PAGOS</th>
+					<td>{{ cuit }}</td> 
+				</tr>
+				<tr>
+					<th>CONCEPTO</th>
+					<td>CUOTA</td> 
+				</tr>
+				<tr>
+					<th>Importe a abonar</th>
+					<td>{{ importe }}</td> 
+				</tr>
+				<tr>
+					<th>(1) NUMERO DE LIQUIDACION</th>
+					<td style="color: red"><b>{{ referencia }}</b></td> 
+				</tr>
+				<tr height="50px" style="text-align: center">
+					<td colspan="2"><b>(1)</b> - Es indispensable corrobarar y NO omitir informar este dato. <br>Posibilita identificar las DDJJ objetos del Pago</td> 
+				</tr>
+			</table>
+			<h4>Este documento NO es comprobante de pago. <br>Solo tiene caracter informativo a los efectos de emitir correctamente pago</h4>
+			<input type="button" class="nover" name="imprimir" value="Imprimir" onClick="window.print();">
+		</div>
+	</section>
+</section>
