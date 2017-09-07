@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+	    <meta charset="utf-8">
+	    <title>U.S.I.M.R.A.</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <meta name="description" content="Aplicativo DDJJ Online" />
+	    <meta name="author" content="USIMRA-Depto de Sistemas" />
+	    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">   
+	    <link rel="stylesheet" href="css/tablesorter/themes/blue/style.css" type="text/css" id="" media="print, projection, screen" />
+  </head>
+<body>
+	<div id="cargaContenido" class="container">
+		<section style="margin-top:50px">
+			<div class="hero-unit">
+				<h1>Periodos Disponibles</h1>
+			</div>
+			{% block contenidos %}
+				{% for anio in anios %}
+					<div class="hero-unit">
+						<h2 align="center">{{ anio }}</h2>
+						
+						<legend style="color:#339900">PERIODOS</legend>
+					
+						<table class="tablesorter" style="text-align: center">
+							<thead>
+								<tr>
+									<th>Codigo Interno</th>
+									<th>Mes Relacionado</th>
+								</tr>
+							</thead>
+							<tbody>	
+								{% for periodo in periodos[anio] %}
+									<tr>
+										<td><b style="color: blue">{{ periodo.mes }}</b></td>
+										<td>{{ periodo.descipcion }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						
+						{% if extras[anio]|length > 0 %}
+						
+						<legend style="color:#339900">EXTRAORDINARIOS</legend>
+						
+						<table class="tablesorter" style="text-align: center;">
+							<thead>
+								<tr>
+									<th>No Remunerativo</th>
+									<th>Codigo Interno</th>
+									<th>Mes Relacionado</th>
+								</tr>
+							</thead>
+							<tbody>	
+								{% for extra in extras[anio] %}
+									<tr>
+										<td>{{ extra.descipcion }}</td>
+										<td><b style="color: blue">{{ extra.mes }}</b></td>
+										<td>{{ periodos[anio][extra.relacionmes].descipcion }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						
+						{% endif %}
+					</div>
+				{% endfor %}
+			{% endblock %}
+		</section>
+	</div>
+</body>
