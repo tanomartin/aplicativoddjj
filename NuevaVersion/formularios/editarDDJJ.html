@@ -153,9 +153,9 @@
 		var retiene150 = 1;
 		var minimoBoleta = 0;
 		if ("{{minimoAutorizado}}" == 1) {
-			minimoBoleta = 40;
+			minimoBoleta = 80;
 		} else {
-			minimoBoleta = 100;
+			minimoBoleta = 200;
 		}
 
 		function MsgWait() {
@@ -166,9 +166,9 @@
 		function formFull(periodo) {
 			formatoFormulario(periodo);
 			if ("{{minimoAutorizado}}" == 1) {
-				minimoBoleta = 40;
+				minimoBoleta = 80;
 			} else {
-				minimoBoleta = 100;
+				minimoBoleta = 200;
 			}
 			if (periodo > 12) {
 				cargarExtraordinario(periodo);
