@@ -37,7 +37,7 @@
     	}
 	}
 	
-	$consultaMes = "SELECT * FROM periodos order by anio ASC";
+	$consultaMes = "SELECT * FROM periodos order by anio ASC, mes ASC";
 	if ($sentencia = $mysqli->prepare($consultaMes)) {
     	$sentencia->execute();
     	$sentencia->bind_result($anio, $mes, $descrip);
