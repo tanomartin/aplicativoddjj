@@ -95,7 +95,7 @@
 	}
 	
 	$miniAutori = array();
-	$consultaMinimo = "SELECT count(*) as autorizado FROM empresassinminimo where nrcuit = $nrcuit and autori = 1";
+	$consultaMinimo = "SELECT count(*) as autorizado FROM empresassinminimo where nrcuit = $nrcuit";
 	if ($sentencia = $mysqli->prepare($consultaMinimo)) {   
 		$respMinimo = $mysqli -> query($consultaMinimo);
 		$miniAutori = $respMinimo -> fetch_assoc();
