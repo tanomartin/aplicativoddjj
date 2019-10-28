@@ -37,7 +37,7 @@
     	}
 	}
 	
-	$consultaMes = "SELECT * FROM periodos order by anio ASC, mes ASC";
+	$consultaMes = "SELECT anio,mes,descripcion FROM periodos WHERE activo = 1 ORDER BY anio ASC, mes ASC";
 	if ($sentencia = $mysqli->prepare($consultaMes)) {
     	$sentencia->execute();
     	$sentencia->bind_result($anio, $mes, $descrip);
@@ -62,7 +62,7 @@
 			$i = $i + 1;
     	}
 	}
-		
+	
 	$miniAutori = array();
 	$consultaMinimo = "SELECT count(*) as autorizado FROM empresassinminimo where nrcuit = $nrcuit";
 	if ($sentencia = $mysqli->prepare($consultaMinimo)) {   

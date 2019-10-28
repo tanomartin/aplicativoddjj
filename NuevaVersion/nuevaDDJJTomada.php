@@ -38,7 +38,7 @@
     	}
 	}
 	
-	$consultaMes = "SELECT * FROM periodos order by mes ASC";
+	$consultaMes = "SELECT anio, mes, descripcion FROM periodos WHERE activo = 1 ORDER BY mes ASC";
 	if ($sentencia = $mysqli->prepare($consultaMes)) {
     	$sentencia->execute();
     	$sentencia->bind_result($anio, $mes, $descrip);

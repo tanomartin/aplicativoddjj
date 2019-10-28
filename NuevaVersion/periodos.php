@@ -9,10 +9,11 @@ include('includes/templateEngine.inc.php');
 $limiteAnio = date("Y") - 5;
 $consultaPeridos = "SELECT periodos.anio, periodos.mes, periodos.descripcion, extraordinarios.relacionmes
 FROM periodos
-LEFT JOIN extraordinarios ON periodos.anio = extraordinarios.anio and periodos.mes = extraordinarios.mes
-WHERE periodos.anio > $limiteAnio
+LEFT JOIN extraordinarios ON periodos.anio = extraordinarios.anio and 
+							 periodos.mes = extraordinarios.mes
+WHERE periodos.anio > $limiteAnio and periodos.activo = 1 
 ORDER BY periodos.anio DESC, periodos.mes DESC;";
-	
+
 $extras = array();
 $periodos = array();
 $anios = array();

@@ -11,6 +11,12 @@ include('lib/php/conexion.php');
 include('lib/php/funciones.php');
 require_once('lib/php/BrowserDetection.php');
 
+// Cargo la plantilla
+//BAJA DE SISTEMA PARA TRABAJO
+//$twig->display('estamosTrabajando.html');
+//exit(0);
+//**************************//
+
 $noticias = array();
 $today = date("Y-n-j");
 $consultaNoticias = "SELECT * FROM noticias where fechavencimiento > '$today' or fechavencimiento is null order by prioritaria DESC, fechaalta LIMIT 3";
@@ -60,12 +66,6 @@ if ($sentenciaRamas = $mysqli->prepare($consultaRamas)) {
 		$i++;
 	}
 }
-
-// Cargo la plantilla
-//BAJA DE SISTEMA PARA TRABAJO
-//$twig->display('estamosTrabajando.html');
-//exit(0);
-//**************************//
 
 $browser = new BrowserDetection();
 $navegador = $browser->getBrowser();

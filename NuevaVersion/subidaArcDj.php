@@ -130,10 +130,11 @@ function verificarCampos($nombreArc,$registro,$mysqli) {
 	$mesReg=$campos[2];
 	$anoReg=$campos[3];
 	
-	$sqlMesAnio = "select * from periodos where anio = $anoReg and mes = $mesReg";
+	$sqlMesAnio = "select * from periodos where anio = $anoReg and mes = $mesReg and activo = 1";
 	//print($sqlMesAnio."<br>");
-	$respuesta = $mysqli -> query($sql);
+	$respuesta = $mysqli -> query($sqlMesAnio);
 	$canMNesAnio = $respuesta -> num_rows;
+	print($canMNesAnio."<br>");
 	if ($canMNesAnio != 1) {
 		$errMes = 1;
 	} else {
