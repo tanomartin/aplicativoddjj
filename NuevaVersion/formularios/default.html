@@ -45,6 +45,20 @@
 				<p>Herramienta en línea de U.S.I.M.R.A. para la generación de Declaraciones Juradas y Boletas de Pago de las Resoluciones de Seguro de Vida y Sepelio. </p>
 			</div>
 		</section>
+		
+		{% if login %}
+		<section style="margin-top:50px">
+			<div class="hero-unit">
+				<h3 style="color: red">AVISO IMPORTANTE</h3>
+				<p>El Banco de la Nacion Argentina no informa el CUIT del depositante cuando los pagos se hacen sin boleta por depósito directo en banco, via Banelco o via transferencia bancaria.</p>
+				<p>Por esa razón, solicitamos a aquellos empleadores que hayan utilizado alguna de esas modalidades envíen los datos identificatorios de esos pagos (CUIT, Razon Social, Periodo Pagado, Monto, Fecha de Deposito y/o Copia de la DDJJ emitida por el sistema) 
+				   a ddjjpagos@usimra.com.ar a efectos de poder imputarlos correctamente a la cuenta corriente de cada depositante.</p>
+				   <br>	
+				<p align="right">Gracias por la atencion.</p>
+			</div>
+		</section>
+		{% endif %}
+		
 		<section class="row-fluid">
           <div class="span6 well well-small">
             <h2>Instructivos</h2>

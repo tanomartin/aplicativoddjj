@@ -16,6 +16,7 @@ if(!empty($_SESSION) && $_SESSION['userLogin'] == true){
 	$today = date("Y-n-j");
 	$consultaNoticias = "SELECT * FROM noticias where fechavencimiento > '$today' or fechavencimiento is null order by prioritaria DESC, fechaalta LIMIT 3";
 	//print($consultaNoticias."<br>");
+	$noticias = array();
 	if ($sentencia = $mysqli->prepare($consultaNoticias)) {
     	$sentencia->execute();
     	$sentencia->bind_result($id, $fechaalta, $fechavencimiento, $descripcioncorta, $descripcionlarga, $prioritaria);
